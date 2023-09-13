@@ -8,7 +8,7 @@ urlpatterns = [
     path('admin', admin.site.urls),
     path('',views.index,name='index'),
 
-
+    
 
     # #password forgot urls
     # path('reset_password/',auth_views.PasswordResetView.as_view(),name="reset_password"),
