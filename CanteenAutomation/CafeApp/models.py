@@ -10,22 +10,30 @@ from django.contrib.auth.models import User
 #     class Meta:
 #         db_table = 'auth_user'
 
-class canteen(models.Model):
-    owner = models.OneToOneField(User,null=True,on_delete=models.CASCADE)
-    canteen_id = models.AutoField(primary_key=True)
+class Profile(models.Model):
+    user=models.OneToOneField(User,on_delete=models.CASCADE)
+    type  = models.CharField(max_length=100,choices=(('Canteen','Canteen'),('Customer','Customer')))
     name = models.CharField(max_length=20)
     contact_number = models.CharField(max_length=12, null=True)
     def __str__(self):
         return self.name
+
+
+
+
+class canteen(models.Model):
+    owner = models.OneToOneField(Profile,null=True,on_delete=models.CASCADE)
+    canteen_id = models.AutoField(primary_key=True)
+
+    def __str__(self):
+        return self.owner.name
 
 
 class customer(models.Model):
-    cust = models.OneToOneField(User,null=True,on_delete=models.CASCADE)
+    cust = models.OneToOneField(Profile,null=True,on_delete=models.CASCADE)
     customer_id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=20)
-    contact_number = models.CharField(max_length=12, null=True)
     def __str__(self):
-        return self.name
+        return self.cust.name
 
 
 class items(models.Model):

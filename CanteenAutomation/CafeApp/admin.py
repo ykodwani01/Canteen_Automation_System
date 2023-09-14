@@ -8,5 +8,6 @@ admin.site.register(canteen)
 admin.site.register(customer)
 admin.site.register(items)
 admin.site.register(orders)
+admin.site.register(Profile)
 # admin.site.register(User)
 # Register your models here.
