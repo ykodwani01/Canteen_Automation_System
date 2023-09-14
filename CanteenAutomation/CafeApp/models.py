@@ -43,4 +43,4 @@ class orders(models.Model):
     items = models.ManyToManyField(items,related_name="order_item",default=None,blank=False)
     total_amount = models.IntegerField()
     def __str__(self):
-        return self.id
+        return str(self.id)
