@@ -9,6 +9,7 @@ import AboutUs from './aboutus.js';
 import Contact from './contact.js';
 import Account from './account.js';
 import Cart from './cart.js';
+import Error from './error.js';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -21,6 +22,7 @@ const router = createBrowserRouter(
       <Route path='/home/contact' element={<Contact/>}/>
       <Route path='/home/account' element={<Account/>}/>
       <Route path='/home/cart' element={<Cart/>}/>
+      <Route path='*' element={<Error/>}/>
     </Route>
   )
 )
