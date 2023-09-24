@@ -11,7 +11,9 @@ import Account from './account.js';
 import Cart from './cart.js';
 import Error from './error.js';
 import Canteens from './canteens.js';
+import Menu from './menu.js';
 
+//Code
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<RootLayout/>}>
@@ -24,6 +26,7 @@ const router = createBrowserRouter(
       <Route path='/home/account' element={<Account/>}/>
       <Route path='/home/cart' element={<Cart/>}/>
       <Route path='/home/canteens' element={<Canteens/>}/>
+      <Route path='/home/canteens/:id' element={<Menu/>}/>
       <Route path='*' element={<Error/>}/>
     </Route>
   )
