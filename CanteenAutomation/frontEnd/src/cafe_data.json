@@ -1,0 +1,22 @@
+{
+    "cafe_data":[
+        {"name":"Cafe 1",
+        "id":1,
+        "description":"lorem ipsum"},
+        {"name":"Cafe 2",
+        "id":2,
+        "description":"lorem ipsum"},
+        {"name":"Cafe 3",
+        "id":3,
+        "description":"lorem ipsum"},
+        {"name":"Cafe 4",
+        "id":4,
+        "description":"lorem ipsum"},
+        {"name":"Cafe 5",
+        "id":5,
+        "description":"lorem ipsum"},
+        {"name":"Cafe 6",
+        "id":6,
+        "description":"lorem ipsum"}
+    ]
+}

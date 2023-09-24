@@ -10,6 +10,7 @@ import Contact from './contact.js';
 import Account from './account.js';
 import Cart from './cart.js';
 import Error from './error.js';
+import Canteens from './canteens.js';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -22,6 +23,7 @@ const router = createBrowserRouter(
       <Route path='/home/contact' element={<Contact/>}/>
       <Route path='/home/account' element={<Account/>}/>
       <Route path='/home/cart' element={<Cart/>}/>
+      <Route path='/home/canteens' element={<Canteens/>}/>
       <Route path='*' element={<Error/>}/>
     </Route>
   )
