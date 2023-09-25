@@ -6,15 +6,15 @@ import Button from '@mui/material/Button';
 //import { NavLink } from 'react-router-dom';
 import logo from './logo.png'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import home_image from './home_image.png';
-//import home_background from './home_background.jpg'
+import home_image from './home_compo/home_image.png';
 import EastIcon from '@mui/icons-material/East';
-import del_man from "./del_man.png";
-import home_3_1 from "./1_3_1.png";
-import home_3_2 from "./1_3_2.png";
-import home_3_3 from "./1_3_3.png";
+import del_man from "./home_compo/del_man.png";
+import home_3_1 from "./home_compo/1_3_1.png";
+import home_3_2 from "./home_compo/1_3_2.png";
+import home_3_3 from "./home_compo/1_3_3.png";
 import cafe from "./cafe.png";
-import { useState } from 'react';
+//import { useState } from 'react';
+import Specialities from './home_compo/specialities';
 //import { Navigate } from 'react-router-dom';
 
 const theme = createTheme({
@@ -25,9 +25,7 @@ const theme = createTheme({
 })
 
 function HomePage(){
-    const [isShown1,setIsShown1] = useState(false)
-    const [isShown2,setIsShown2] = useState(false)  
-    const [isShown3,setIsShown3] = useState(false)
+
     return(
         <ThemeProvider theme={theme}>
             <div style={{backgroundColor:'#DED8D8',display:'flex',alignItems:'center',flexDirection:'column'}}>
@@ -70,21 +68,9 @@ function HomePage(){
                 </div>
                 <div style={{borderRadius:'108px',marginTop:'70px' ,backgroundColor:'#EBE7E6',border:'2px solid white',width:'1341px',height:'582px',boxShadow:'0px 10px 5px darkgrey',display:'flex',justifyContent:'center',alignItems:'center'}}>
                     <div style={{width:'1191px',height:'532px',display:'flex',justifyContent:'center',alignItems:'center'}}>
-                        <div style={{backgroundColor:isShown1?'#E9DCDC':'#EBE7E6',width:'266px',padding:'40px',margin:'20px',borderRadius:'15px'}} onMouseEnter={()=>(setIsShown1(true))} onMouseLeave={()=>(setIsShown1(false))}>
-                            <img src={home_3_3} alt='location' style={{width:'82px',marginBottom:'15px'}}/>
-                            <Typography variant='h4'style={{marginBottom:'30px'}}>Wide selection of FOOD!</Typography>
-                            <Typography>Lorem ipsum dolor sit amet consectetur. Ornare massa nunc nibh tristique.</Typography>
-                        </div>
-                        <div style={{backgroundColor:isShown2?'#E9DCDC':'#EBE7E6',width:'266px',padding:'40px',margin:'20px',borderRadius:'15px'}} onMouseEnter={()=>(setIsShown2(true))} onMouseLeave={()=>(setIsShown2(false))}>
-                            <img src={home_3_2} alt='location' style={{width:'82px',marginBottom:'15px'}}/>
-                            <Typography variant='h4' style={{marginBottom:'30px'}}>Easy order placing!</Typography>
-                            <Typography>Lorem ipsum dolor sit amet consectetur. Ornare massa nunc nibh tristique.</Typography>
-                        </div>
-                        <div style={{backgroundColor:isShown3?'#E9DCDC':'#EBE7E6',width:'266px',padding:'40px',margin:'20px',borderRadius:'15px'}} onMouseEnter={()=>(setIsShown3(true))} onMouseLeave={()=>(setIsShown3(false))}>
-                            <img src={home_3_1} alt='location' style={{width:'82px',marginBottom:'15px'}}/>
-                            <Typography variant='h4' style={{marginBottom:'30px'}}>Fast preparation within 20 mins</Typography>
-                            <Typography>Lorem ipsum dolor sit amet consectetur. Ornare massa nunc nibh tristique.</Typography>
-                        </div>
+                        <Specialities key="one" id="one" image={home_3_3} title="Wide selection of FOOD!" description="Lorem ipsum dolor sit amet consectetur. Ornare massa nunc nibh tristique." />
+                        <Specialities key="two" id="two" image={home_3_2} title="Easy order placing!" description="Lorem ipsum dolor sit amet consectetur. Ornare massa nunc nibh tristique." />
+                        <Specialities key="three" id="three" image={home_3_1} title="Fast preparation within 20 mins" description="Lorem ipsum dolor sit amet consectetur. Ornare massa nunc nibh tristique." />
                     </div>
                 </div>
                 <footer style={{display:'flex',justifyContent:'center',backgroundColor:'#C31E2C',width:'100%',marginTop:'70px',paddingTop:'10px'}}>
