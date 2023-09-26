@@ -1,16 +1,28 @@
-import './App.css';
-import { Navigate, useParams } from 'react-router-dom';
+//importing css
+import '../App.css';
+
+//importing MUI cmp
+
 import { Typography, createTheme } from '@mui/material/';
 import { ThemeProvider } from '@mui/material/';
 import { green } from '@mui/material/colors';
 import Button from '@mui/material/Button';
-import logo from './logo.png'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-//import home_background from './home_background.jpg'
-import cafe from "./cafe.png";
-import menu_data from './menu_data.json';
+
+//importing router
+import { Navigate, useParams } from 'react-router-dom';
+
+//importing photos
+import logo from '../general_compo/logo.png'
+import cafe from "../general_compo/cafe.png";
+
+//importing JSON data
+import menu_data from '../data_files/menu_data.json';
+
+//importing custom cmp
 import MenuCard from './menu_card.js';
 
+//defining theme
 const theme = createTheme({
     palette: {
         primary: { main: "#C31E2C" },
@@ -20,15 +32,20 @@ const theme = createTheme({
 
 function Menu() {
     const { id } = useParams()
+    //retriving data from JSON file
     const altered_menu_data = menu_data.data.filter((item)=>(item.name===id))
     if (altered_menu_data.length===0)return <Navigate to='/error' replace={true}/>
     const menu = altered_menu_data[0].menu.map((item)=>(<MenuCard key={item} menu={item}/>))
 
     return (
         <ThemeProvider theme={theme}>
+            {/* background */}
             <div style={{ backgroundColor: '#DED8D8', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+                {/* first box */}
                 <div style={{ borderRadius: '108px', marginTop: '70px', backgroundColor: '#EBE7E6', border: '2px solid white', width: '1341px', height: '732px', boxShadow: '0px 10px 5px darkgrey', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                    {/* padding box */}
                     <div style={{ width: '1191px', height: '632px' }}>
+                        {/* header div / Navigation bar */}
                         <div style={{ display: 'flex', height: '70px', justifyContent: 'center', marginTop: '20px' }}>
                             <img src={logo} alt='website logo' style={{ marginRight: '250px', height: '80px' }} />
                             <div style={{ display: 'flex', boxShadow: '0px 2px 0px darkGrey', paddingBottom: '10px', marginTop: '10px' }}>
@@ -40,11 +57,13 @@ function Menu() {
                                 <Button variant='contained' startIcon={<ShoppingCartIcon />} style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='/home/cart'>0</Button>
                             </div>
                         </div>
+                        {/* child box of padding box */}
                         <div style={{ display: 'flex', flexDirection:'column' ,justifyContent: 'center', alignItems: 'center', marginTop: '100px' }}>
                             {menu}
                         </div>
                     </div>
                 </div>
+                {/* footer */}
                 <footer style={{ display: 'flex', justifyContent: 'center', backgroundColor: '#C31E2C', width: '100%', marginTop: '70px', paddingTop: '10px' }}>
                     <div style={{ width: '500px', padding: '50px' }}>
                         <img src={cafe} alt='cafe' style={{ width: '200px' }} />

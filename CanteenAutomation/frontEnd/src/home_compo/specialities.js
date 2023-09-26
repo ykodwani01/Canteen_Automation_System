@@ -1,4 +1,7 @@
+//importing MUI cmp
 import { Typography } from '@mui/material/';
+
+//importing react cmp
 import { useState } from 'react';
 
 function Specialities(props) {

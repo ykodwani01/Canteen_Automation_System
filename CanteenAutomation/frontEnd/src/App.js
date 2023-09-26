@@ -1,19 +1,24 @@
+//importing css
 import './App.css';
-import { RouterProvider, createBrowserRouter, createRoutesFromElements, Route} from 'react-router-dom';
-import SignIn from './sign_in.js';
-import SignUp from './sign_up.js';
-import RootLayout from './rootLayout.js';
-import HomePage from './homepage.js';
-import Feedback from './feedback.js';
-import AboutUs from './aboutus.js';
-import Contact from './contact.js';
-import Account from './account.js';
-import Cart from './cart.js';
-import Error from './error.js';
-import Canteens from './canteens.js';
-import Menu from './menu.js';
 
-//Code
+//importing router
+import { RouterProvider, createBrowserRouter, createRoutesFromElements, Route} from 'react-router-dom';
+
+//importing pages
+import SignIn from './signIn_signUp/sign_in.js';
+import SignUp from './signIn_signUp/sign_up.js';
+import RootLayout from './rootLayout.js';
+import HomePage from './custom_compo/homepage.js';
+import Feedback from './custom_compo/feedback.js';
+import AboutUs from './custom_compo/aboutus.js';
+import Contact from './custom_compo/contact.js';
+import Account from './custom_compo/account.js';
+import Cart from './custom_compo/cart.js';
+import Error from './custom_compo/error.js';
+import Canteens from './custom_compo/canteens.js';
+import Menu from './custom_compo/menu.js';
+
+//creating routes
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<RootLayout/>}>
@@ -34,6 +39,7 @@ const router = createBrowserRouter(
 
 function App() {
   return (
+    // showing route
     <RouterProvider router={router}/>
   );
 }

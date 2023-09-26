@@ -1,13 +1,16 @@
-import './App.css';
+//importing css
+import '../App.css';
+
+//importing MUI cmp
 import { Typography, createTheme } from '@mui/material/';
 import { ThemeProvider } from '@mui/material/';
 import { green } from '@mui/material/colors';
 import Button from '@mui/material/Button';
-import { useState } from 'react';
-//import { NavLink } from 'react-router-dom';
-//import home_background from './home_background.jpg'
-//import { Navigate } from 'react-router-dom';
 
+//importing react cmp
+import { useState } from 'react';
+
+//defining theme
 const theme = createTheme({
   palette:{
     primary:{main:"#C31E2C"},
@@ -18,6 +21,7 @@ const theme = createTheme({
 function MenuCard(props){ 
     const [color,setColor] = useState(false)
     return(
+      //displaying menu item
         <ThemeProvider theme={theme}>
             <div style={{display:'flex',justifyContent:'center',alignItems:'center',padding:'10px',backgroundColor:color?'#E8CFCF':'#E9DCDC',borderRadius:'30px',margin:'10px'}} onMouseEnter={()=>(setColor(true))} onMouseLeave={()=>(setColor(false))}>
                 <Typography variant='h6' sx={{width:'600px',marginLeft:'20px'}}>{props.menu[0]}</Typography>

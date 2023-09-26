@@ -1,22 +1,33 @@
-import './App.css';
+//importing css
+import '../App.css';
+
+//importing MUI cmp
 import { Typography, createTheme } from '@mui/material/';
 import { ThemeProvider } from '@mui/material/';
 import { green } from '@mui/material/colors';
 import Button from '@mui/material/Button';
-//import { NavLink } from 'react-router-dom';
-import logo from './logo.png'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import home_image from './home_compo/home_image.png';
 import EastIcon from '@mui/icons-material/East';
-import del_man from "./home_compo/del_man.png";
-import home_3_1 from "./home_compo/1_3_1.png";
-import home_3_2 from "./home_compo/1_3_2.png";
-import home_3_3 from "./home_compo/1_3_3.png";
-import cafe from "./cafe.png";
-//import { useState } from 'react';
-import Specialities from './home_compo/specialities';
-//import { Navigate } from 'react-router-dom';
 
+//importing router
+//import { NavLink } from 'react-router-dom';
+
+//importing images
+import logo from '../general_compo/logo.png'
+import home_image from '../home_compo/home_image.png';
+import del_man from "../home_compo/del_man.png";
+import home_3_1 from "../home_compo/1_3_1.png";
+import home_3_2 from "../home_compo/1_3_2.png";
+import home_3_3 from "../home_compo/1_3_3.png";
+import cafe from "../general_compo/cafe.png";
+
+//importing react cmp
+//import { useState } from 'react';
+
+//importing custom components
+import Specialities from '../home_compo/specialities';
+
+//defining theme
 const theme = createTheme({
   palette:{
     primary:{main:"#C31E2C"},
@@ -28,9 +39,13 @@ function HomePage(){
 
     return(
         <ThemeProvider theme={theme}>
+            {/* background */}
             <div style={{backgroundColor:'#DED8D8',display:'flex',alignItems:'center',flexDirection:'column'}}>
+                {/* first box */}
                 <div style={{borderRadius:'108px',marginTop:'70px' ,backgroundColor:'#EBE7E6',border:'2px solid white',width:'1341px',height:'732px',boxShadow:'0px 10px 5px darkgrey',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center'}}>
+                    {/* padding box */}
                     <div style={{width:'1191px',height:'632px'}}>
+                        {/* header div / Navigation bar */}
                         <div style={{display:'flex',height:'70px',justifyContent:'center',marginTop:'20px'}}>
                             <img src={logo} alt='website logo' style={{marginRight:'250px',height:'80px'}}/>
                             <div style={{display:'flex',boxShadow:'0px 2px 0px darkGrey',paddingBottom:'10px',marginTop:'10px'}}>
@@ -42,6 +57,7 @@ function HomePage(){
                                 <Button variant='contained' startIcon={<ShoppingCartIcon/>} style={{borderRadius:'50px',marginRight:'20px',marginTop:'10px',fontWeight:'bold'}} href='/home/cart'>0</Button>
                             </div>
                         </div>
+                        {/* child box of pading box */}
                         <div style={{display:'flex',justifyContent:'center',alignItems:'center',marginTop:'100px',marginLeft:'100px'}}>
                             <div style={{width:'450px'}}>
                                 <Typography variant='h3'>Order food online from your room lazy? No worries!</Typography>
@@ -54,7 +70,9 @@ function HomePage(){
                         </div>
                     </div>
                 </div>
+                {/* second box */}
                 <div style={{borderRadius:'108px',marginTop:'70px' ,backgroundColor:'#EBE7E6',border:'2px solid white',width:'1341px',height:'582px',boxShadow:'0px 10px 5px darkgrey',display:'flex',justifyContent:'center',alignItems:'center'}}>
+                    {/* padding box */}
                     <div style={{width:'1191px',height:'532px',display:'flex',justifyContent:'center',alignItems:'center'}}>
                         <div>
                             <Typography variant='h3' style={{marginBottom:'30px'}}>Explore your favourite cafe's food.</Typography>
@@ -66,6 +84,7 @@ function HomePage(){
                         </div>
                     </div>
                 </div>
+                {/* third box */}
                 <div style={{borderRadius:'108px',marginTop:'70px' ,backgroundColor:'#EBE7E6',border:'2px solid white',width:'1341px',height:'582px',boxShadow:'0px 10px 5px darkgrey',display:'flex',justifyContent:'center',alignItems:'center'}}>
                     <div style={{width:'1191px',height:'532px',display:'flex',justifyContent:'center',alignItems:'center'}}>
                         <Specialities key="one" id="one" image={home_3_3} title="Wide selection of FOOD!" description="Lorem ipsum dolor sit amet consectetur. Ornare massa nunc nibh tristique." />
@@ -73,6 +92,7 @@ function HomePage(){
                         <Specialities key="three" id="three" image={home_3_1} title="Fast preparation within 20 mins" description="Lorem ipsum dolor sit amet consectetur. Ornare massa nunc nibh tristique." />
                     </div>
                 </div>
+                {/* footer */}
                 <footer style={{display:'flex',justifyContent:'center',backgroundColor:'#C31E2C',width:'100%',marginTop:'70px',paddingTop:'10px'}}>
                     <div style={{width:'500px',padding:'50px'}}>
                         <img src={cafe} alt='cafe' style={{width:'200px'}}/>
