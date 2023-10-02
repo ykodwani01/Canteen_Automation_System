@@ -17,6 +17,8 @@ import Cart from './custom_compo/cart.js';
 import Error from './custom_compo/error.js';
 import Canteens from './custom_compo/canteens.js';
 import Menu from './custom_compo/menu.js';
+import CownerHome from './custom_compo/cownerHome.js';
+import PendingOrders from './custom_compo/pendingOrders';
 
 //creating routes
 const router = createBrowserRouter(
@@ -32,6 +34,8 @@ const router = createBrowserRouter(
       <Route path='/home/cart' element={<Cart/>}/>
       <Route path='/home/canteens' element={<Canteens/>}/>
       <Route path='/home/canteens/:id' element={<Menu/>}/>
+      <Route path='/cownerHome/:id' element={<CownerHome/>}/>
+      <Route path='/cownerHome/pendingOrders/:id' element={<PendingOrders/>}/>
       <Route path='*' element={<Error/>}/>
     </Route>
   )
