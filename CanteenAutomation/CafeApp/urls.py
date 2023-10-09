@@ -7,6 +7,9 @@ from . import views
 urlpatterns = [
     path('admin', admin.site.urls),
     path('',views.index,name='index'),
+    path('login', views.UserLogin.as_view(), name='login'),
+    path('register', views.UserRegistration.as_view(), name='register'),
+    path('refresh', views.RefreshAccessToken.as_view(), name='refresh_access_token'),
 
     
 
