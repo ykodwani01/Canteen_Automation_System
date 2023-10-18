@@ -22,7 +22,7 @@ import cafe from "../general_compo/cafe.png";
 //import { useState } from 'react';
 
 //importing data files
-import menu_data from '../data_files/menu_data.json';
+import menu_data from '../data_files/data.json';
 
 function CownerHome() {
 

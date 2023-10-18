@@ -22,7 +22,7 @@ import cafe from "../general_compo/cafe.png";
 //import { useState } from 'react';
 
 //importing data files
-import pending_orders from '../data_files/pending_orders.json';
+import pending_orders from '../data_files/data.json';
 
 function PendingOrders() {
 

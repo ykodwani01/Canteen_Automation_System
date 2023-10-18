@@ -19,7 +19,7 @@ import cafe from "../general_compo/cafe.png";
 import Card from '../canteens_compo/card.js'; 
 
 //importing json data
-import cafe_data from '../canteens_compo/cafe_data.json';
+import cafe_data from '../data_files/data.json';
 
 //defining theme
 const theme = createTheme({
@@ -33,7 +33,7 @@ function Canteens() {
 
     //retriving data from json file 
     //code optimization is left (i.e. using Grid)
-    const cafe_data_all = cafe_data.cafe_data.map((item)=>(<Card name={item.name} key={item.id} id={item.id}/>))
+    const cafe_data_all = cafe_data.data.map((item)=>(<Card name={item.name} key={item.id} id={item.id}/>))
     const cafe_data_1 = cafe_data_all.slice(0,3)
     const cafe_data_2 = cafe_data_all.slice(3,6)
 
