@@ -9,6 +9,10 @@ import { green } from '@mui/material/colors';
 import Button from '@mui/material/Button';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+
 //importing router
 import { Navigate, useParams } from 'react-router-dom';
 
@@ -21,6 +25,8 @@ import menu_data from '../data_files/data.json';
 
 //importing custom cmp
 import MenuCard from './menu_card.js';
+import CartContent from './cartContent.js';
+import AccountContent from './accountContent.js';
 
 //defining theme
 const theme = createTheme({
@@ -31,11 +37,54 @@ const theme = createTheme({
 })
 
 function Menu() {
+
+    //state for drawer
+    const [state, setState] = React.useState({
+        right: false,
+        left:false
+    });
+
     const { id } = useParams()
     //retriving data from JSON file
     const altered_menu_data = menu_data.data.filter((item)=>(item.name===id))
     if (altered_menu_data.length===0)return <Navigate to='/error' replace={true}/>
     const menu = altered_menu_data[0].menu.map((item)=>(<MenuCard key={item} menu={item}/>))
+
+    
+    
+
+    //function for toggling the drawer
+    const toggleDrawer = (anchor, open) => (event) => {
+        if (
+            event &&
+            event.type === 'keydown' &&
+            (event.key === 'Tab' || event.key === 'Shift')
+        ) {
+            return;
+        }
+
+        setState({ ...state, [anchor]: open });
+    };
+
+    const closeButton = (anchor,status)=>{
+        setState({ ...state, [anchor]: status });
+    }
+
+    const drawerButton = (anchor,status)=>{
+        closeButton(anchor,status)
+    }
+
+    //list of all the items we need to display in the cart drawer
+    const list = (anchor) => (
+        <Box
+            sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
+            role="presentation"
+            //onClick={toggleDrawer(anchor, false)}
+            //onKeyDown={toggleDrawer(anchor, false)}
+        >
+            {anchor==="right"?<CartContent drawerButton={drawerButton} anchor={anchor}/>:<AccountContent drawerButton={drawerButton} anchor={anchor}/>}
+        </Box>
+    );
 
     return (
         <ThemeProvider theme={theme}>
@@ -53,8 +102,37 @@ function Menu() {
                                 <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='/home/feedback'>Feedback</Button>
                                 <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='/home/aboutus'>About Us</Button>
                                 <Button style={{ color: 'black', marginRight: '60px', marginTop: '10px', fontWeight: 'bold' }} href='/home/contact'>Contact</Button>
-                                <Button variant='contained' style={{ borderRadius: '30px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='/home/account'>Account</Button>
-                                <Button variant='contained' startIcon={<ShoppingCartIcon />} style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='/home/cart'>0</Button>
+                                
+{/* drawer for cart */}
+{['left'].map((anchor) => (
+                                    <React.Fragment key={anchor}>
+                                        <Button variant='contained' style={{ borderRadius: '30px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} onClick={toggleDrawer(anchor,true)}>Account</Button>
+                                        <SwipeableDrawer
+                                            anchor={anchor}
+                                            open={state[anchor]}
+                                            onClose={toggleDrawer(anchor, false)}
+                                            onOpen={toggleDrawer(anchor, true)}
+                                            PaperProps={{style:{borderTopRightRadius:'30px',backgroundColor: '#DED8D8',padding:'20px',width:'480px'}}}
+                                        >
+                                            {list(anchor)}
+                                        </SwipeableDrawer>
+                                    </React.Fragment>
+                                ))}
+                                {['right'].map((anchor) => (
+                                    <React.Fragment key={anchor}>
+                                        <Button variant='contained' startIcon={<ShoppingCartIcon />} style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} onClick={toggleDrawer(anchor, true)}>0</Button>
+                                        <SwipeableDrawer
+                                            anchor={anchor}
+                                            open={state[anchor]}
+                                            onClose={toggleDrawer(anchor, false)}
+                                            onOpen={toggleDrawer(anchor, true)}
+                                            PaperProps={{style:{borderTopLeftRadius:'30px',backgroundColor: '#DED8D8',padding:'20px',width:'480px'}}}
+                                        >
+                                            {list(anchor)}
+                                        </SwipeableDrawer>
+                                    </React.Fragment>
+                                ))}
+
                             </div>
                         </div>
                         {/* child box of padding box */}

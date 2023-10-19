@@ -5,7 +5,6 @@ import '../App.css';
 import { Typography } from '@mui/material/';
 import { ThemeProvider } from '@mui/material/';
 import Button from '@mui/material/Button';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 //importing custom cmp
 import theme from '../general_compo/theme.js';
@@ -49,7 +48,7 @@ function CownerHome() {
                                 <Button style={{color:'black',marginRight:'20px',marginTop:'10px',fontWeight:'bold'}} href='/home/aboutus'>About Us</Button>
                                 <Button style={{color:'black',marginRight:'60px',marginTop:'10px',fontWeight:'bold'}} href='/home/contact'>Contact</Button>
                                 <Button variant='contained' style={{borderRadius:'30px',marginRight:'20px',marginTop:'10px',fontWeight:'bold'}} href='/home/account'>Account</Button>
-                                <Button variant='contained' startIcon={<ShoppingCartIcon/>} style={{borderRadius:'50px',marginRight:'20px',marginTop:'10px',fontWeight:'bold'}} href='/home/cart'>0</Button>
+                                <Button variant='contained' style={{borderRadius:'50px',marginRight:'20px',marginTop:'10px',fontWeight:'bold'}} href={`/cownerHome/pendingOrders/${id}`}>Pending Orders</Button>
                             </div>
                         </div>
                         {/* child box of padding box */}

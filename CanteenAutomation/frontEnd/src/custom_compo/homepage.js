@@ -31,6 +31,7 @@ import cafe from "../general_compo/cafe.png";
 //importing custom components
 import Specialities from '../home_compo/specialities';
 import CartContent from './cartContent.js';
+import AccountContent from './accountContent.js';
 
 //defining theme
 const theme = createTheme({
@@ -47,6 +48,7 @@ function HomePage() {
     //state for drawer
     const [state, setState] = React.useState({
         right: false,
+        left:false
     });
 
     //function for toggling the drawer
@@ -78,7 +80,7 @@ function HomePage() {
             //onClick={toggleDrawer(anchor, false)}
             //onKeyDown={toggleDrawer(anchor, false)}
         >
-            <CartContent drawerButton={drawerButton} anchor={anchor}/>
+            {anchor==="right"?<CartContent drawerButton={drawerButton} anchor={anchor}/>:<AccountContent drawerButton={drawerButton} anchor={anchor}/>}
         </Box>
     );
 
@@ -98,9 +100,23 @@ function HomePage() {
                                 <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='/home/feedback'>Feedback</Button>
                                 <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='/home/aboutus'>About Us</Button>
                                 <Button style={{ color: 'black', marginRight: '60px', marginTop: '10px', fontWeight: 'bold' }} href='/home/contact'>Contact</Button>
-                                <Button variant='contained' style={{ borderRadius: '30px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='/home/account'>Account</Button>
+                                
 
                                 {/* drawer for cart */}
+                                {['left'].map((anchor) => (
+                                    <React.Fragment key={anchor}>
+                                        <Button variant='contained' style={{ borderRadius: '30px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} onClick={toggleDrawer(anchor,true)}>Account</Button>
+                                        <SwipeableDrawer
+                                            anchor={anchor}
+                                            open={state[anchor]}
+                                            onClose={toggleDrawer(anchor, false)}
+                                            onOpen={toggleDrawer(anchor, true)}
+                                            PaperProps={{style:{borderTopRightRadius:'30px',backgroundColor: '#DED8D8',padding:'20px',width:'480px'}}}
+                                        >
+                                            {list(anchor)}
+                                        </SwipeableDrawer>
+                                    </React.Fragment>
+                                ))}
                                 {['right'].map((anchor) => (
                                     <React.Fragment key={anchor}>
                                         <Button variant='contained' startIcon={<ShoppingCartIcon />} style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} onClick={toggleDrawer(anchor, true)}>0</Button>
@@ -115,6 +131,7 @@ function HomePage() {
                                         </SwipeableDrawer>
                                     </React.Fragment>
                                 ))}
+                                
 
                             </div>
                         </div>
@@ -123,7 +140,7 @@ function HomePage() {
                             <div style={{ width: '450px' }}>
                                 <Typography variant='h3'>Order food online from your room lazy? No worries!</Typography>
                                 <Typography color='primary' style={{ marginTop: '20px' }}>Freshly made food delivered to your door.</Typography>
-                                <Button variant='contained' style={{ borderRadius: '30px', marginTop: '40px', height: '50px' }}>Order now</Button>
+                                <Button variant='contained' style={{ borderRadius: '30px', marginTop: '40px', height: '50px' }} href={'/home/canteens'}>Order now</Button>
                             </div>
                             <div style={{ marginLeft: '70px' }}>
                                 <img src={home_image} alt='home_image' style={{ height: '400px' }} />
