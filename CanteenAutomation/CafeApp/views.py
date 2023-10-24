@@ -48,7 +48,6 @@ class UserRegistration(APIView):
     def post(self, request):
         # first_name, username, email, password
         serialize_user_data = UserSerializer(data=request.data)
-
         if not serialize_user_data.is_valid():
             return Response({
                 'errors': serialize_user_data.errors,
@@ -58,6 +57,12 @@ class UserRegistration(APIView):
         serialize_user_data.save()
 
         user = User.objects.get(username=request.data.get('username'))
+        if request.data.get("type")=="canteen":
+            Profile.objects.create(user = user,type='Canteen',name=request.data.get("name"),contact_number = request.data.get("contact_number"))
+            canteen.objects.create(owner = user.profile)
+        else:
+            Profile.objects.create(user = user,type='Customer',name=request.data.get("name"),contact_number = request.data.get("contact_number"))
+            customer.objects.create(cust = user.profile)
 
         refresh = RefreshToken.for_user(user)
         # refresh = RefreshToken.for_user(serialize_user_data)
