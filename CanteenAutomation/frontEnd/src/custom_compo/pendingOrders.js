@@ -5,7 +5,6 @@ import '../App.css';
 import { Typography } from '@mui/material/';
 import { ThemeProvider } from '@mui/material/';
 import Button from '@mui/material/Button';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 //importing custom cmp
 import theme from '../general_compo/theme.js';
