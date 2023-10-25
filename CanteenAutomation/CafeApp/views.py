@@ -12,7 +12,9 @@ from django.contrib import messages
 from .models import *
 from django.db.models import Q
 # from .forms import *
-
+import json
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.permissions import IsAuthenticated
 # Create your views here.
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -94,3 +96,34 @@ class RefreshAccessToken(APIView):
             return None
 def index(request):
     return HttpResponse('Hello world')
+
+class GetItems(APIView):
+    
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+    def post(self,request):
+        
+        try:
+           canteen_obj = canteen.objects.filter(owner = request.user.profile)[0]
+           if canteen_obj is not None:
+               name = request.data.get("name")
+               desc = request.data.get("desc")
+               price = request.data.get("price")
+               items.objects.create(canteen=canteen_obj,price=price,name=name,desc=desc)
+        except:
+            pass
+        return Response({"success":True},status=status.HTTP_200_OK)
+
+    # def get(self,request):
+        
+    #     # try:
+    #         canteen_obj = canteen.objects.filter(owner = request.user.profile)[0]
+    #         item_obj = items.objects.filter(canteen=canteen_obj)
+            
+    #     #    return Response(item_obj)
+           
+    #     # except:
+    #     #     pass
+    #     #     return Response({"success":False})
+            
+    #         return Response(json_obj)
