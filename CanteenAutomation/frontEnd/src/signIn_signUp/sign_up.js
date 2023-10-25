@@ -33,8 +33,11 @@ function SignUp() {
     if (event.target.id === "Email") {
       setEmail(event.target.value)
       const daEmailRegex = /@daiict\.ac\.in$/i;
-      if (!daEmailRegex.test(email)){
+      if (!daEmailRegex.test(event.target.value)){
         setType("Canteen")
+      }
+      else{
+        setType("Customer")
       }
     }
     else if (event.target.id === "Password") {
@@ -96,6 +99,7 @@ function SignUp() {
         if (response.ok) {
           return response.json();
         } else {
+          alert("You already have an account");
           throw new Error('Something went wrong ...');
         }
       })
