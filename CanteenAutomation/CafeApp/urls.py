@@ -11,6 +11,7 @@ urlpatterns = [
     path('register', views.UserRegistration.as_view(), name='register'),
     path('refresh', views.RefreshAccessToken.as_view(), name='refresh_access_token'),
     path('get-items', views.GetItems.as_view(), name='get_items'),
+    path('get-orders', views.getOrders.as_view(), name='get_orders'),
 
     
 

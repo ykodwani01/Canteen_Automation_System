@@ -39,7 +39,6 @@ class UserLogin(APIView):
 
         login(request=request, user=user)
         refresh = RefreshToken.for_user(user)
-
         return Response({
             'refresh': str(refresh),
             'access': str(refresh.access_token),
@@ -114,16 +113,49 @@ class GetItems(APIView):
             pass
         return Response({"success":True},status=status.HTTP_200_OK)
 
-    # def get(self,request):
+    def get(self,request):
         
-    #     # try:
-    #         canteen_obj = canteen.objects.filter(owner = request.user.profile)[0]
-    #         item_obj = items.objects.filter(canteen=canteen_obj)
+        try:
+            canteen_obj = canteen.objects.filter(owner = request.user.profile)[0]
+            item_obj = items.objects.filter(canteen=canteen_obj)
             
-    #     #    return Response(item_obj)
+            return Response(item_obj)
            
-    #     # except:
-    #     #     pass
-    #     #     return Response({"success":False})
+        except:
+            pass
+        return Response({"success":False})
             
-    #         return Response(json_obj)
+        #return Response(json_obj)
+
+
+class getOrders(APIView):
+    
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+
+    def post(self,request):
+        
+        try:
+           customer_obj = customer.objects.filter(owner = request.user.profile)[0]
+           if customer_obj is not None:
+               it=request.data.get("items")
+               status = request.data.get("status")
+               total_amount = request.data.get("total_amount")
+               orders.objects.create(customer=customer_obj,total_amount=total_amount,status=status,items=it)
+        except:
+            pass
+        return Response({"success":True},status=status.HTTP_200_OK)
+    
+    def get(self,request):
+        
+        try:
+            customer_obj = customer.objects.filter(owner = request.user.profile)[0]
+            order_obj = orders.objects.filter(canteen=customer_obj)
+            
+            return Response(order_obj)
+           
+        except:
+            pass
+        return Response({"success":False})
+            
+        #return Response(json_obj)
