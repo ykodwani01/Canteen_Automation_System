@@ -159,3 +159,22 @@ class getOrders(APIView):
         return Response({"success":False})
             
         #return Response(json_obj)
+'''class CustomerDetailAPIView(generics.RetrieveAPIView):
+    queryset = Customer.objects.all()
+    serializer_class = CustomerSerializer'''
+
+class getaccountdetails(APIView):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+    def get(self,request):
+        
+        try:
+            customer_obj = customer.objects.filter(owner = request.user.profile)[0]
+            
+            return Response(customer_obj)
+        except:
+            pass
+
+'''class MenuList(generics.ListAPIView):
+    queryset = Menu.objects.all()
+    serializer_class = MenuSerializer'''

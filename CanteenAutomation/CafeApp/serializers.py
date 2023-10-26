@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User,items,orders
+from .models import User,items,orders,Profile
 from django.conf import settings
 
 # serialize or deserialize user datasets
@@ -22,3 +22,8 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = orders
         fields = '__all__'
+
+class AccountDetialsSerilizer(serializers.ModelSerializer):
+    class Meta:
+        model=Profile
+        fields=('user','name','contact_number')
