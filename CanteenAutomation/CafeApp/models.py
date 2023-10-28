@@ -49,6 +49,7 @@ class items(models.Model):
     
 class orders(models.Model):
     order_cust = models.ForeignKey(customer,null=True,on_delete=models.CASCADE)
+    order_canteen = models.ForeignKey(canteen,null=True,on_delete=models.CASCADE)
     id = models.AutoField(primary_key=True)
     items = models.ManyToManyField(items,related_name="order_item",default=None,blank=False)
     total_amount = models.IntegerField(default=0)
