@@ -178,3 +178,4 @@ class getaccountdetails(APIView):
 '''class MenuList(generics.ListAPIView):
     queryset = Menu.objects.all()
     serializer_class = MenuSerializer'''
+
