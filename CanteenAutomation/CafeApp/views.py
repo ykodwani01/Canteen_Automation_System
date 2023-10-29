@@ -179,3 +179,20 @@ class getaccountdetails(APIView):
     queryset = Menu.objects.all()
     serializer_class = MenuSerializer'''
 
+
+class getPendingOrders(APIView):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+
+    def get(self, request):
+        try:
+            canteen_obj = canteen.objects.filter(owner=request.user.profile)[0]
+
+            if canteen_obj is not None:
+                pending_orders = orders.objects.filter(order_canteen=canteen_obj, status__in=['PaymentLeft', 'Received', 'InProgress'])
+                # serializer = OrdersSerializer(pending_orders, many=True)
+                # return Response(serializer.data)
+                return Response(pending_orders)
+        except:
+            pass
+        return Response({"success":False})
