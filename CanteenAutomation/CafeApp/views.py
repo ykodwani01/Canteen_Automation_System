@@ -29,8 +29,8 @@ class UserLogin(APIView):
     def post(self, request):
         username = request.data.get('username')
         password = request.data.get('password')
-
-        user = authenticate(username=username, password=password)
+        HttpResponse(username,password)
+        user = authenticate(email=username, password=password)
 
         if user is None:
             return Response({
@@ -58,7 +58,7 @@ class UserRegistration(APIView):
         serialize_user_data.save()
 
         user = User.objects.get(username=request.data.get('username'))
-        if request.data.get("type")=="canteen":
+        if request.data.get("type")=="Canteen":
             Profile.objects.create(user = user,type='Canteen',name=request.data.get("name"),contact_number = request.data.get("contact_number"))
             canteen.objects.create(owner = user.profile)
         else:
@@ -96,6 +96,19 @@ class RefreshAccessToken(APIView):
 def index(request):
     return HttpResponse('Hello world')
 
+class LogoutView(APIView):
+     permission_classes = (IsAuthenticated,)
+     def post(self, request):
+          
+          try:
+               refresh_token = request.data["refresh_token"]
+               token = RefreshToken(refresh_token)
+               token.blacklist()
+               return Response(status=status.HTTP_205_RESET_CONTENT)
+          except Exception as e:
+               return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
 class GetItems(APIView):
     
     permission_classes = [IsAuthenticated]
@@ -109,9 +122,11 @@ class GetItems(APIView):
                desc = request.data.get("desc")
                price = request.data.get("price")
                items.objects.create(canteen=canteen_obj,price=price,name=name,desc=desc)
+               return Response({"success":True},status=status.HTTP_200_OK)
         except:
             pass
-        return Response({"success":True},status=status.HTTP_200_OK)
+            return Response({"pass":True},status=status.HTTP_200_OK)
+       
 
     def get(self,request):
         

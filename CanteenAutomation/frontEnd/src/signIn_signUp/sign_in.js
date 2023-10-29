@@ -48,6 +48,7 @@ function SignIn() {
 
   //submitting data to backend
   const handleButtonClick = () => {
+    console.log(email,password)
     const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$%^&+=!])([A-Za-z\d@#$%^&+=!]{8,12})$/;
     const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
     if(
@@ -70,7 +71,7 @@ function SignIn() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ username: `${email}`, password: `${password}`, type: `${type}`}),
+      body: JSON.stringify({ username: `${email}`, password: `${password}`}),
     })
       .then(response => {
         if (response.ok) {
