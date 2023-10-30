@@ -13,6 +13,7 @@ from .models import *
 from django.db.models import Q
 # from .forms import *
 import json
+
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
 # Create your views here.
@@ -22,7 +23,7 @@ from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import login, authenticate
 from .models import User
-from .serializers import UserSerializer
+from .serializers import *
 
 # Create your views here.
 class UserLogin(APIView):
@@ -111,8 +112,8 @@ class LogoutView(APIView):
 
 class GetItems(APIView):
     
-    permission_classes = [IsAuthenticated]
-    authentication_classes = [JWTAuthentication]
+    # permission_classes = [IsAuthenticated]
+    # authentication_classes = [JWTAuthentication]
     def post(self,request):
         
         try:
@@ -133,8 +134,8 @@ class GetItems(APIView):
         try:
             canteen_obj = canteen.objects.filter(owner = request.user.profile)[0]
             item_obj = items.objects.filter(canteen=canteen_obj)
-            data = item_obj.values()
-            return Response(list(data),status=status.HTTP_200_OK)
+            Item_serialized = MenuItemSerializer(item_obj,many=True)
+            return Response(Item_serialized.data,status=status.HTTP_200_OK)
            
         except:
             pass
