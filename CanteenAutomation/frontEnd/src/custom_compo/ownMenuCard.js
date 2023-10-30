@@ -18,8 +18,8 @@ function OwnMenuCard(props){
       //displaying menu item
         <ThemeProvider theme={theme}>
             <div style={{display:'flex',justifyContent:'center',alignItems:'center',padding:'10px',backgroundColor:color?'#E8CFCF':'#E9DCDC',borderRadius:'30px',margin:'10px'}} onMouseEnter={()=>(setColor(true))} onMouseLeave={()=>(setColor(false))}>
-                <Typography variant='h6' sx={{width:'550px',marginLeft:'20px'}}>{props.menu[0]}</Typography>
-                <Typography variant='h6' sx={{fontWeight:'bold',width:'250px'}}>{props.menu[1]}</Typography>
+                <Typography variant='h6' sx={{width:'550px',marginLeft:'20px'}}>{props.name}</Typography>
+                <Typography variant='h6' sx={{fontWeight:'bold',width:'250px'}}>{props.price}</Typography>
                 <Button variant='contained' sx={{margin:'0px 20px',borderRadius:'30px',height:'30px'}}>Edit Item</Button>
                 <Button variant='contained' sx={{margin:'0px 20px',borderRadius:'30px',height:'30px'}}>Remove Item</Button>
             </div>

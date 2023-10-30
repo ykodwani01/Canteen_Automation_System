@@ -18,23 +18,50 @@ import logo from '../general_compo/logo.png';
 import cafe from "../general_compo/cafe.png";
 
 //importing react cmp
-//import { useState } from 'react';
+import { useEffect, useState} from 'react';
 
 //importing data files
 import menu_data from '../data_files/data.json';
 
 function CownerHome() {
 
-    const { id } = useParams()
-    //retriving data from JSON file
-    const altered_menu_data = menu_data.data.filter((item)=>(item.name===id))
-    if (altered_menu_data.length===0)return <Navigate to='/error' replace={true}/>
-    const menu = altered_menu_data[0].menu.map((item)=>(<OwnMenuCard key={item} menu={item}/>))
+
+    //if (altered_menu_data.length===0)return <Navigate to='/error' replace={true}/>
+    const [isLoaded, setIsLoaded] = useState(false)
+    const [menu,setMenu] = useState()
+    
+
+    const apiUrl = "http://localhost:8000/get-items"
+    const token = JSON.parse(localStorage.getItem('token'))
+
+    useEffect(()=>{
+        fetch(apiUrl, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token.access}`
+            },
+          })
+            .then(response => {
+              if (response.ok) {
+                return response.json();
+              } else {
+                throw new Error('Something went wrong ...');
+              }
+            })
+            .then(data => {
+              // Handle the response data here
+              console.log(data);
+              setMenu(data.map((item)=>(<OwnMenuCard key={item.id} name={item.name} desc={item.desc} price={item.price} canteen={item.canteen}/>)))
+              setIsLoaded(true)
+            })
+            .catch(error => console.error('Error:', error));
+    },[])
+
 
     return(
         <ThemeProvider theme={theme}>
-            {/* background */}
-            <div style={{backgroundColor:'#DED8D8',display:'flex',alignItems:'center',flexDirection:'column'}}>
+            {isLoaded?<div style={{backgroundColor:'#DED8D8',display:'flex',alignItems:'center',flexDirection:'column'}}>
                 {/* first box */}
                 <div style={{borderRadius:'108px',marginTop:'70px' ,backgroundColor:'#EBE7E6',border:'2px solid white',width:'1341px',height:'732px',boxShadow:'0px 10px 5px darkgrey',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center'}}>
                     {/* padding box */}
@@ -48,12 +75,12 @@ function CownerHome() {
                                 <Button style={{color:'black',marginRight:'20px',marginTop:'10px',fontWeight:'bold'}} href='/home/aboutus'>About Us</Button>
                                 <Button style={{color:'black',marginRight:'60px',marginTop:'10px',fontWeight:'bold'}} href='/home/contact'>Contact</Button>
                                 <Button variant='contained' style={{borderRadius:'30px',marginRight:'20px',marginTop:'10px',fontWeight:'bold'}} href='/home/account'>Account</Button>
-                                <Button variant='contained' style={{borderRadius:'50px',marginRight:'20px',marginTop:'10px',fontWeight:'bold'}} href={`/cownerHome/pendingOrders/${id}`}>Pending Orders</Button>
+                                <Button variant='contained' style={{borderRadius:'50px',marginRight:'20px',marginTop:'10px',fontWeight:'bold'}} href={`/cownerHome/pendingOrders/${menu[0].canteen}`}>Pending Orders</Button>
                             </div>
                         </div>
                         {/* child box of padding box */}
                         <div style={{ display: 'flex',justifyContent: 'center', alignItems: 'center', marginTop:'70px'}}>
-                            <Typography variant='h2'>{altered_menu_data[0].name}</Typography>
+                            <Typography variant='h2'>{menu[0].canteen}</Typography>
                         </div>
                         <div style={{display:'flex', justifyContent:'end',marginTop:'30px'}}>
                             <Button variant='contained' sx={{borderRadius:'30px',marginRight:'20px'}}>Add New Items</Button>
@@ -88,7 +115,9 @@ function CownerHome() {
                         <Typography style={{color:'#DAC6C7',marginBottom:'20px'}}>Instagram</Typography>
                     </div>
                 </footer>
-            </div>
+            </div>:<div>Loading</div>}
+            {/* background */}
+            
         </ThemeProvider> 
     )
 }
