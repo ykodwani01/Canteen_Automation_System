@@ -112,8 +112,8 @@ class LogoutView(APIView):
 
 class GetItems(APIView):
     
-    # permission_classes = [IsAuthenticated]
-    # authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
     def post(self,request):
         
         try:
