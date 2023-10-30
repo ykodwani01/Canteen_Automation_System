@@ -134,13 +134,8 @@ class GetItems(APIView):
         #try:
             canteen_obj = canteen.objects.filter(owner = request.user.profile)[0]
             item_obj = items.objects.filter(canteen=canteen_obj)
-<<<<<<< HEAD
-            data = item_obj.values()
-            return Response(dict(data),status=status.HTTP_200_OK)
-=======
             Item_serialized = MenuItemSerializer(item_obj,many=True)
             return Response(Item_serialized.data,status=status.HTTP_200_OK)
->>>>>>> 0b39f26b9c2361bccc494c0e5d574720fa22e9ad
            
         # except:
         #     pass
