@@ -29,8 +29,8 @@ class UserLogin(APIView):
     def post(self, request):
         username = request.data.get('username')
         password = request.data.get('password')
-        HttpResponse(username,password)
-        user = authenticate(email=username, password=password)
+        # HttpResponse(username,password)
+        user = authenticate(username=username, password=password)
 
         if user is None:
             return Response({
@@ -133,14 +133,13 @@ class GetItems(APIView):
         try:
             canteen_obj = canteen.objects.filter(owner = request.user.profile)[0]
             item_obj = items.objects.filter(canteen=canteen_obj)
-            
-            return Response(item_obj)
+            data = item_obj.values()
+            return Response(list(data),status=status.HTTP_200_OK)
            
         except:
             pass
         return Response({"success":False})
-            
-        #return Response(json_obj)
+
 
 
 class getOrders(APIView):
@@ -183,12 +182,13 @@ class getaccountdetails(APIView):
     authentication_classes = [JWTAuthentication]
     def get(self,request):
         
-        try:
-            customer_obj = customer.objects.filter(owner = request.user.profile)[0]
+        # try:
+            customer_obj = customer.objects.filter(cust = request.user.profile)[0]
             
-            return Response(customer_obj)
-        except:
-            pass
+            return Response(json.dumps(customer_obj))
+        # except:
+        #     pass
+        #     return Response({"success":False})
 
 '''class MenuList(generics.ListAPIView):
     queryset = Menu.objects.all()
