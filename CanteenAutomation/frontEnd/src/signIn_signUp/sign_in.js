@@ -82,10 +82,9 @@ function SignIn() {
         }
       })
       .then(data => {
-        const token = data.token;
         // Store the token in local storage or a cookie for later use.
-        localStorage.setItem('token', token);
-        console.log(token)
+
+        localStorage.setItem('token', JSON.stringify(data));
         setIsSignupSuccessful(true);
       })
       .catch(error => console.error('Error:', error));

@@ -130,15 +130,15 @@ class GetItems(APIView):
 
     def get(self,request):
         
-        try:
+        #try:
             canteen_obj = canteen.objects.filter(owner = request.user.profile)[0]
             item_obj = items.objects.filter(canteen=canteen_obj)
             data = item_obj.values()
-            return Response(list(data),status=status.HTTP_200_OK)
+            return Response(dict(data),status=status.HTTP_200_OK)
            
-        except:
-            pass
-        return Response({"success":False})
+        # except:
+        #     pass
+        # return Response({"success":False})
 
 
 
