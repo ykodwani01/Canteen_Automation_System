@@ -130,16 +130,10 @@ class GetItems(APIView):
        
 
     def get(self,request):
-        
-        #try:
-            canteen_obj = canteen.objects.filter(owner = request.user.profile)[0]
-            item_obj = items.objects.filter(canteen=canteen_obj)
-            Item_serialized = MenuItemSerializer(item_obj,many=True)
-            return Response(Item_serialized.data,status=status.HTTP_200_OK)
-           
-        # except:
-        #     pass
-        # return Response({"success":False})
+        canteen_obj = canteen.objects.filter(owner = request.user.profile)[0]
+        item_obj = items.objects.filter(canteen=canteen_obj)
+        Item_serialized = MenuItemSerializer(item_obj,many=True)
+        return Response(Item_serialized.data,status=status.HTTP_200_OK)
 
 
 
@@ -163,37 +157,18 @@ class getOrders(APIView):
     
     def get(self,request):
         
-        try:
-            customer_obj = customer.objects.filter(owner = request.user.profile)[0]
-            order_obj = orders.objects.filter(canteen=customer_obj)
-            
-            return Response(order_obj)
-           
-        except:
-            pass
-        return Response({"success":False})
-            
-        #return Response(json_obj)
-'''class CustomerDetailAPIView(generics.RetrieveAPIView):
-    queryset = Customer.objects.all()
-    serializer_class = CustomerSerializer'''
+        canteen_obj = canteen.objects.filter(owner = request.user.profile)[0]
+        order_obj = orders.objects.filter(order_canteen=canteen_obj)
+        Item_serialized = OrderSerializer(order_obj,many=True)
+        return Response(Item_serialized.data,status=status.HTTP_200_OK)
 
 class getaccountdetails(APIView):
     permission_classes = [IsAuthenticated]
     authentication_classes = [JWTAuthentication]
-    def get(self,request):
-        
-        # try:
-            customer_obj = customer.objects.filter(cust = request.user.profile)[0]
-            
-            return Response(json.dumps(customer_obj))
-        # except:
-        #     pass
-        #     return Response({"success":False})
-
-'''class MenuList(generics.ListAPIView):
-    queryset = Menu.objects.all()
-    serializer_class = MenuSerializer'''
+    def get(self,request):        
+        customer_obj = customer.objects.filter(cust = request.user.profile)[0]
+        Cust_serialized=AccountDetailsSerializer(customer_obj,many=True)
+        return Response(Cust_serialized.data,status=status.HTTP_200_OK)
 
 
 class getPendingOrders(APIView):
@@ -205,10 +180,17 @@ class getPendingOrders(APIView):
             canteen_obj = canteen.objects.filter(owner=request.user.profile)[0]
 
             if canteen_obj is not None:
-                pending_orders = orders.objects.filter(order_canteen=canteen_obj, status__in=['PaymentLeft', 'Received', 'InProgress'])
-                # serializer = OrdersSerializer(pending_orders, many=True)
-                # return Response(serializer.data)
-                return Response(pending_orders)
+                order_obj = orders.objects.filter(order_canteen=canteen_obj, status__in=['PaymentLeft', 'Received', 'InProgress'])
+                Item_serialized = OrderSerializer(order_obj,many=True)
+                return Response(Item_serialized.data,status=status.HTTP_200_OK)
         except:
             pass
         return Response({"success":False})
+    
+class getallcanteens(APIView):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+    def get(self, request):
+        canteen_obj=canteen.objects.all()
+        Canteen_serialized = CanteenSerializer(canteen_obj,many=True)
+        return Response(Canteen_serialized.data,status=status.HTTP_200_OK)
