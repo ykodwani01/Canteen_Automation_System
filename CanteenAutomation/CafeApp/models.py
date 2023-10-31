@@ -29,13 +29,11 @@ class canteen(models.Model):
         return self.owner.name
 
 
-
 class customer(models.Model):
     cust = models.OneToOneField(Profile,null=True,on_delete=models.CASCADE)
     customer_id = models.AutoField(primary_key=True)
     def __str__(self):
         return self.cust.name
-
 
 
 class items(models.Model):

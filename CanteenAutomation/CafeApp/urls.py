@@ -16,6 +16,7 @@ urlpatterns = [
     path('get-account-details', views.getaccountdetails.as_view(), name='get-account-details'),
     path('get-pending-orders', views.getPendingOrders.as_view(), name='get-pending-orders'),
     path('get-all-canteens', views.getallcanteens.as_view(), name='get-all-canteens'),
+    path('get-cust-orders', views.getcustOrders.as_view(), name='get-cust-orders'),
 
     
 

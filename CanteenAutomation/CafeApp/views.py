@@ -166,9 +166,12 @@ class getaccountdetails(APIView):
     permission_classes = [IsAuthenticated]
     authentication_classes = [JWTAuthentication]
     def get(self,request):        
-        customer_obj = customer.objects.filter(cust = request.user.profile)[0]
-        Cust_serialized=AccountDetailsSerializer(customer_obj,many=True)
-        return Response(Cust_serialized.data,status=status.HTTP_200_OK)
+        try:
+            customer_obj = Profile.objects.filter(user = request.user)[0]
+            Cust_serialized=AccountDetailsSerializer(customer_obj)
+            return Response(Cust_serialized.data,status=status.HTTP_200_OK)
+        except:
+            return Response({"success":False})
 
 
 class getPendingOrders(APIView):
@@ -194,3 +197,15 @@ class getallcanteens(APIView):
         canteen_obj=canteen.objects.all()
         Canteen_serialized = CanteenSerializer(canteen_obj,many=True)
         return Response(Canteen_serialized.data,status=status.HTTP_200_OK)
+    
+class getcustOrders(APIView):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+    def get(self,request):
+        try:
+            customer_obj = customer.objects.filter(cust = request.user.profile)[0]
+            order_obj = orders.objects.filter(order_cust=customer_obj)
+            Item_serialized = OrderSerializer(order_obj,many=True)
+            return Response(Item_serialized.data,status=status.HTTP_200_OK)
+        except:
+            return Response({"success":False})
