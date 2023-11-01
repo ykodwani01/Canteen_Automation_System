@@ -109,6 +109,19 @@ class LogoutView(APIView):
           except Exception as e:
                return Response(status=status.HTTP_400_BAD_REQUEST)
 
+class DeleteItems(APIView):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication] 
+    def post(self,request):
+        
+        # try:
+           canteen_obj = canteen.objects.filter(owner = request.user.profile)[0]
+           if canteen_obj is not None:
+               item_id=request.data.get('item_id')
+               delete_object=items.objects.filter(id=item_id)
+               delete_object.delete()
+               return Response({"success":True},status=status.HTTP_200_OK)
+           return Response({"success":False},status=status.HTTP_200_OK)
 
 class GetItems(APIView):
     
@@ -116,7 +129,7 @@ class GetItems(APIView):
     authentication_classes = [JWTAuthentication]
     def post(self,request):
         
-        try:
+        # try:
            canteen_obj = canteen.objects.filter(owner = request.user.profile)[0]
            if canteen_obj is not None:
                name = request.data.get("name")
@@ -124,9 +137,9 @@ class GetItems(APIView):
                price = request.data.get("price")
                items.objects.create(canteen=canteen_obj,price=price,name=name,desc=desc)
                return Response({"success":True},status=status.HTTP_200_OK)
-        except:
-            pass
-            return Response({"pass":True},status=status.HTTP_200_OK)
+        # except:
+        #     pass
+        #     return Response({"pass":False},status=status.HTTP_200_OK)
        
 
     def get(self,request):
@@ -183,7 +196,7 @@ class getPendingOrders(APIView):
             canteen_obj = canteen.objects.filter(owner=request.user.profile)[0]
 
             if canteen_obj is not None:
-                order_obj = orders.objects.filter(order_canteen=canteen_obj, status__in=['PaymentLeft', 'Received', 'InProgress'])
+                order_obj = orders.objects.filter(order_canteen=canteen_obj, status__in=['Received'])
                 Item_serialized = OrderSerializer(order_obj,many=True)
                 return Response(Item_serialized.data,status=status.HTTP_200_OK)
         except:
@@ -209,3 +222,20 @@ class getcustOrders(APIView):
             return Response(Item_serialized.data,status=status.HTTP_200_OK)
         except:
             return Response({"success":False})
+        
+class createorder(APIView):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+    def post(self,request):
+        #customer_profile_obj = Profile.objects.filter(user = request.user)[0]
+        #customer_obj=customer.objects.filter(cust=customer_profile_obj).first()
+        #canteen_id=request.data.get('canteen_id')
+        #canteen_obj=canteen.objects.filter(id=canteen_id)
+        data = json.loads(request.body())
+        for itr in data:
+            print(itr["item_id"])
+            print(itr["quantity"])
+            print()
+
+        return Response({"success":True},status=status.HTTP_200_OK)
+

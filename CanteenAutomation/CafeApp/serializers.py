@@ -19,9 +19,12 @@ class MenuItemSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class OrderSerializer(serializers.ModelSerializer):
+    order_cust_name = serializers.CharField(source='order_cust.cust.name', read_only=True)
+    order_canteen_name = serializers.CharField(source='order_canteen.owner.name', read_only=True)
+    items = MenuItemSerializer(many=True,read_only=True)
     class Meta:
         model = orders
-        fields = '__all__'
+        fields = ('order_cust_name','order_canteen_name','total_amount','items','status')
 
 class AccountDetailsSerializer(serializers.ModelSerializer):
     class Meta:
@@ -29,6 +32,7 @@ class AccountDetailsSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class CanteenSerializer(serializers.ModelSerializer):
+    canteen_name = serializers.CharField(source='owner.name', read_only=True)
     class Meta:
         model=canteen
-        fields = '__all__'
+        fields = ('canteen_name','canteen_id')

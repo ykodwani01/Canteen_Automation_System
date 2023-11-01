@@ -17,6 +17,8 @@ urlpatterns = [
     path('get-pending-orders', views.getPendingOrders.as_view(), name='get-pending-orders'),
     path('get-all-canteens', views.getallcanteens.as_view(), name='get-all-canteens'),
     path('get-cust-orders', views.getcustOrders.as_view(), name='get-cust-orders'),
+    path('delete-items', views.DeleteItems.as_view(), name='delete-items'),
+    path('create-order', views.createorder.as_view(), name='create-order'),
 
     
 
