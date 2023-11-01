@@ -192,16 +192,16 @@ class getPendingOrders(APIView):
     authentication_classes = [JWTAuthentication]
 
     def get(self, request):
-        try:
+        # try:
             canteen_obj = canteen.objects.filter(owner=request.user.profile)[0]
 
             if canteen_obj is not None:
                 order_obj = orders.objects.filter(order_canteen=canteen_obj, status__in=['Received'])
                 Item_serialized = OrderSerializer(order_obj,many=True)
                 return Response(Item_serialized.data,status=status.HTTP_200_OK)
-        except:
-            pass
-        return Response({"success":False})
+        # except:
+        #     pass
+        # return Response({"success":False})
     
 class getallcanteens(APIView):
     permission_classes = [IsAuthenticated]
@@ -227,15 +227,18 @@ class createorder(APIView):
     permission_classes = [IsAuthenticated]
     authentication_classes = [JWTAuthentication]
     def post(self,request):
-        #customer_profile_obj = Profile.objects.filter(user = request.user)[0]
-        #customer_obj=customer.objects.filter(cust=customer_profile_obj).first()
-        #canteen_id=request.data.get('canteen_id')
-        #canteen_obj=canteen.objects.filter(id=canteen_id)
-        data = json.loads(request.body())
+        customer_profile_obj = Profile.objects.filter(user = request.user)[0]
+        customer_obj=customer.objects.filter(cust=customer_profile_obj).first()
+        canteen_id=request.data.get('canteen_id')
+        canteen_obj=canteen.objects.filter(canteen_id=canteen_id).first()
+        data =request.data.get("order")
+        order_obj = orders.objects.create(order_cust=customer_obj,order_canteen=canteen_obj,status="Received",total_amount=request.data.get("total_amount"))
         for itr in data:
-            print(itr["item_id"])
-            print(itr["quantity"])
-            print()
+            item_obj=items.objects.filter(id=itr["item_id"]).first()
+            quan_obj=itr["quantity"]
+            orderquantity.objects.create(order_id=order_obj,item_id=item_obj,quantity=quan_obj)
+            order_obj.items.add(item_obj)
+        order_obj.save()
 
         return Response({"success":True},status=status.HTTP_200_OK)
 

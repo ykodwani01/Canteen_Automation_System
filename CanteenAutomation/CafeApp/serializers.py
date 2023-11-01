@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import User,items,orders,Profile,canteen
+from .models import *
 from django.conf import settings
 
 # serialize or deserialize user datasets
@@ -14,14 +15,23 @@ class UserSerializer(serializers.ModelSerializer):
         return User.objects.create_user(**data)
 
 class MenuItemSerializer(serializers.ModelSerializer):
+    
     class Meta:
         model = items
         fields = '__all__'
 
+class OrderQuanSerializer(serializers.ModelSerializer):
+    items = MenuItemSerializer(many=True,read_only=True)
+
+    class Meta:
+        model = orderquantity
+        fields = ('items','quantity')
+
 class OrderSerializer(serializers.ModelSerializer):
     order_cust_name = serializers.CharField(source='order_cust.cust.name', read_only=True)
     order_canteen_name = serializers.CharField(source='order_canteen.owner.name', read_only=True)
-    items = MenuItemSerializer(many=True,read_only=True)
+
+    items = MenuItemSerializer(many=True)
     class Meta:
         model = orders
         fields = ('order_cust_name','order_canteen_name','total_amount','items','status')

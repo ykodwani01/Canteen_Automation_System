@@ -18,5 +18,6 @@ admin.site.register(customer,Custadmin)
 admin.site.register(items,itemadmin)
 admin.site.register(orders,ordersadmin)
 admin.site.register(Profile)
+admin.site.register(orderquantity)
 # admin.site.register(User)
 # Register your models here.

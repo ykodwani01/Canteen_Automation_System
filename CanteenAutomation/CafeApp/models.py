@@ -54,3 +54,8 @@ class orders(models.Model):
     status = models.CharField(max_length=100,choices=(('PaymentLeft','PaymentLeft'),('Received','Received'),('InProgress','InProgress'), ('Delivered','Delivered')),null=True)
     def __str__(self):
         return str(self.id)
+    
+class orderquantity(models.Model):
+    order_id=models.ForeignKey(orders,null=False,on_delete=models.CASCADE)
+    item_id=models.ForeignKey(items,null=False,on_delete=models.CASCADE)
+    quantity=models.IntegerField(default=1,null=False)

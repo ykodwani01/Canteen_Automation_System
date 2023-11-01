@@ -70,7 +70,7 @@ MIDDLEWARE = [
 
 
 ROOT_URLCONF = 'CanteenAutomation.urls'
-
+SIMPJWT_ACCESS_TOKEN_LIFETIME = timedelta(hours=2) 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
