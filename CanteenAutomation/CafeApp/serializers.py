@@ -15,26 +15,17 @@ class UserSerializer(serializers.ModelSerializer):
         return User.objects.create_user(**data)
 
 class MenuItemSerializer(serializers.ModelSerializer):
-    
     class Meta:
         model = items
         fields = '__all__'
 
-class OrderQuanSerializer(serializers.ModelSerializer):
-    items = MenuItemSerializer(many=True,read_only=True)
-
-    class Meta:
-        model = orderquantity
-        fields = ('items','quantity')
-
 class OrderSerializer(serializers.ModelSerializer):
     order_cust_name = serializers.CharField(source='order_cust.cust.name', read_only=True)
     order_canteen_name = serializers.CharField(source='order_canteen.owner.name', read_only=True)
-
     items = MenuItemSerializer(many=True)
     class Meta:
         model = orders
-        fields = ('order_cust_name','order_canteen_name','total_amount','items','status')
+        fields = ('id','order_cust_name','order_canteen_name','total_amount','items','status')
 
 class AccountDetailsSerializer(serializers.ModelSerializer):
     class Meta:

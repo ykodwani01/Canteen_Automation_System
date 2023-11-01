@@ -173,6 +173,14 @@ class getOrders(APIView):
         canteen_obj = canteen.objects.filter(owner = request.user.profile)[0]
         order_obj = orders.objects.filter(order_canteen=canteen_obj)
         Item_serialized = OrderSerializer(order_obj,many=True)
+        for i in Item_serialized.data:
+            order_id=i["id"]
+            for j in i:
+                if(j=='items'):
+                    for k in i[j]:
+                        item_id=k["id"]
+                        quantity_value=orderquantity.objects.filter(item_id=item_id,order_id=order_id).first()
+                        k["quantity"]=quantity_value.quantity
         return Response(Item_serialized.data,status=status.HTTP_200_OK)
 
 class getaccountdetails(APIView):
@@ -198,6 +206,14 @@ class getPendingOrders(APIView):
             if canteen_obj is not None:
                 order_obj = orders.objects.filter(order_canteen=canteen_obj, status__in=['Received'])
                 Item_serialized = OrderSerializer(order_obj,many=True)
+                for i in Item_serialized.data:
+                    order_id=i["id"]
+                    for j in i:
+                        if(j=='items'):
+                            for k in i[j]:
+                                item_id=k["id"]
+                                quantity_value=orderquantity.objects.filter(item_id=item_id,order_id=order_id).first()
+                                k["quantity"]=quantity_value.quantity
                 return Response(Item_serialized.data,status=status.HTTP_200_OK)
         # except:
         #     pass
