@@ -11,6 +11,9 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import { experimentalStyled as styled } from '@mui/material/styles';
 
 //importing router
 //import { NavLink } from 'react-router-dom';
@@ -24,6 +27,9 @@ import Card from '../canteens_compo/card.js';
 import CartContent from './cartContent.js';
 import AccountContent from './accountContent.js';
 
+//importing react cmp
+import { useEffect, useState } from 'react';
+
 //importing json data
 import cafe_data from '../data_files/data.json';
 
@@ -35,14 +41,77 @@ const theme = createTheme({
     }
 })
 
+const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    ...theme.typography.body2,
+    padding: theme.spacing(2),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  }));
+
 function Canteens() {
+
+    const [canteenReceived, setCanteenReceived] = useState(false)
+    const [cafe_data_all, setcafe_data_all] = useState()
+
+    const [accountDetails, setAccountDetails] = useState()
+    const [gotAccountDetails, setGotAccountDetails] = useState(false)
+    const [gotCartDetails, setGotCartDetails] = useState(true)
+
+    const apiUrl = "http://127.0.0.1:8000/get-all-canteens"
+    const token = JSON.parse(localStorage.getItem('token'))
+
+    useEffect(() => {
+        fetch(apiUrl, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token.access}`
+            },
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Something went wrong ...');
+                }
+            })
+            .then(data => {
+                // Handle the response data here
+                console.log(data);
+                setCanteenReceived(true);
+                setcafe_data_all(data.map((item) => (<Card name={item.canteen_name} key={item.canteen_id} id={item.canteen_id} />)))
+            })
+            .catch(error => console.error('Error:', error));
+    }, [])
+
+    useEffect(() => {
+        fetch(apiUrl, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token.access}`
+            },
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Something went wrong ...');
+                }
+            })
+            .then(data => {
+                // Handle the response data here
+                console.log(data);
+                setAccountDetails(data)
+                setGotAccountDetails(true)
+            })
+            .catch(error => console.error('Error:', error));
+    }, [])
 
     //retriving data from json file 
     //code optimization is left (i.e. using Grid)
 
-    const cafe_data_all = cafe_data.data.map((item) => (<Card name={item.name} key={item.id} id={item.id} />))
-    const cafe_data_1 = cafe_data_all.slice(0, 3)
-    const cafe_data_2 = cafe_data_all.slice(3, 6)
 
     //state for drawer
     const [state, setState] = React.useState({
@@ -79,7 +148,7 @@ function Canteens() {
         //onClick={toggleDrawer(anchor, false)}
         //onKeyDown={toggleDrawer(anchor, false)}
         >
-            {anchor === "right" ? <CartContent drawerButton={drawerButton} anchor={anchor} /> : <AccountContent drawerButton={drawerButton} anchor={anchor} />}
+            {anchor === "right" ? <CartContent drawerButton={drawerButton} anchor={anchor} /> : <AccountContent drawerButton={drawerButton} anchor={anchor} accountDetails={accountDetails}/>}
         </Box>
     );
 
@@ -87,7 +156,7 @@ function Canteens() {
     return (
         <ThemeProvider theme={theme}>
             {/* background */}
-            <div style={{ backgroundColor: '#DED8D8', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+            {canteenReceived&&gotAccountDetails&&gotCartDetails?<div style={{ backgroundColor: '#DED8D8', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
                 {/* first box */}
                 <div style={{ borderRadius: '108px', marginTop: '70px', backgroundColor: '#EBE7E6', border: '2px solid white', width: '1341px', height: '1132px', boxShadow: '0px 10px 5px darkgrey', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                     {/* padding box */}
@@ -135,12 +204,13 @@ function Canteens() {
                         </div>
                         {/* displaying canteens */}
                         <div style={{ marginTop: '100px' }}>
-                            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '40px' }}>
-                                {cafe_data_1}
-                            </div>
-                            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                {cafe_data_2}
-                            </div>
+                            <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+                                {cafe_data_all.map((items, index) => (
+                                    <Grid item xs={2} sm={4} md={4} key={index}>
+                                        <Item>{items}</Item>
+                                    </Grid>
+                                ))}
+                            </Grid>
                         </div>
                     </div>
                 </div>
@@ -167,7 +237,8 @@ function Canteens() {
                         <Typography style={{ color: '#DAC6C7', marginBottom: '20px' }}>Instagram</Typography>
                     </div>
                 </footer>
-            </div>
+            </div>:<div>Loading</div>}
+            
         </ThemeProvider>
     )
 }

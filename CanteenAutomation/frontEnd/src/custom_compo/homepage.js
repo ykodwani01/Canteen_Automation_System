@@ -26,7 +26,7 @@ import home_3_3 from "../home_compo/1_3_3.png";
 import cafe from "../general_compo/cafe.png";
 
 //importing react cmp
-//import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 //importing custom components
 import Specialities from '../home_compo/specialities';
@@ -42,13 +42,44 @@ const theme = createTheme({
 })
 
 function HomePage() {
-    
+
+    const [accountDetails, setAccountDetails] = useState()
+    const [gotAccountDetails, setGotAccountDetails] = useState(false)
+    const [gotCartDetails, setGotCartDetails] = useState(true)
+
+    const apiUrl = "http://127.0.0.1:8000/get-account-details"
+    const token = JSON.parse(localStorage.getItem('token'))
+
+    useEffect(() => {
+        fetch(apiUrl, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token.access}`
+            },
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Something went wrong ...');
+                }
+            })
+            .then(data => {
+                // Handle the response data here
+                console.log(data);
+                setAccountDetails(data)
+                setGotAccountDetails(true)
+            })
+            .catch(error => console.error('Error:', error));
+    }, [])
+
 
 
     //state for drawer
     const [state, setState] = React.useState({
         right: false,
-        left:false
+        left: false
     });
 
     //function for toggling the drawer
@@ -64,12 +95,12 @@ function HomePage() {
         setState({ ...state, [anchor]: open });
     };
 
-    const closeButton = (anchor,status)=>{
+    const closeButton = (anchor, status) => {
         setState({ ...state, [anchor]: status });
     }
 
-    const drawerButton = (anchor,status)=>{
-        closeButton(anchor,status)
+    const drawerButton = (anchor, status) => {
+        closeButton(anchor, status)
     }
 
     //list of all the items we need to display in the cart drawer
@@ -77,17 +108,17 @@ function HomePage() {
         <Box
             sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
             role="presentation"
-            //onClick={toggleDrawer(anchor, false)}
-            //onKeyDown={toggleDrawer(anchor, false)}
+        //onClick={toggleDrawer(anchor, false)}
+        //onKeyDown={toggleDrawer(anchor, false)}
         >
-            {anchor==="right"?<CartContent drawerButton={drawerButton} anchor={anchor}/>:<AccountContent drawerButton={drawerButton} anchor={anchor}/>}
+            {anchor === "right" ? <CartContent drawerButton={drawerButton} anchor={anchor} /> : <AccountContent drawerButton={drawerButton} anchor={anchor} accountDetails={accountDetails} />}
         </Box>
     );
 
     return (
         <ThemeProvider theme={theme}>
             {/* background */}
-            <div style={{ backgroundColor: '#DED8D8', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+            {gotAccountDetails && gotCartDetails ? <div style={{ backgroundColor: '#DED8D8', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
                 {/* first box */}
                 <div style={{ borderRadius: '108px', marginTop: '70px', backgroundColor: '#EBE7E6', border: '2px solid white', width: '1341px', height: '732px', boxShadow: '0px 10px 5px darkgrey', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                     {/* padding box */}
@@ -100,18 +131,18 @@ function HomePage() {
                                 <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='/home/feedback'>Feedback</Button>
                                 <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='/home/aboutus'>About Us</Button>
                                 <Button style={{ color: 'black', marginRight: '60px', marginTop: '10px', fontWeight: 'bold' }} href='/home/contact'>Contact</Button>
-                                
+
 
                                 {/* drawer for cart */}
                                 {['left'].map((anchor) => (
                                     <React.Fragment key={anchor}>
-                                        <Button variant='contained' style={{ borderRadius: '30px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} onClick={toggleDrawer(anchor,true)}>Account</Button>
+                                        <Button variant='contained' style={{ borderRadius: '30px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} onClick={toggleDrawer(anchor, true)}>Account</Button>
                                         <SwipeableDrawer
                                             anchor={anchor}
                                             open={state[anchor]}
                                             onClose={toggleDrawer(anchor, false)}
                                             onOpen={toggleDrawer(anchor, true)}
-                                            PaperProps={{style:{borderTopRightRadius:'30px',backgroundColor: '#DED8D8',padding:'20px',width:'480px'}}}
+                                            PaperProps={{ style: { borderTopRightRadius: '30px', backgroundColor: '#DED8D8', padding: '20px', width: '480px' } }}
                                         >
                                             {list(anchor)}
                                         </SwipeableDrawer>
@@ -125,13 +156,13 @@ function HomePage() {
                                             open={state[anchor]}
                                             onClose={toggleDrawer(anchor, false)}
                                             onOpen={toggleDrawer(anchor, true)}
-                                            PaperProps={{style:{borderTopLeftRadius:'30px',backgroundColor: '#DED8D8',padding:'20px',width:'480px'}}}
+                                            PaperProps={{ style: { borderTopLeftRadius: '30px', backgroundColor: '#DED8D8', padding: '20px', width: '480px' } }}
                                         >
                                             {list(anchor)}
                                         </SwipeableDrawer>
                                     </React.Fragment>
                                 ))}
-                                
+
 
                             </div>
                         </div>
@@ -193,7 +224,7 @@ function HomePage() {
                         <Typography style={{ color: '#DAC6C7', marginBottom: '20px' }}>Instagram</Typography>
                     </div>
                 </footer>
-            </div>
+            </div> : <div>Loading</div>}
         </ThemeProvider>
     )
 }

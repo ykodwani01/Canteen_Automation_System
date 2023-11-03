@@ -22,11 +22,11 @@ function AccountContent(props) {
                 </div>
                 {/* box to show items that customer wants to purchase */}
                 <div style={{ border: '2px solid white', borderRadius: '30px', width: '415px', margin: '5px', marginTop: '40px', padding: '20px'}}>
-                    <Typography variant="h3" sx={{padding:'30px'}}>Name</Typography>
+                    <Typography variant="h3" sx={{padding:'30px'}}>{props.accountDetails.name}</Typography>
                     <Typography variant="h6">Email</Typography>
                     <Typography variant="h5" sx={{paddingBottom:'20px'}}>abc@gmail.com</Typography>
                     <Typography variant="h6">Phone Number</Typography>
-                    <Typography variant="h5" sx={{paddingBottom:'20px'}}>xxx</Typography>
+                    <Typography variant="h5" sx={{paddingBottom:'20px'}}>{props.accountDetails.contact_number}</Typography>
                     <Typography variant="h6">Student ID</Typography>
                     <Typography variant="h5">xxx</Typography>
                 </div>
