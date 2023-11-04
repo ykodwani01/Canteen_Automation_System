@@ -13,16 +13,23 @@ import Button from '@mui/material/Button';
 import theme from "../general_compo/theme.js";
 
 function Order(props){ 
-    const all_food = props.order.food.map((item)=>(
-        <Typography>{item[0]}x{item[1]}</Typography>
+
+    const displayOrders = props.items.map((item)=>(
+        <div key={item.canteen} style={{display:'flex',justifyContent:'space-between',marginBottom:'20px'}}>
+            <Typography>{item.name}</Typography>
+            <Typography>{item.quantity}</Typography>
+            <Typography>{item.price}</Typography>
+        </div>
     ))
+
     return(
       //displaying order
         <ThemeProvider theme={theme}>
             <div style={{display:'flex',justifyContent:'space-around',padding:'30px',backgroundColor:'#E9DCDC',borderRadius:'30px',margin:'20px',width:'1100px',height:'400px'}}>
                 <div>
                     <Typography variant='h3' sx={{marginBottom:'20px'}}>Order Details</Typography>
-                    {all_food}
+                    {displayOrders}
+                    <Typography>Total Amount : {props.totalAmount}</Typography>
                     <div style={{display:'flex',justifyContent:'end'}}>
                         <Button variant='contained'sx={{marginTop:'50px',marginLeft:'20px'}}>Prepared</Button>
                         <Button variant='contained'sx={{marginTop:'50px',marginLeft:'20px'}}>Completed</Button>
@@ -30,9 +37,9 @@ function Order(props){
                 </div>
                 <div>
                     <Typography variant='h3' sx={{marginBottom:'20px'}}>Customer Details</Typography>
-                    <Typography>Name:{props.order.name}</Typography>
-                    <Typography>Contact Number:{props.order.contactNo}</Typography>
-                    <Typography>Email:{props.order.email}</Typography>
+                    <Typography>Name:{props.name}</Typography>
+                    <Typography>Contact Number:xxx</Typography>
+                    <Typography>Email:abc@gmail.com</Typography>
                 </div>
             </div>
         </ThemeProvider>
