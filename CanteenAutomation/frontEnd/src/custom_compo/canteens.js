@@ -85,8 +85,10 @@ function Canteens() {
             .catch(error => console.error('Error:', error));
     }, [])
 
+    const apiUrlAcount = "http://127.0.0.1:8000/get-account-details"
+
     useEffect(() => {
-        fetch(apiUrl, {
+        fetch(apiUrlAcount, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

@@ -17,6 +17,9 @@ import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import logo from '../general_compo/logo.png'
 import cafe from "../general_compo/cafe.png"
 
+//importing react cmp
+import { useEffect, useState } from 'react';
+
 
 //importing custom cmp
 import CartContent from './cartContent.js';
@@ -31,6 +34,38 @@ const theme = createTheme({
 })
 
 function Contact() {
+
+    const [accountDetails, setAccountDetails] = useState()
+    const [gotAccountDetails, setGotAccountDetails] = useState(false)
+    const [gotCartDetails, setGotCartDetails] = useState(true)
+
+    const apiUrlAcount = "http://127.0.0.1:8000/get-account-details"
+
+    const token = JSON.parse(localStorage.getItem('token'))
+
+    useEffect(() => {
+        fetch(apiUrlAcount, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token.access}`
+            },
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Something went wrong ...');
+                }
+            })
+            .then(data => {
+                // Handle the response data here
+                console.log(data);
+                setAccountDetails(data)
+                setGotAccountDetails(true)
+            })
+            .catch(error => console.error('Error:', error));
+    }, [])
 
     //state for drawer
     const [state, setState] = React.useState({
@@ -67,14 +102,14 @@ function Contact() {
         //onClick={toggleDrawer(anchor, false)}
         //onKeyDown={toggleDrawer(anchor, false)}
         >
-            {anchor === "right" ? <CartContent drawerButton={drawerButton} anchor={anchor} /> : <AccountContent drawerButton={drawerButton} anchor={anchor} />}
+            {anchor === "right" ? <CartContent drawerButton={drawerButton} anchor={anchor} /> : <AccountContent drawerButton={drawerButton} anchor={anchor} accountDetails={accountDetails}/>}
         </Box>
     );
 
     return (
         <ThemeProvider theme={theme}>
             {/* background */}
-            <div style={{ backgroundColor: '#DED8D8', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+            {gotAccountDetails?<div style={{ backgroundColor: '#DED8D8', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
                 {/* first box */}
                 <div style={{ borderRadius: '108px', marginTop: '70px', backgroundColor: '#EBE7E6', border: '2px solid white', width: '1341px', height: '732px', boxShadow: '0px 10px 5px darkgrey', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                     {/* padding box */}
@@ -180,7 +215,7 @@ function Contact() {
                         <Typography style={{ color: '#DAC6C7', marginBottom: '20px' }}>Instagram</Typography>
                     </div>
                 </footer>
-            </div>
+            </div>:<div>loading</div>}
         </ThemeProvider>
     )
 }
