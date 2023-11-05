@@ -41,13 +41,19 @@ const theme = createTheme({
 
 function Menu() {
 
+    const id = useParams()
+
     const [accountDetails, setAccountDetails] = useState()
     const [gotAccountDetails, setGotAccountDetails] = useState(false)
     const [gotCartDetails, setGotCartDetails] = useState(true)
+    const [isLoaded, setIsLoaded] = useState(false)
 
     const apiUrlAcount = "http://127.0.0.1:8000/get-account-details"
 
     const token = JSON.parse(localStorage.getItem('token'))
+
+    const [menu,setMenu] = useState(localStorage.getItem(`canteen ${id}`))
+    console.log(menu)
 
     useEffect(() => {
         fetch(apiUrlAcount, {
@@ -73,20 +79,13 @@ function Menu() {
             .catch(error => console.error('Error:', error));
     }, [])
 
+
+
     //state for drawer
     const [state, setState] = React.useState({
         right: false,
         left: false
     });
-
-    const { id } = useParams()
-    //retriving data from JSON file
-    const altered_menu_data = menu_data.data.filter((item) => (item.name === id))
-    if (altered_menu_data.length === 0) return <Navigate to='/error' replace={true} />
-    const menu = altered_menu_data[0].menu.map((item) => (<MenuCard key={item} menu={item} />))
-
-
-
 
     //function for toggling the drawer
     const toggleDrawer = (anchor, open) => (event) => {

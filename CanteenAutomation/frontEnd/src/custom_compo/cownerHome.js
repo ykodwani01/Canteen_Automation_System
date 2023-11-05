@@ -39,6 +39,32 @@ function CownerHome() {
     const [accountDetails, setAccountDetails] = useState()
     const [gotAccountDetails, setGotAccountDetails] = useState(false)
 
+    
+    const apiUrlDelete = "http://127.0.0.1:8000/delete-items"
+
+    const handleRemoveItem = (event) =>{
+            fetch(apiUrlDelete, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token.access}`
+                },
+                body: JSON.stringify({id: `${event.target.id}`}),
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error('Something went wrong ...');
+                    }
+                })
+                .then(data => {
+                    // Handle the response data here
+                    console.log(data);
+                })
+                .catch(error => console.error('Error:', error));
+    }
+
     const apiUrlAccount = "http://127.0.0.1:8000/get-account-details"
     const token = JSON.parse(localStorage.getItem('token'))
 
@@ -87,11 +113,12 @@ function CownerHome() {
             .then(data => {
                 // Handle the response data here
                 console.log(data);
-                setMenu(data.map((item) => (<OwnMenuCard key={item.id} name={item.name} desc={item.desc} price={item.price} canteen={item.canteen} />)))
+                setMenu(data.map((item) => (<OwnMenuCard key={item.id} id={item.id} name={item.name} desc={item.desc} price={item.price} canteen={item.canteen} removeItem={handleRemoveItem}/>)))
                 setIsLoaded(true)
             })
             .catch(error => console.error('Error:', error));
     }, [])
+
 
     //state for drawer
     const [state, setState] = React.useState({

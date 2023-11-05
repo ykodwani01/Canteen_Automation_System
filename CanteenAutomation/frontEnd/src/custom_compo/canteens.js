@@ -32,6 +32,7 @@ import { useEffect, useState } from 'react';
 
 //importing json data
 import cafe_data from '../data_files/data.json';
+import { Navigate } from 'react-router-dom';
 
 //defining theme
 const theme = createTheme({
@@ -61,6 +62,32 @@ function Canteens() {
     const apiUrl = "http://127.0.0.1:8000/get-all-canteens"
     const token = JSON.parse(localStorage.getItem('token'))
 
+    const apiUrlCanteen = "http://127.0.0.1:8000/get-menu"
+
+    const handleCanteenClicked = (event) => {
+        
+            fetch(apiUrlCanteen, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token.access}`
+                },
+                body : {id:`${event.target.id}`}
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error('Something went wrong ...');
+                    }
+                })
+                .then(data => {
+                    // Handle the response data here
+                    console.log(data);
+                    localStorage.setItem(`canteen ${event.target.id}`,data);
+                })
+                .catch(error => console.error('Error:', error));}
+
     useEffect(() => {
         fetch(apiUrl, {
             method: 'GET',
@@ -80,7 +107,7 @@ function Canteens() {
                 // Handle the response data here
                 console.log(data);
                 setCanteenReceived(true);
-                setcafe_data_all(data.map((item) => (<Card name={item.canteen_name} key={item.canteen_id} id={item.canteen_id} />)))
+                setcafe_data_all(data.map((item) => (<Card name={item.canteen_name} key={item.canteen_id} id={item.canteen_id} canteenClicked={handleCanteenClicked}/>)))
             })
             .catch(error => console.error('Error:', error));
     }, [])
