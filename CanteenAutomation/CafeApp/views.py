@@ -118,9 +118,12 @@ class DeleteItems(APIView):
            canteen_obj = canteen.objects.filter(owner = request.user.profile)[0]
            if canteen_obj is not None:
                item_id=request.data.get('item_id')
-               delete_object=items.objects.filter(id=item_id)
-               delete_object.delete()
-               return Response({"success":True},status=status.HTTP_200_OK)
+               delete_object=items.objects.filter(id=item_id).first()
+               if delete_object.canteen==canteen_obj:
+                delete_object.delete()
+                item_obj = items.objects.filter(canteen=canteen_obj)
+                Item_serialized = MenuItemSerializer(item_obj,many=True)
+                return Response(Item_serialized.data,status=status.HTTP_200_OK)    
            return Response({"success":False},status=status.HTTP_200_OK)
 
 class GetItems(APIView):
