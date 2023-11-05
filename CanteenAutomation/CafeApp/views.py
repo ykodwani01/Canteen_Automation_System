@@ -258,3 +258,14 @@ class createorder(APIView):
 
         return Response({"success":True},status=status.HTTP_200_OK)
 
+class GetMenu(APIView):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+    def get(self,request):
+        canteen_id=request.data.get('canteen_id')
+        item_obj=items.objects.filter(canteen=canteen_id)
+        Item_serialized = MenuItemSerializer(item_obj,many=True)
+        return Response(Item_serialized.data,status=status.HTTP_200_OK)
+
+
+
