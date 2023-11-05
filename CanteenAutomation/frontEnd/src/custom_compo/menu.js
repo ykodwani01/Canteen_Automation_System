@@ -52,18 +52,26 @@ function Menu() {
 
     const token = JSON.parse(localStorage.getItem('token'))
 
-    const [menu,setMenu] = useState()
+    const [menu, setMenu] = useState()
+    const [cartItems, setCartItems] = useState({ "canteen_id": id, "order": [], "total_amount": 0 })
 
+    useEffect(() => {
+        localStorage.setItem("cartItems", JSON.stringify(cartItems))
+    }, [cartItems])
 
-    useEffect(()=>{
+    useEffect(() => {
         const data = JSON.parse(localStorage.getItem(`canteen`))
         console.log(data)
-        if(data){
-            setMenu(data.map((item)=>(<MenuCard name={item.name} key={item.id} id={item.id} desc={item.desc} price={item.price} canteen={item.canteen}/>)))
+        if (data) {
+            setMenu(data.map((item) => (<MenuCard name={item.name} key={item.id} id={item.id} desc={item.desc} price={item.price} canteen={item.canteen} addItem={handleAddItem} subItem={handleSubItem} items={cartItems.order.length !== 0 ? cartItems : { ...cartItems, "order": data.map((item) => ({ "item_id": item.id, "quantity": 0 })) }} />)))
+            if (cartItems.order.length === 0) {
+                setCartItems((prevCartItems) => ({
+                    ...prevCartItems,
+                    "order": data.map((item) => ({ "item_id": item.id, "quantity": 0 })),
+                }));
+            }
         }
-        console.log(data)
-    },[])
-
+    }, [cartItems])
     useEffect(() => {
         fetch(apiUrlAcount, {
             method: 'GET',
@@ -84,10 +92,34 @@ function Menu() {
                 console.log(data);
                 setAccountDetails(data)
                 setGotAccountDetails(true)
-                
+
             })
             .catch(error => console.error('Error:', error));
     }, [])
+
+    const handleAddItem = (event) => {
+        const tmp = cartItems.order.map((item) => {
+            if ((parseInt(item.item_id) === parseInt(event.target.id))&&item.quantity<10) {
+                return { ...item, "quantity": item.quantity + 1 }
+            }
+            else {
+                return item
+            }
+        })
+        setCartItems((cartItems) => ({ ...cartItems, "order": tmp }))
+    }
+
+    const handleSubItem = (event) => {
+        const tmp = cartItems.order.map((item) => {
+            if ((parseInt(item.item_id) === parseInt(event.target.id))&&item.quantity>0) {
+                return { ...item, "quantity": item.quantity - 1 }
+            }
+            else {
+                return item
+            }
+        })
+        setCartItems((cartItems)=>({ ...cartItems, "order": tmp }))
+    }
 
 
 
@@ -126,7 +158,7 @@ function Menu() {
         //onClick={toggleDrawer(anchor, false)}
         //onKeyDown={toggleDrawer(anchor, false)}
         >
-            {anchor === "right" ? <CartContent drawerButton={drawerButton} anchor={anchor} /> : <AccountContent drawerButton={drawerButton} anchor={anchor} accountDetails={accountDetails}/>}
+            {anchor === "right" ? <CartContent drawerButton={drawerButton} anchor={anchor} cartItems={cartItems}/> : <AccountContent drawerButton={drawerButton} anchor={anchor} accountDetails={accountDetails} />}
         </Box>
     );
 
