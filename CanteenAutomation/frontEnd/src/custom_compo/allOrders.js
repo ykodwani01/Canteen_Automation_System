@@ -23,13 +23,13 @@ import { useEffect, useState } from 'react';
 //importing data files
 import pending_orders from '../data_files/data.json';
 
-function PendingOrders() {
+function AllOrders() {
 
     const [isLoaded, setIsLoaded] = useState(false)
     const [order, setOrder] = useState()
 
 
-    const apiUrl = "http://127.0.0.1:8000/get-pending-orders"
+    const apiUrl = "http://127.0.0.1:8000/get-orders"
     const token = JSON.parse(localStorage.getItem('token'))
 
     useEffect(() => {
@@ -82,7 +82,7 @@ function PendingOrders() {
                             </div>
                             {/* child box of padding box */}
                             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '70px' }}>
-                                <Typography variant='h2'><u>Pending Orders</u></Typography>
+                                <Typography variant='h2'><u>All Orders</u></Typography>
                             </div>
                             {/* child box of padding box */}
                             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginTop: '20px' }}>
@@ -120,4 +120,4 @@ function PendingOrders() {
     )
 }
 
-export default PendingOrders;
+export default AllOrders;
