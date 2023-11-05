@@ -48,7 +48,7 @@ const Item = styled(Paper)(({ theme }) => ({
     padding: theme.spacing(2),
     textAlign: 'center',
     color: theme.palette.text.secondary,
-  }));
+}));
 
 function Canteens() {
 
@@ -65,28 +65,29 @@ function Canteens() {
     const apiUrlCanteen = "http://127.0.0.1:8000/get-menu"
 
     const handleCanteenClicked = (event) => {
-        
-            fetch(apiUrlCanteen, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token.access}`
-                },
-                body : {id:`${event.target.id}`}
+
+        fetch(apiUrlCanteen, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token.access}`
+            },
+            body: JSON.stringify({ "canteen_id": event.target.id })
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Something went wrong ...');
+                }
             })
-                .then(response => {
-                    if (response.ok) {
-                        return response.json();
-                    } else {
-                        throw new Error('Something went wrong ...');
-                    }
-                })
-                .then(data => {
-                    // Handle the response data here
-                    console.log(data);
-                    localStorage.setItem(`canteen ${event.target.id}`,data);
-                })
-                .catch(error => console.error('Error:', error));}
+            .then(data => {
+                // Handle the response data here
+                console.log(data);
+                localStorage.setItem(`canteen`, JSON.stringify(data));
+            })
+            .catch(error => console.error('Error:', error));
+    }
 
     useEffect(() => {
         fetch(apiUrl, {
@@ -107,7 +108,7 @@ function Canteens() {
                 // Handle the response data here
                 console.log(data);
                 setCanteenReceived(true);
-                setcafe_data_all(data.map((item) => (<Card name={item.canteen_name} key={item.canteen_id} id={item.canteen_id} canteenClicked={handleCanteenClicked}/>)))
+                setcafe_data_all(data.map((item) => (<Card name={item.canteen_name} key={item.canteen_id} id={item.canteen_id} canteenClicked={handleCanteenClicked} />)))
             })
             .catch(error => console.error('Error:', error));
     }, [])
@@ -177,7 +178,7 @@ function Canteens() {
         //onClick={toggleDrawer(anchor, false)}
         //onKeyDown={toggleDrawer(anchor, false)}
         >
-            {anchor === "right" ? <CartContent drawerButton={drawerButton} anchor={anchor} /> : <AccountContent drawerButton={drawerButton} anchor={anchor} accountDetails={accountDetails}/>}
+            {anchor === "right" ? <CartContent drawerButton={drawerButton} anchor={anchor} /> : <AccountContent drawerButton={drawerButton} anchor={anchor} accountDetails={accountDetails} />}
         </Box>
     );
 
@@ -185,7 +186,7 @@ function Canteens() {
     return (
         <ThemeProvider theme={theme}>
             {/* background */}
-            {canteenReceived&&gotAccountDetails&&gotCartDetails?<div style={{ backgroundColor: '#DED8D8', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+            {canteenReceived && gotAccountDetails && gotCartDetails ? <div style={{ backgroundColor: '#DED8D8', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
                 {/* first box */}
                 <div style={{ borderRadius: '108px', marginTop: '70px', backgroundColor: '#EBE7E6', border: '2px solid white', width: '1341px', height: '1132px', boxShadow: '0px 10px 5px darkgrey', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                     {/* padding box */}
@@ -266,8 +267,8 @@ function Canteens() {
                         <Typography style={{ color: '#DAC6C7', marginBottom: '20px' }}>Instagram</Typography>
                     </div>
                 </footer>
-            </div>:<div>Loading</div>}
-            
+            </div> : <div>Loading</div>}
+
         </ThemeProvider>
     )
 }

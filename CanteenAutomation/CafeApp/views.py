@@ -118,9 +118,12 @@ class DeleteItems(APIView):
            canteen_obj = canteen.objects.filter(owner = request.user.profile)[0]
            if canteen_obj is not None:
                item_id=request.data.get('item_id')
-               delete_object=items.objects.filter(id=item_id)
-               delete_object.delete()
-               return Response({"success":True},status=status.HTTP_200_OK)
+               delete_object=items.objects.filter(id=item_id).first()
+               if delete_object.canteen==canteen_obj:
+                delete_object.delete()
+                item_obj = items.objects.filter(canteen=canteen_obj)
+                Item_serialized = MenuItemSerializer(item_obj,many=True)
+                return Response(Item_serialized.data,status=status.HTTP_200_OK)    
            return Response({"success":False},status=status.HTTP_200_OK)
 
 class GetItems(APIView):
@@ -257,4 +260,15 @@ class createorder(APIView):
         order_obj.save()
 
         return Response({"success":True},status=status.HTTP_200_OK)
+
+class GetMenu(APIView):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+    def post(self,request):
+        canteen_id=request.data.get('canteen_id')
+        item_obj=items.objects.filter(canteen=canteen_id)
+        Item_serialized = MenuItemSerializer(item_obj,many=True)
+        return Response(Item_serialized.data,status=status.HTTP_200_OK)
+
+
 

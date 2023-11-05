@@ -52,8 +52,17 @@ function Menu() {
 
     const token = JSON.parse(localStorage.getItem('token'))
 
-    const [menu,setMenu] = useState(localStorage.getItem(`canteen ${id}`))
-    console.log(menu)
+    const [menu,setMenu] = useState()
+
+
+    useEffect(()=>{
+        const data = JSON.parse(localStorage.getItem(`canteen`))
+        console.log(data)
+        if(data){
+            setMenu(data.map((item)=>(<MenuCard name={item.name} key={item.id} id={item.id} desc={item.desc} price={item.price} canteen={item.canteen}/>)))
+        }
+        console.log(data)
+    },[])
 
     useEffect(() => {
         fetch(apiUrlAcount, {
@@ -75,6 +84,7 @@ function Menu() {
                 console.log(data);
                 setAccountDetails(data)
                 setGotAccountDetails(true)
+                
             })
             .catch(error => console.error('Error:', error));
     }, [])
