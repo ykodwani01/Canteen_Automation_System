@@ -19,7 +19,7 @@ urlpatterns = [
     path('get-cust-orders', views.getcustOrders.as_view(), name='get-cust-orders'),
     path('delete-items', views.DeleteItems.as_view(), name='delete-items'),
     path('create-order', views.createorder.as_view(), name='create-order'),
-    path('get-menu', views.GetMenu.as_view(), name='get-menu'),
+    path('get-menu/<int:canteen_id>', views.GetMenu.as_view(), name='get-menu'),
 
     
 

@@ -13,7 +13,7 @@ from .models import *
 from django.db.models import Q
 # from .forms import *
 import json
-
+from rest_framework.views import APIView
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
 # Create your views here.
@@ -260,15 +260,12 @@ class createorder(APIView):
         order_obj.save()
 
         return Response({"success":True},status=status.HTTP_200_OK)
-
+    
 class GetMenu(APIView):
-    permission_classes = [IsAuthenticated]
-    authentication_classes = [JWTAuthentication]
-    def post(self,request):
-        canteen_id=request.data.get('canteen_id')
-        item_obj=items.objects.filter(canteen=canteen_id)
-        Item_serialized = MenuItemSerializer(item_obj,many=True)
-        return Response(Item_serialized.data,status=status.HTTP_200_OK)
+    def get(self,request,canteen_id):
+            item_obj=items.objects.filter(canteen=canteen_id)
+            Item_serialized = MenuItemSerializer(item_obj,many=True)
+            return Response(Item_serialized.data,status=status.HTTP_200_OK)
 
 
 
