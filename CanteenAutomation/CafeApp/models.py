@@ -59,3 +59,16 @@ class orderquantity(models.Model):
     order_id=models.ForeignKey(orders,null=False,on_delete=models.CASCADE)
     item_id=models.ForeignKey(items,null=False,on_delete=models.CASCADE)
     quantity=models.IntegerField(default=1,null=False)
+
+class feedback(models.Model):
+    RATING_CHOICES = (
+        (1, '1 Star'),
+        (2, '2 Stars'),
+        (3, '3 Stars'),
+        (4, '4 Stars'),
+        (5, '5 Stars'),
+    )
+
+    order_id = models.ForeignKey(orders,null=False,on_delete=models.CASCADE)
+    review = models.TextField(max_length=200)
+    rating = models.IntegerField(choices=RATING_CHOICES, default=3)
