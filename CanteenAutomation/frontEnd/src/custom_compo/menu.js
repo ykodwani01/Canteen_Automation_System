@@ -133,6 +133,8 @@ function Menu() {
 
     console.log(cartItems)
 
+    console.log(cartItems)
+
     const handleSubItem = (event) => {
         const tmp = cartItems.order.map((item) => {
             if ((parseInt(item.item_id) === parseInt(event.target.id))&&item.quantity>0) {
