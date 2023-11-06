@@ -78,14 +78,18 @@ function Menu() {
                 console.log(data);
                 setData(data)
                 setCartItems({"canteen_id":parseInt(id.id), "order":data.map((item)=>({"item_id":item.id, "quantity":0})), "total_amount":0})
-                setIsLoaded(true)
+                
             })
             .catch(error => console.error('Error:', error));
     }, []);
 
     useEffect(() => {
-        if(data && cartItems)
+        if(data && cartItems){
+            console.log(cartItems)
             setMenu(data.map((item)=>(<MenuCard key={item.id} id={item.id} name={item.name} price={item.price} addItem={handleAddItem} subItem={handleSubItem} cartItems={cartItems}/>)))
+            setIsLoaded(true)
+        }
+            
     },[cartItems,data]);
 
     useEffect(() => {
@@ -113,9 +117,10 @@ function Menu() {
             .catch(error => console.error('Error:', error));
     }, [])
 
-    const handleAddItem = (event) => {
+    const handleAddItem = (id) => {
+        console.log(cartItems);
         const tmp = cartItems.order.map((item) => {
-            if ((parseInt(item.item_id) === parseInt(event.target.id))&&item.quantity<10) {
+            if ((parseInt(item.item_id) === parseInt(id))&&item.quantity<10) {
                 return ({ "item_id":item.item_id, "quantity": (parseInt(item.quantity) + 1) })
             }
             else {
@@ -123,20 +128,18 @@ function Menu() {
             }
         })
         setCartItems((cartItems)=>({ ...cartItems, "order" : tmp }))
-        console.log("clicked on add")
     }
 
-    const handleSubItem = (event) => {
-        // const tmp = cartItems.order.map((item) => {
-        //     if ((parseInt(item.item_id) === parseInt(event.target.id))&&item.quantity>0) {
-        //         return { ...item, "quantity": parseInt(item.quantity) - 1 }
-        //     }
-        //     else {
-        //         return item
-        //     }
-        // })
-        // setCartItems((cartItems)=>({ ...cartItems, "order": tmp }))
-        console.log("clicked on sub")
+    const handleSubItem = (id) => {
+        const tmp = cartItems.order.map((item) => {
+            if ((parseInt(item.item_id) === parseInt(id))&&item.quantity>0) {
+                return { ...item, "quantity": parseInt(item.quantity) - 1 }
+            }
+            else {
+                return item
+            }
+        })
+        setCartItems((cartItems)=>({ ...cartItems, "order": tmp }))
     }
 
 

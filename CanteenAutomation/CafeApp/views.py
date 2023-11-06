@@ -269,6 +269,6 @@ class GetMenu(APIView):
 
 
 
-class GetFeedback(APIView):
-    def post(self, request):
+# class GetFeedback(APIView):
+#     def post(self, request):
     
