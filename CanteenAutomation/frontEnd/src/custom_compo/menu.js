@@ -53,45 +53,40 @@ function Menu() {
     const token = JSON.parse(localStorage.getItem('token'))
 
     const [menu, setMenu] = useState()
-    const tmp = JSON.parse(localStorage.getItem('cartItems'))
-    const [cartItems, setCartItems] = useState(tmp)
+    const [cartItems, setCartItems] = useState()
+    const [data, setData] = useState()
 
-    // useEffect(() => {
-    //     localStorage.setItem("cartItems", JSON.stringify(cartItems))
-    // }, [cartItems])
 
-    // useEffect(() => {
-    //     const data = JSON.parse(localStorage.getItem(`canteen`))
-    //     setData(data)
-    //     if (data) {
-    //         setMenu(data.map((item) => (<MenuCard name={item.name} key={item.id} id={item.id} desc={item.desc} price={item.price} canteen={item.canteen} addItem={handleAddItem} subItem={handleSubItem} items={cartItems.order.length !== 0 ? cartItems : { ...cartItems, "order": data.map((item) => ({ "item_id": item.id, "quantity": 0 })) }} />)))
-    //         if (cartItems.order.length === 0) {
-    //             setCartItems((prevCartItems) => ({
-    //                 ...prevCartItems,
-    //                 "order": data.map((item) => ({ "item_id": item.id, "quantity": 0 })),
-    //             }));
-    //         }
-    //     }
-    // }, [])
+    const apiUrl = `http://127.0.0.1:8000/get-menu/${parseInt(id.id)}`
+    useEffect(() => {
+        fetch(apiUrl, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token.access}`
+            },
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Something went wrong ...');
+                }
+            })
+            .then(data => {
+                // Handle the response data here
+                console.log(data);
+                setData(data)
+                setCartItems({"canteen_id":parseInt(id.id), "order":data.map((item)=>({"item_id":item.id, "quantity":0})), "total_amount":0})
+                setIsLoaded(true)
+            })
+            .catch(error => console.error('Error:', error));
+    }, []);
 
-    useEffect(()=>{
-        setTimeout(()=>{
-            setIsLoaded(true)
-        },2000)
-    },[])
-
-    // useEffect(()=>{
-    //     setCartItems(JSON.parse(localStorage.getItem('cartItems')))
-    //     
-    //     if(cartItems.order.length!==0){
-    //         
-    //     }
-    //     else{
-    //         const cartItems = JSON.parse(localStorage.getItem('cartItems'))
-    //         setMenu(data.map((item) => (<MenuCard name={item.name} key={item.id} id={item.id} desc={item.desc} price={item.price} canteen={item.canteen} addItem={handleAddItem} subItem={handleSubItem} items={cartItems} />)))
-    //     }
-    
-    // },[])
+    useEffect(() => {
+        if(data && cartItems)
+            setMenu(data.map((item)=>(<MenuCard key={item.id} id={item.id} name={item.name} price={item.price} addItem={handleAddItem} subItem={handleSubItem} cartItems={cartItems}/>)))
+    },[cartItems,data]);
 
     useEffect(() => {
         fetch(apiUrlAcount, {
@@ -112,8 +107,8 @@ function Menu() {
                 // Handle the response data here
                 setAccountDetails(data)
                 setGotAccountDetails(true)
-                const data1 = JSON.parse(localStorage.getItem(`canteen`))
-                setMenu(data1.map((item) => (<MenuCard name={item.name} key={item.id} id={item.id} desc={item.desc} price={item.price} canteen={item.canteen} addItem={handleAddItem} subItem={handleSubItem} items={cartItems} />)))
+                //left to implement
+                // setMenu(data1.map((item) => (<MenuCard name={item.name} key={item.id} id={item.id} desc={item.desc} price={item.price} canteen={item.canteen} addItem={handleAddItem} subItem={handleSubItem} items={cartItems} />)))
             })
             .catch(error => console.error('Error:', error));
     }, [])
@@ -127,25 +122,21 @@ function Menu() {
                 return item
             }
         })
-        setCartItems({ ...cartItems, "order" : tmp })
-        localStorage.setItem('cartItems',JSON.stringify({ ...cartItems, "order" : tmp }))
+        setCartItems((cartItems)=>({ ...cartItems, "order" : tmp }))
+        console.log("clicked on add")
     }
 
-    console.log(cartItems)
-
-    console.log(cartItems)
-
     const handleSubItem = (event) => {
-        const tmp = cartItems.order.map((item) => {
-            if ((parseInt(item.item_id) === parseInt(event.target.id))&&item.quantity>0) {
-                return { ...item, "quantity": parseInt(item.quantity) - 1 }
-            }
-            else {
-                return item
-            }
-        })
-        setCartItems((cartItems)=>({ ...cartItems, "order": tmp }))
-
+        // const tmp = cartItems.order.map((item) => {
+        //     if ((parseInt(item.item_id) === parseInt(event.target.id))&&item.quantity>0) {
+        //         return { ...item, "quantity": parseInt(item.quantity) - 1 }
+        //     }
+        //     else {
+        //         return item
+        //     }
+        // })
+        // setCartItems((cartItems)=>({ ...cartItems, "order": tmp }))
+        console.log("clicked on sub")
     }
 
 
