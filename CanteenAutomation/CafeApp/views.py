@@ -270,5 +270,23 @@ class GetMenu(APIView):
 
 
 class GetFeedback(APIView):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
     def post(self, request):
+        order_id=request.data.get('order_id')
+        fd=request.data.get('feedback')
+        rating=request.data.get('rating')
+        order_obj=orders.objects.filter(id=order_id).first()
+        if(request.user == order_obj.order_cust.cust.user):
+            feedback_obj=feedback.objects.create(order_id=order_obj,review=fd,rating=rating)
+            return Response({"success":True})
+        return Response({"success":False})
+    def get(self,request):
+        order_id=request.data.get('order_id')
+        order_obj=orders.objects.filter(id=order_id).first()
+        if(request.user == order_obj.order_cust.cust.user):
+            feedback_obj=feedback.objects.filter(order_id=order_id)
+            feedback_serialized=feedbackserializer(feedback_obj,many=True)
+            return Response(feedback_serialized.data,status=status.HTTP_200_OK)
+        return Response({"success":False})
     
