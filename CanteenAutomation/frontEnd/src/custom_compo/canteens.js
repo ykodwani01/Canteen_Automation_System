@@ -85,6 +85,7 @@ function Canteens() {
                 // Handle the response data here
                 console.log(data);
                 localStorage.setItem(`canteen`, JSON.stringify(data));
+                localStorage.setItem('cartItems',JSON.stringify({ "canteen_id": event.target.id, "order": data.map((item) => ({ "item_id": item.id, "quantity": 0 })), "total_amount": 0 }))
             })
             .catch(error => console.error('Error:', error));
     }

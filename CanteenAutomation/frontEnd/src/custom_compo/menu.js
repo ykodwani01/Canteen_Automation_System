@@ -53,25 +53,46 @@ function Menu() {
     const token = JSON.parse(localStorage.getItem('token'))
 
     const [menu, setMenu] = useState()
-    const [cartItems, setCartItems] = useState({ "canteen_id": id, "order": [], "total_amount": 0 })
+    const tmp = JSON.parse(localStorage.getItem('cartItems'))
+    const [cartItems, setCartItems] = useState(tmp)
 
-    useEffect(() => {
-        localStorage.setItem("cartItems", JSON.stringify(cartItems))
-    }, [cartItems])
+    // useEffect(() => {
+    //     localStorage.setItem("cartItems", JSON.stringify(cartItems))
+    // }, [cartItems])
 
-    useEffect(() => {
-        const data = JSON.parse(localStorage.getItem(`canteen`))
-        console.log(data)
-        if (data) {
-            setMenu(data.map((item) => (<MenuCard name={item.name} key={item.id} id={item.id} desc={item.desc} price={item.price} canteen={item.canteen} addItem={handleAddItem} subItem={handleSubItem} items={cartItems.order.length !== 0 ? cartItems : { ...cartItems, "order": data.map((item) => ({ "item_id": item.id, "quantity": 0 })) }} />)))
-            if (cartItems.order.length === 0) {
-                setCartItems((prevCartItems) => ({
-                    ...prevCartItems,
-                    "order": data.map((item) => ({ "item_id": item.id, "quantity": 0 })),
-                }));
-            }
-        }
-    }, [cartItems])
+    // useEffect(() => {
+    //     const data = JSON.parse(localStorage.getItem(`canteen`))
+    //     setData(data)
+    //     if (data) {
+    //         setMenu(data.map((item) => (<MenuCard name={item.name} key={item.id} id={item.id} desc={item.desc} price={item.price} canteen={item.canteen} addItem={handleAddItem} subItem={handleSubItem} items={cartItems.order.length !== 0 ? cartItems : { ...cartItems, "order": data.map((item) => ({ "item_id": item.id, "quantity": 0 })) }} />)))
+    //         if (cartItems.order.length === 0) {
+    //             setCartItems((prevCartItems) => ({
+    //                 ...prevCartItems,
+    //                 "order": data.map((item) => ({ "item_id": item.id, "quantity": 0 })),
+    //             }));
+    //         }
+    //     }
+    // }, [])
+
+    useEffect(()=>{
+        setTimeout(()=>{
+            setIsLoaded(true)
+        },2000)
+    },[])
+
+    // useEffect(()=>{
+    //     setCartItems(JSON.parse(localStorage.getItem('cartItems')))
+    //     
+    //     if(cartItems.order.length!==0){
+    //         
+    //     }
+    //     else{
+    //         const cartItems = JSON.parse(localStorage.getItem('cartItems'))
+    //         setMenu(data.map((item) => (<MenuCard name={item.name} key={item.id} id={item.id} desc={item.desc} price={item.price} canteen={item.canteen} addItem={handleAddItem} subItem={handleSubItem} items={cartItems} />)))
+    //     }
+    
+    // },[])
+
     useEffect(() => {
         fetch(apiUrlAcount, {
             method: 'GET',
@@ -89,10 +110,10 @@ function Menu() {
             })
             .then(data => {
                 // Handle the response data here
-                console.log(data);
                 setAccountDetails(data)
                 setGotAccountDetails(true)
-
+                const data1 = JSON.parse(localStorage.getItem(`canteen`))
+                setMenu(data1.map((item) => (<MenuCard name={item.name} key={item.id} id={item.id} desc={item.desc} price={item.price} canteen={item.canteen} addItem={handleAddItem} subItem={handleSubItem} items={cartItems} />)))
             })
             .catch(error => console.error('Error:', error));
     }, [])
@@ -100,25 +121,29 @@ function Menu() {
     const handleAddItem = (event) => {
         const tmp = cartItems.order.map((item) => {
             if ((parseInt(item.item_id) === parseInt(event.target.id))&&item.quantity<10) {
-                return { ...item, "quantity": item.quantity + 1 }
+                return ({ "item_id":item.item_id, "quantity": (parseInt(item.quantity) + 1) })
             }
             else {
                 return item
             }
         })
-        setCartItems((cartItems) => ({ ...cartItems, "order": tmp }))
+        setCartItems({ ...cartItems, "order" : tmp })
+        localStorage.setItem('cartItems',JSON.stringify({ ...cartItems, "order" : tmp }))
     }
+
+    console.log(cartItems)
 
     const handleSubItem = (event) => {
         const tmp = cartItems.order.map((item) => {
             if ((parseInt(item.item_id) === parseInt(event.target.id))&&item.quantity>0) {
-                return { ...item, "quantity": item.quantity - 1 }
+                return { ...item, "quantity": parseInt(item.quantity) - 1 }
             }
             else {
                 return item
             }
         })
         setCartItems((cartItems)=>({ ...cartItems, "order": tmp }))
+
     }
 
 
@@ -165,7 +190,7 @@ function Menu() {
     return (
         <ThemeProvider theme={theme}>
             {/* background */}
-            {gotAccountDetails ? <div style={{ backgroundColor: '#DED8D8', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+            {gotAccountDetails&&isLoaded ? <div style={{ backgroundColor: '#DED8D8', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
                 {/* first box */}
                 <div style={{ borderRadius: '108px', marginTop: '70px', backgroundColor: '#EBE7E6', border: '2px solid white', width: '1341px', height: '732px', boxShadow: '0px 10px 5px darkgrey', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                     {/* padding box */}

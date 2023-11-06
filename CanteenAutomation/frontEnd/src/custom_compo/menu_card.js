@@ -27,7 +27,7 @@ function MenuCard(props){
                 <Typography variant='h6' sx={{width:'600px',marginLeft:'20px'}}>{props.name}</Typography>
                 <Typography variant='h6' sx={{fontWeight:'bold',width:'250px'}}>{props.price}</Typography>
                 <Button id={props.id} variant='contained' sx={{margin:'0px 20px',borderRadius:'40px',height:'30px'}} onClick={(event)=>(props.subItem(event))}><Typography variant='h5'>-</Typography></Button>
-                <div style={{backgroundColor:'#EBE7E6',width:'50px',borderRadius:'30px',height:'30px',border:'white solid 2px',display:'flex',justifyContent:'center',alignItems:'center'}}><Typography>{(props.items.order.filter((item)=>(item.item_id===props.id))[0].quantity)}</Typography></div>
+                <div style={{backgroundColor:'#EBE7E6',width:'50px',borderRadius:'30px',height:'30px',border:'white solid 2px',display:'flex',justifyContent:'center',alignItems:'center'}}><Typography>{(props.items.order.filter((item)=>(parseInt(item.item_id)===parseInt(props.id)))[0].quantity)}</Typography></div>
                 <Button id={props.id} variant='contained' sx={{margin:'0px 20px',borderRadius:'40px',height:'30px'}} onClick={(event)=>(props.addItem(event))}><Typography variant='h5'>+</Typography></Button>
             </div>
         </ThemeProvider>
