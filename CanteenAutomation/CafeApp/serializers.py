@@ -1,5 +1,4 @@
 from rest_framework import serializers
-from .models import User,items,orders,Profile,canteen
 from .models import *
 from django.conf import settings
 
@@ -37,3 +36,9 @@ class CanteenSerializer(serializers.ModelSerializer):
     class Meta:
         model=canteen
         fields = ('canteen_name','canteen_id')
+
+class feedbackserializer(serializers.ModelSerializer):
+    #order_id=OrderSerializer()
+    class Meta:
+        model=feedback
+        fields = ('order_id','review','rating')

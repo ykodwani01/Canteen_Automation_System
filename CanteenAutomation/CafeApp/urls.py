@@ -4,6 +4,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 from . import views
+
 urlpatterns = [
     path('admin', admin.site.urls),
     path('',views.index,name='index'),
@@ -20,6 +21,7 @@ urlpatterns = [
     path('delete-items', views.DeleteItems.as_view(), name='delete-items'),
     path('create-order', views.createorder.as_view(), name='create-order'),
     path('get-menu/<int:canteen_id>', views.GetMenu.as_view(), name='get-menu'),
+    path('get-feedback', views.GetFeedback.as_view(), name='get-feedback'),
 
     
 
