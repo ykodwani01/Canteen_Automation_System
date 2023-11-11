@@ -118,28 +118,31 @@ function Menu() {
     }, [])
 
     const handleAddItem = (id) => {
-        console.log(cartItems);
+        var tmp2 = 0
         const tmp = cartItems.order.map((item) => {
             if ((parseInt(item.item_id) === parseInt(id))&&item.quantity<10) {
+                tmp2 = data.filter((item1)=>(item1.id===item.item_id))[0].price
                 return ({ "item_id":item.item_id, "quantity": (parseInt(item.quantity) + 1) })
             }
             else {
                 return item
             }
         })
-        setCartItems((cartItems)=>({ ...cartItems, "order" : tmp }))
+        setCartItems((cartItems)=>({ ...cartItems, "order" : tmp, "total_amount" : cartItems.total_amount + tmp2}))
     }
 
     const handleSubItem = (id) => {
+        var tmp2=0
         const tmp = cartItems.order.map((item) => {
             if ((parseInt(item.item_id) === parseInt(id))&&item.quantity>0) {
+                tmp2 = data.filter((item1)=>(item1.id===item.item_id))[0].price
                 return { ...item, "quantity": parseInt(item.quantity) - 1 }
             }
             else {
                 return item
             }
         })
-        setCartItems((cartItems)=>({ ...cartItems, "order": tmp }))
+        setCartItems((cartItems)=>({ ...cartItems, "order": tmp, "total_amount" : cartItems.total_amount - tmp2}))
     }
 
 

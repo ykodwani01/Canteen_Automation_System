@@ -11,31 +11,29 @@ function CartContent(props) {
             secondary: green
         }
     })
+    const cartItems = props.cartItems.map((item)=>(
+        <div>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Typography variant="h6">{item.item_name}</Typography>
+                <Typography variant="h6">{item.item_price}</Typography>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Typography variant="h6">Quantity</Typography>
+                <Typography variant="h6">{item.item_quantity}</Typography>
+            </div>
+        </div>
+    ))
     return (
         <ThemeProvider theme={theme}>
             {/* background */}
             <div>
                 <div style={{ display: 'flex',alignItems:'center',width:'460px'}}>
                     <Button variant='contained' sx={{ borderRadius: '30px' }} onClick={() => { props.drawerButton(props.anchor, false) }}><EastIcon /></Button>
-                    <Typography variant='h5' sx={{paddingLeft:'120px',fontWeight:'bold'}}>Cart Content</Typography>
+                    <Typography variant='h5' sx={{paddingLeft:'120px',fontWeight:'bold'}}>Cart Content : {props.cartItems.canteen_id}</Typography>
                 </div>
                 {/* box to show items that customer wants to purchase */}
                 <div style={{ border: '2px solid white', borderRadius: '30px', width: '460px', margin: '5px', marginTop: '40px', padding: '5px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-                        <Typography variant="h6">Item name</Typography>
-                        <Typography variant="h6">xtimes</Typography>
-                        <Typography variant="h6">Price</Typography>
-                    </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-                        <Typography variant="h6">Item name</Typography>
-                        <Typography variant="h6">xtimes</Typography>
-                        <Typography variant="h6">Price</Typography>
-                    </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-                        <Typography variant="h6">Item name</Typography>
-                        <Typography variant="h6">xtimes</Typography>
-                        <Typography variant="h6">Price</Typography>
-                    </div>
+                    {cartItems}
                 </div>
                 {/* box to show the final summary of the items  */}
                 <div style={{ borderRadius: '30px', border: '2px solid white', width: '460px', marign: '5px', padding: '10px', marginTop: '80px' }}>
