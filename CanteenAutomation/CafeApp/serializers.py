@@ -19,8 +19,8 @@ class MenuItemSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class OrderSerializer(serializers.ModelSerializer):
-    order_cust_name = serializers.CharField(source='order_cust.cust.name', read_only=True)
-    order_canteen_name = serializers.CharField(source='order_canteen.owner.name', read_only=True)
+    order_cust_name = serializers.CharField(source='order_cust.cust.name')
+    order_canteen_name = serializers.CharField(source='order_canteen.owner.name')
     items = MenuItemSerializer(many=True)
     class Meta:
         model = orders
@@ -42,3 +42,9 @@ class feedbackserializer(serializers.ModelSerializer):
     class Meta:
         model=feedback
         fields = ('order_id','review','rating')
+
+class OrderDetailSerializer(serializers.ModelSerializer):
+    items = MenuItemSerializer(many=True)
+    class Meta:
+        model = orders
+        fields = ('id','total_amount','items','status')

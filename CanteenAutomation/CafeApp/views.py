@@ -238,6 +238,14 @@ class getcustOrders(APIView):
             customer_obj = customer.objects.filter(cust = request.user.profile)[0]
             order_obj = orders.objects.filter(order_cust=customer_obj)
             Item_serialized = OrderSerializer(order_obj,many=True)
+            for i in Item_serialized.data:
+                order_id=i["id"]
+                for j in i:
+                    if(j=='items'):
+                        for k in i[j]:
+                            item_id=k["id"]
+                            quantity_value=orderquantity.objects.filter(item_id=item_id,order_id=order_id).first()
+                            k["quantity"]=quantity_value.quantity
             return Response(Item_serialized.data,status=status.HTTP_200_OK)
         except:
             return Response({"success":False})
@@ -264,7 +272,6 @@ class createorder(APIView):
             orderquantity.objects.create(order_id=order_obj,item_id=item_obj,quantity=quan_obj)
             order_obj.items.add(item_obj)
         order_obj.save()
-
         return Response({"order_id":order_obj.id},status=status.HTTP_200_OK)
     
 class ConfirmOrder(APIView):
@@ -278,6 +285,7 @@ class ConfirmOrder(APIView):
         return Response({"order_id":orderid},status=status.HTTP_200_OK)
     
 class GetMenu(APIView):
+
     def get(self,request,canteen_id):
             item_obj=items.objects.filter(canteen=canteen_id)
             Item_serialized = MenuItemSerializer(item_obj,many=True)
@@ -306,3 +314,25 @@ class GetFeedback(APIView):
             return Response(feedback_serialized.data,status=status.HTTP_200_OK)
         return Response({"success":False})
     
+class OrderDelivered(APIView):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+    def post(self, request):
+        order_id=request.data.get('order_id')
+        canteen_obj = canteen.objects.filter(owner=request.user.profile)[0]
+        order_obj=orders.objects.filter(id=order_id).first()
+        if(order_obj.order_canteen==canteen_obj):
+            order_obj.status="Delivered"
+            order_obj.save()
+        if canteen_obj is not None:
+            order_obj = orders.objects.filter(order_canteen=canteen_obj, status__in=['Received'])
+            Item_serialized = OrderSerializer(order_obj,many=True)
+            for i in Item_serialized.data:
+                order_id=i["id"]
+                for j in i:
+                    if(j=='items'):
+                        for k in i[j]:
+                            item_id=k["id"]
+                            quantity_value=orderquantity.objects.filter(item_id=item_id,order_id=order_id).first()
+                            k["quantity"]=quantity_value.quantity
+            return Response(Item_serialized.data,status=status.HTTP_200_OK)

@@ -23,6 +23,7 @@ urlpatterns = [
     path('get-menu/<int:canteen_id>', views.GetMenu.as_view(), name='get-menu'),
     path('get-feedback', views.GetFeedback.as_view(), name='get-feedback'),
     path('confirm-order', views.ConfirmOrder.as_view(), name='confirm-order'),
+    path('order-delivered', views.OrderDelivered.as_view(), name='order-delivered'),
 
     
 
