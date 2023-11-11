@@ -251,7 +251,13 @@ class createorder(APIView):
         canteen_id=request.data.get('canteen_id')
         canteen_obj=canteen.objects.filter(canteen_id=canteen_id).first()
         data =request.data.get("order")
-        order_obj = orders.objects.create(order_cust=customer_obj,order_canteen=canteen_obj,status="Received",total_amount=request.data.get("total_amount"))
+        orderid=request.data.get("order_id")
+        if(orderid == -1):
+            order_obj = orders.objects.create(order_cust=customer_obj,order_canteen=canteen_obj,status="AddedToCart",total_amount=request.data.get("total_amount"))
+        else:
+            order_obj=orders.objects.filter(id=orderid)
+            order_obj.delete()
+            order_obj = orders.objects.create(order_cust=customer_obj,order_canteen=canteen_obj,status="AddedToCart",total_amount=request.data.get("total_amount"))
         for itr in data:
             item_obj=items.objects.filter(id=itr["item_id"]).first()
             quan_obj=itr["quantity"]
@@ -259,7 +265,17 @@ class createorder(APIView):
             order_obj.items.add(item_obj)
         order_obj.save()
 
-        return Response({"success":True},status=status.HTTP_200_OK)
+        return Response({"order_id":order_obj.id},status=status.HTTP_200_OK)
+    
+class ConfirmOrder(APIView):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+    def post(self,request):
+        orderid=request.data.get("order_id")
+        order_obj=orders.objects.filter(id=orderid).first()
+        order_obj.status="Received"
+        order_obj.save()
+        return Response({"order_id":orderid},status=status.HTTP_200_OK)
     
 class GetMenu(APIView):
     def get(self,request,canteen_id):
