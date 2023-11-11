@@ -239,6 +239,7 @@ class getcustOrders(APIView):
             order_obj = orders.objects.filter(order_cust=customer_obj)
             Item_serialized = OrderSerializer(order_obj,many=True)
             for i in Item_serialized.data:
+                total_quantity=0
                 order_id=i["id"]
                 for j in i:
                     if(j=='items'):
@@ -246,6 +247,8 @@ class getcustOrders(APIView):
                             item_id=k["id"]
                             quantity_value=orderquantity.objects.filter(item_id=item_id,order_id=order_id).first()
                             k["quantity"]=quantity_value.quantity
+                            total_quantity=total_quantity+quantity_value.quantity
+                i["total_quantity"]=total_quantity
             return Response(Item_serialized.data,status=status.HTTP_200_OK)
         except:
             return Response({"success":False})
