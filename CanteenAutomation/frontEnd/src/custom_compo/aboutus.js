@@ -87,8 +87,9 @@ function AboutUs() {
                 }
             })
             .then(data => {
-                console.log(data[data.length-1])
-                setCartDetails(data[data.length-1])
+                if(data.length===0)setCartDetails(data)
+                else if (data[data.length-1].status!=="AddedToCart")setCartDetails([])
+                else setCartDetails(data[data.length-1])
                 setGotCartDetails(true)
             })
             .catch(error => console.error('Error:', error));
@@ -129,9 +130,37 @@ function AboutUs() {
         //onClick={toggleDrawer(anchor, false)}
         //onKeyDown={toggleDrawer(anchor, false)}
         >
-            {anchor === "right" ? <CartContent drawerButton={drawerButton} anchor={anchor} cartDetails={cartDetails}/> : <AccountContent drawerButton={drawerButton} anchor={anchor} accountDetails={accountDetails} />}
+            {anchor === "right" ? <CartContent drawerButton={drawerButton} anchor={anchor} cartDetails={cartDetails} payment={handlePayment}/> : <AccountContent drawerButton={drawerButton} anchor={anchor} accountDetails={accountDetails} />}
         </Box>
     );
+
+    
+    const handlePayment = (order_id) =>{
+        const apiPayment = "http://127.0.0.1:8000/confirm-order"
+        fetch(apiPayment, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token.access}`
+            },
+            body: JSON.stringify({
+                "order_id": order_id
+            }),
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Something went wrong ...');
+                }
+            })
+            .then(data => {
+                alert("Payment Successful")
+                //setCartItems({ "order_id": -1, "canteen_id": parseInt(id.id), "order": data.map((item) => ({ "item_id": item.id, "quantity": 0 })), "total_amount": 0 })
+                window.location.reload()
+            })
+            .catch(error => console.error('Error:', error));
+    }
 
     return (
         <ThemeProvider theme={theme}>

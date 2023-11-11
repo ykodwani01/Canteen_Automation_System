@@ -78,20 +78,18 @@ function Menu() {
                 // Handle the response data here
                 console.log(data);
                 setData(data)
-                setCartItems({"order_id":-1,"canteen_id":parseInt(id.id), "order":data.map((item)=>({"item_id":item.id, "quantity":0})), "total_amount":0})
-                
+                setCartItems({ "order_id": -1, "canteen_id": parseInt(id.id), "order": data.map((item) => ({ "item_id": item.id, "quantity": 0 })), "total_amount": 0 })
+
             })
             .catch(error => console.error('Error:', error));
     }, []);
 
     useEffect(() => {
-        if(data && cartItems){
-            console.log(cartItems)
-            setMenu(data.map((item)=>(<MenuCard key={item.id} id={item.id} name={item.name} price={item.price} addItem={handleAddItem} subItem={handleSubItem} cartItems={cartItems}/>)))
+        if (data && cartItems) {
+            setMenu(data.map((item) => (<MenuCard key={item.id} id={item.id} name={item.name} price={item.price} addItem={handleAddItem} subItem={handleSubItem} cartItems={cartItems} />)))
             setIsLoaded(true)
         }
-            
-    },[cartItems,data]);
+    }, [cartItems, data]);
 
     useEffect(() => {
         fetch(apiUrlAcount, {
@@ -109,11 +107,8 @@ function Menu() {
                 }
             })
             .then(data => {
-                // Handle the response data here
                 setAccountDetails(data)
                 setGotAccountDetails(true)
-                //left to implement
-                // setMenu(data1.map((item) => (<MenuCard name={item.name} key={item.id} id={item.id} desc={item.desc} price={item.price} canteen={item.canteen} addItem={handleAddItem} subItem={handleSubItem} items={cartItems} />)))
             })
             .catch(error => console.error('Error:', error));
     }, [])
@@ -136,39 +131,74 @@ function Menu() {
                 }
             })
             .then(data => {
-                console.log(data[data.length-1])
-                setCartDetails(data[data.length-1])
+                console.log(data)
+                if(data.length===0)setCartDetails(data)
+                else if (data[data.length-1].status!=="AddedToCart")setCartDetails([])
+                else{ 
+                    setCartDetails(data[data.length - 1])
+                    if(cartItems&&cartItems.order_id===-1){
+                        if(data[data.length-1].items[0].canteen===parseInt(id.id))setCartItems({ "order_id": data[data.length-1].id, "canteen_id": parseInt(id.id), "order":data[data.length-1].items.map((item)=>({"item_id":item.id,"quantity":item.quantity})), "total_amount": data[data.length-1].total_amount })
+                    }
+                }
                 setGotCartDetails(true)
             })
             .catch(error => console.error('Error:', error));
     }, [cartItems])
+    
+
+    const handlePayment = () =>{
+        const apiPayment = "http://127.0.0.1:8000/confirm-order"
+        fetch(apiPayment, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token.access}`
+            },
+            body: JSON.stringify({
+                "order_id": cartItems.order_id
+            }),
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Something went wrong ...');
+                }
+            })
+            .then(data => {
+                alert("Payment Successful")
+                //setCartItems({ "order_id": -1, "canteen_id": parseInt(id.id), "order": data.map((item) => ({ "item_id": item.id, "quantity": 0 })), "total_amount": 0 })
+                window.location.reload()
+            })
+            .catch(error => console.error('Error:', error));
+    }
 
     const handleAddItem = (id) => {
         var tmp2 = 0
         const tmp = cartItems.order.map((item) => {
-            if ((parseInt(item.item_id) === parseInt(id))&&item.quantity<10) {
-                tmp2 = data.filter((item1)=>(item1.id===item.item_id))[0].price
-                return ({ "item_id":item.item_id, "quantity": (parseInt(item.quantity) + 1) })
+            if ((parseInt(item.item_id) === parseInt(id)) && item.quantity < 10) {
+                tmp2 = data.filter((item1) => (item1.id === item.item_id))[0].price
+                return ({ "item_id": item.item_id, "quantity": (parseInt(item.quantity) + 1) })
             }
             else {
                 return item
             }
         })
-        setCartItems((cartItems)=>({ ...cartItems, "order" : tmp, "total_amount" : cartItems.total_amount + tmp2}))
+        setCartItems((cartItems) => ({ ...cartItems, "order": tmp, "total_amount": cartItems.total_amount + tmp2 }))
     }
 
     const handleSubItem = (id) => {
-        var tmp2=0
+        var tmp2 = 0
         const tmp = cartItems.order.map((item) => {
-            if ((parseInt(item.item_id) === parseInt(id))&&item.quantity>0) {
-                tmp2 = data.filter((item1)=>(item1.id===item.item_id))[0].price
+            if ((parseInt(item.item_id) === parseInt(id)) && item.quantity > 0) {
+                tmp2 = data.filter((item1) => (item1.id === item.item_id))[0].price
                 return { ...item, "quantity": parseInt(item.quantity) - 1 }
             }
             else {
                 return item
             }
         })
-        setCartItems((cartItems)=>({ ...cartItems, "order": tmp, "total_amount" : cartItems.total_amount - tmp2}))
+        setCartItems((cartItems) => ({ ...cartItems, "order": tmp, "total_amount": cartItems.total_amount - tmp2 }))
     }
 
 
@@ -207,41 +237,41 @@ function Menu() {
             role="presentation"
         //onClick={toggleDrawer(anchor, false)}
         //onKeyDown={toggleDrawer(anchor, false)}
-        > 
-            {anchor === "right" ? <CartContent drawerButton={drawerButton} anchor={anchor} cartDetails={cartDetails}/> : <AccountContent drawerButton={drawerButton} anchor={anchor} accountDetails={accountDetails} />}
+        >
+            {anchor === "right" ? <CartContent drawerButton={drawerButton} anchor={anchor} cartDetails={cartDetails} payment={handlePayment}/> : <AccountContent drawerButton={drawerButton} anchor={anchor} accountDetails={accountDetails} />}
         </Box>
     );
 
-    const handleUpdateCart = ()=>{
+    const handleUpdateCart = () => {
+        const useConfirmed = window.confirm("By updating your cart, your past cart will be cleared. Do you want to procced?")
+        if (useConfirmed) {
         const apiUrl = "http://127.0.0.1:8000/create-order"
         fetch(apiUrl, {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${token.access}`
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token.access}`
             },
             body: JSON.stringify(cartItems),
-          })
+        })
             .then(response => {
-              if (response.ok) {
-                return response.json();
-              } else {
-                throw new Error('Something went wrong ...');
-              }
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Something went wrong ...');
+                }
             })
             .then(data => {
-                console.log(data)
-                console.log(cartItems)
-              setCartItems((cartItems)=>({...cartItems,"order_id":data.order_id}))
-              alert("Your cart is updated")
+                setCartItems((cartItems) => ({ ...cartItems, "order_id": data.order_id }))
+                alert("Your cart is updated")
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => console.error('Error:', error));}
     }
 
     return (
         <ThemeProvider theme={theme}>
             {/* background */}
-            {gotAccountDetails&&isLoaded&&gotCartDetails ? <div style={{ backgroundColor: '#DED8D8', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+            {gotAccountDetails && isLoaded && gotCartDetails ? <div style={{ backgroundColor: '#DED8D8', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
                 {/* first box */}
                 <div style={{ borderRadius: '108px', marginTop: '70px', backgroundColor: '#EBE7E6', border: '2px solid white', width: '1341px', height: '732px', boxShadow: '0px 10px 5px darkgrey', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                     {/* padding box */}
@@ -272,7 +302,7 @@ function Menu() {
                                 ))}
                                 {['right'].map((anchor) => (
                                     <React.Fragment key={anchor}>
-                                        <Button variant='contained' startIcon={<ShoppingCartIcon />} style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} onClick={toggleDrawer(anchor, true)}>0</Button>
+                                        <Button variant='contained' startIcon={<ShoppingCartIcon />} style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} onClick={toggleDrawer(anchor, true)}>{cartDetails.quantity}</Button>
                                         <SwipeableDrawer
                                             anchor={anchor}
                                             open={state[anchor]}
@@ -290,7 +320,7 @@ function Menu() {
                         {/* child box of padding box */}
                         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginTop: '100px' }}>
                             {menu}
-                            <Button variant="contained" sx={{borderRadius:"30px",  marginTop:'20px'}} onClick={handleUpdateCart}>Update Cart</Button>
+                            <Button variant="contained" sx={{ borderRadius: "30px", marginTop: '20px' }} onClick={handleUpdateCart}>Update Cart</Button>
                         </div>
                     </div>
                 </div>
