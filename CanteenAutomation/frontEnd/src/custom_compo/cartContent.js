@@ -11,25 +11,22 @@ function CartContent(props) {
             secondary: green
         }
     })
-    const cartItems = props.cartItems.map((item)=>(
-        <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <Typography variant="h6">{item.item_name}</Typography>
-                <Typography variant="h6">{item.item_price}</Typography>
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <Typography variant="h6">Quantity</Typography>
-                <Typography variant="h6">{item.item_quantity}</Typography>
-            </div>
+    
+    const cartItems = props.cartDetails.items.map((item)=>(
+        <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+            <Typography variant="h6">{item.name}</Typography>
+            <Typography variant="h6">{item.quantity}</Typography>
+            <Typography variant="h6">{item.quantity*item.price}</Typography>
         </div>
     ))
+
     return (
         <ThemeProvider theme={theme}>
             {/* background */}
             <div>
                 <div style={{ display: 'flex',alignItems:'center',width:'460px'}}>
                     <Button variant='contained' sx={{ borderRadius: '30px' }} onClick={() => { props.drawerButton(props.anchor, false) }}><EastIcon /></Button>
-                    <Typography variant='h5' sx={{paddingLeft:'120px',fontWeight:'bold'}}>Cart Content : {props.cartItems.canteen_id}</Typography>
+                    <Typography variant='h5' sx={{paddingLeft:'120px',fontWeight:'bold'}}>Cart Content : {props.cartDetails.order_canteen_name}</Typography>
                 </div>
                 {/* box to show items that customer wants to purchase */}
                 <div style={{ border: '2px solid white', borderRadius: '30px', width: '460px', margin: '5px', marginTop: '40px', padding: '5px' }}>
@@ -43,19 +40,19 @@ function CartContent(props) {
 
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Typography variant="h6">Subtotal</Typography>
-                        <Typography variant="h6">000</Typography>
+                        <Typography variant="h6">{props.cartDetails.total_amount}</Typography>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Typography variant="h6">Convenience fee</Typography>
-                        <Typography variant="h6">000</Typography>
+                        <Typography variant="h6">20</Typography>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Typography variant="h6">Tax</Typography>
-                        <Typography variant="h6">000</Typography>
+                        <Typography variant="h6">20</Typography>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Typography variant="h6" sx={{ fontWeight: 'bold' }}>Total</Typography>
-                        <Typography variant="h6" sx={{ fontWeight: 'bold' }}>000</Typography>
+                        <Typography variant="h6" sx={{ fontWeight: 'bold' }}>{props.cartDetails.total_amount+40}</Typography>
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                         <Button variant='contained' sx={{ borderRadius: '30px', margin: '20px 0px 5px 0px', width: '300px', padding: '10px' }} endIcon={<EastIcon />}>Continue to Payment</Button>

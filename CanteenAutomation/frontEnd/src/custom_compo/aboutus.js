@@ -38,7 +38,8 @@ function AboutUs() {
 
     const [accountDetails, setAccountDetails] = useState()
     const [gotAccountDetails, setGotAccountDetails] = useState(false)
-    const [gotCartDetails, setGotCartDetails] = useState(true)
+    const [cartDetails, setCartDetails] = useState()
+    const [gotCartDetails, setGotCartDetails] = useState(false)
 
     const apiUrlAcount = "http://127.0.0.1:8000/get-account-details"
 
@@ -64,6 +65,31 @@ function AboutUs() {
                 console.log(data);
                 setAccountDetails(data)
                 setGotAccountDetails(true)
+            })
+            .catch(error => console.error('Error:', error));
+    }, [])
+
+    const apiUrlCart = "http://127.0.0.1:8000/get-cust-orders"
+
+    useEffect(() => {
+        fetch(apiUrlCart, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token.access}`
+            },
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Something went wrong ...');
+                }
+            })
+            .then(data => {
+                console.log(data[data.length-1])
+                setCartDetails(data[data.length-1])
+                setGotCartDetails(true)
             })
             .catch(error => console.error('Error:', error));
     }, [])
@@ -103,14 +129,14 @@ function AboutUs() {
         //onClick={toggleDrawer(anchor, false)}
         //onKeyDown={toggleDrawer(anchor, false)}
         >
-            {anchor === "right" ? <CartContent drawerButton={drawerButton} anchor={anchor} /> : <AccountContent drawerButton={drawerButton} anchor={anchor} accountDetails={accountDetails} />}
+            {anchor === "right" ? <CartContent drawerButton={drawerButton} anchor={anchor} cartDetails={cartDetails}/> : <AccountContent drawerButton={drawerButton} anchor={anchor} accountDetails={accountDetails} />}
         </Box>
     );
 
     return (
         <ThemeProvider theme={theme}>
             {/* background */}
-            {gotAccountDetails ? <div style={{ backgroundColor: '#DED8D8', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+            {gotAccountDetails&&gotCartDetails ? <div style={{ backgroundColor: '#DED8D8', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
                 {/* first box */}
                 <div style={{ borderRadius: '108px', marginTop: '70px', backgroundColor: '#EBE7E6', border: '2px solid white', width: '1341px', height: '732px', boxShadow: '0px 10px 5px darkgrey', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                     {/* padding box */}

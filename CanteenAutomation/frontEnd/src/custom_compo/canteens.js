@@ -57,7 +57,8 @@ function Canteens() {
 
     const [accountDetails, setAccountDetails] = useState()
     const [gotAccountDetails, setGotAccountDetails] = useState(false)
-    const [gotCartDetails, setGotCartDetails] = useState(true)
+    const [cartDetails, setCartDetails] = useState()
+    const [gotCartDetails, setGotCartDetails] = useState(false)
 
     const apiUrl = "http://127.0.0.1:8000/get-all-canteens"
     const token = JSON.parse(localStorage.getItem('token'))
@@ -140,6 +141,32 @@ function Canteens() {
             .catch(error => console.error('Error:', error));
     }, [])
 
+    const apiUrlCart = "http://127.0.0.1:8000/get-cust-orders"
+
+    useEffect(() => {
+        fetch(apiUrlCart, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token.access}`
+            },
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Something went wrong ...');
+                }
+            })
+            .then(data => {
+                console.log(data[data.length-1])
+                setCartDetails(data[data.length-1])
+                setGotCartDetails(true)
+            })
+            .catch(error => console.error('Error:', error));
+    }, [])
+
+
     //retriving data from json file 
     //code optimization is left (i.e. using Grid)
 
@@ -179,7 +206,7 @@ function Canteens() {
         //onClick={toggleDrawer(anchor, false)}
         //onKeyDown={toggleDrawer(anchor, false)}
         >
-            {anchor === "right" ? <CartContent drawerButton={drawerButton} anchor={anchor} /> : <AccountContent drawerButton={drawerButton} anchor={anchor} accountDetails={accountDetails} />}
+            {anchor === "right" ? <CartContent drawerButton={drawerButton} anchor={anchor} cartDetails={cartDetails}/> : <AccountContent drawerButton={drawerButton} anchor={anchor} accountDetails={accountDetails} />}
         </Box>
     );
 

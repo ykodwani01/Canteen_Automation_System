@@ -45,7 +45,8 @@ function Menu() {
 
     const [accountDetails, setAccountDetails] = useState()
     const [gotAccountDetails, setGotAccountDetails] = useState(false)
-    const [gotCartDetails, setGotCartDetails] = useState(true)
+    const [cartDetails, setCartDetails] = useState()
+    const [gotCartDetails, setGotCartDetails] = useState(false)
     const [isLoaded, setIsLoaded] = useState(false)
 
     const apiUrlAcount = "http://127.0.0.1:8000/get-account-details"
@@ -77,7 +78,7 @@ function Menu() {
                 // Handle the response data here
                 console.log(data);
                 setData(data)
-                setCartItems({"canteen_id":parseInt(id.id), "order":data.map((item)=>({"item_id":item.id, "quantity":0})), "total_amount":0})
+                setCartItems({"order_id":-1,"canteen_id":parseInt(id.id), "order":data.map((item)=>({"item_id":item.id, "quantity":0})), "total_amount":0})
                 
             })
             .catch(error => console.error('Error:', error));
@@ -116,6 +117,31 @@ function Menu() {
             })
             .catch(error => console.error('Error:', error));
     }, [])
+
+    const apiUrlCart = "http://127.0.0.1:8000/get-cust-orders"
+
+    useEffect(() => {
+        fetch(apiUrlCart, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token.access}`
+            },
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Something went wrong ...');
+                }
+            })
+            .then(data => {
+                console.log(data[data.length-1])
+                setCartDetails(data[data.length-1])
+                setGotCartDetails(true)
+            })
+            .catch(error => console.error('Error:', error));
+    }, [cartItems])
 
     const handleAddItem = (id) => {
         var tmp2 = 0
@@ -181,15 +207,41 @@ function Menu() {
             role="presentation"
         //onClick={toggleDrawer(anchor, false)}
         //onKeyDown={toggleDrawer(anchor, false)}
-        >
-            {anchor === "right" ? <CartContent drawerButton={drawerButton} anchor={anchor} cartItems={cartItems}/> : <AccountContent drawerButton={drawerButton} anchor={anchor} accountDetails={accountDetails} />}
+        > 
+            {anchor === "right" ? <CartContent drawerButton={drawerButton} anchor={anchor} cartDetails={cartDetails}/> : <AccountContent drawerButton={drawerButton} anchor={anchor} accountDetails={accountDetails} />}
         </Box>
     );
+
+    const handleUpdateCart = ()=>{
+        const apiUrl = "http://127.0.0.1:8000/create-order"
+        fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token.access}`
+            },
+            body: JSON.stringify(cartItems),
+          })
+            .then(response => {
+              if (response.ok) {
+                return response.json();
+              } else {
+                throw new Error('Something went wrong ...');
+              }
+            })
+            .then(data => {
+                console.log(data)
+                console.log(cartItems)
+              setCartItems((cartItems)=>({...cartItems,"order_id":data.order_id}))
+              alert("Your cart is updated")
+            })
+            .catch(error => console.error('Error:', error));
+    }
 
     return (
         <ThemeProvider theme={theme}>
             {/* background */}
-            {gotAccountDetails&&isLoaded ? <div style={{ backgroundColor: '#DED8D8', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+            {gotAccountDetails&&isLoaded&&gotCartDetails ? <div style={{ backgroundColor: '#DED8D8', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
                 {/* first box */}
                 <div style={{ borderRadius: '108px', marginTop: '70px', backgroundColor: '#EBE7E6', border: '2px solid white', width: '1341px', height: '732px', boxShadow: '0px 10px 5px darkgrey', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                     {/* padding box */}
@@ -238,6 +290,7 @@ function Menu() {
                         {/* child box of padding box */}
                         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginTop: '100px' }}>
                             {menu}
+                            <Button variant="contained" sx={{borderRadius:"30px",  marginTop:'20px'}} onClick={handleUpdateCart}>Update Cart</Button>
                         </div>
                     </div>
                 </div>
