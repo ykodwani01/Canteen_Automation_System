@@ -236,7 +236,7 @@ function Contact() {
                         </div>
 
                         <div style={{ display: 'flex', justifyContent: 'left', marginTop: '30px', marginLeft: '200px'}}>
-                            <Typography variant='h6'> Mihir Goel </Typography> <Typography variant='h6' style={{ marginLeft: '138px' }}> 202101473 </Typography>
+                            <Typography variant='h6'> Mihir Gohel </Typography> <Typography variant='h6' style={{ marginLeft: '138px' }}> 202101473 </Typography>
                             <Typography variant='h6' style={{ marginLeft: '150px'}}> Kalathiya Shrut </Typography> <Typography variant='h6' style={{ marginLeft: '53px' }}> 202101479 </Typography>
                         </div>
 
