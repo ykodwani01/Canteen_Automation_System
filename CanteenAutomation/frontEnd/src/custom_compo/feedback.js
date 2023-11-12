@@ -47,6 +47,10 @@ function Feedback(){
 
     const token = JSON.parse(localStorage.getItem('token'))
 
+    const handleChildButton = () => {
+        console.log("Button was clicked");
+    }
+
     useEffect(() => {
         fetch(apiUrlAcount, {
             method: 'GET',
@@ -97,7 +101,7 @@ function Feedback(){
             .catch(error => console.error('Error:', error));
     }, [])
 
-    const apiUrlPOrder = "http://127.0.0.1:8000/get-past-orders"
+    const apiUrlPOrder = "http://127.0.0.1:8000/get-feedback"
 
     useEffect(() => {
         fetch(apiUrlPOrder, {
@@ -117,7 +121,7 @@ function Feedback(){
             .then(data => {
                 // Handle the response data here
                 console.log(data);
-                setPOrder(data.map((item) => (<PastOrder key={item.id} totalAmount={item.total_amount} items={item.items} />)))
+                setPOrder(data.map((item) => (<PastOrder key={item.id} totalAmount={item.total_amount} items={item.items} onButtonClick = {handleChildButton}/>)))
                 setIsLoaded(true)
             })
             .catch(error => console.error('Error:', error));

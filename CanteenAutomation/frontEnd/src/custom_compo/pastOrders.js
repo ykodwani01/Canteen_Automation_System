@@ -44,6 +44,10 @@ function PastOrder(props) {
         </div>
     ))
 
+    const handlebuttonclick = () => {
+        props.onButtonClick();
+    }
+
     return (
         //displaying order
         <ThemeProvider theme={theme}>
@@ -63,7 +67,7 @@ function PastOrder(props) {
                     />
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'end' }}>
-                        <Button variant='contained' sx={{ marginTop: '50px', marginLeft: '20px' }}>Submit</Button>
+                        <Button variant='contained' onClick={handlebuttonclick} sx={{ marginTop: '50px', marginLeft: '20px' }}>Submit</Button>
                     </div>
 
                 </div>
