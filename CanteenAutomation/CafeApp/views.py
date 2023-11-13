@@ -24,7 +24,19 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import login, authenticate
 from .models import User
 from .serializers import *
+from .models import CustomBlacklistedToken
+class CustomLogoutView(APIView):
+    def post(self, request):
+        refresh_token = request.data['refresh_token']
+        token = RefreshToken(refresh_token)
 
+        # Blacklist access token
+        access_t=token.access_token
+        # Blacklist refresh token
+        token.blacklist()
+        return Response({'message': 'Logout successful'}, status=status.HTTP_200_OK)
+
+        
 # Create your views here.
 class UserLogin(APIView):
     def post(self, request):
@@ -97,18 +109,6 @@ class RefreshAccessToken(APIView):
 def index(request):
     return HttpResponse('Hello world')
 
-class LogoutView(APIView):
-     permission_classes = (IsAuthenticated,)
-     def post(self, request):
-          
-          try:
-               refresh_token = request.data["refresh_token"]
-               token = RefreshToken(refresh_token)
-               token.blacklist()
-               return Response(status=status.HTTP_205_RESET_CONTENT)
-          except Exception as e:
-               return Response(status=status.HTTP_400_BAD_REQUEST)
-
 class DeleteItems(APIView):
     permission_classes = [IsAuthenticated]
     authentication_classes = [JWTAuthentication] 
@@ -174,7 +174,7 @@ class getOrders(APIView):
     def get(self,request):
         
         canteen_obj = canteen.objects.filter(owner = request.user.profile)[0]
-        order_obj = orders.objects.filter(order_canteen=canteen_obj)
+        order_obj = orders.objects.filter(order_canteen=canteen_obj,status="Delivered")
         Item_serialized = OrderSerializer(order_obj,many=True)
         for i in Item_serialized.data:
             order_id=i["id"]
@@ -302,36 +302,28 @@ class GetFeedback(APIView):
     def post(self, request):
         order_id=request.data.get('order_id')
         fd=request.data.get('feedback')
-        rating=request.data.get('rating')
+        #rating=request.data.get('rating')
         order_obj=orders.objects.filter(id=order_id).first()
         if(request.user == order_obj.order_cust.cust.user):
-            feedback_obj=feedback.objects.create(order_id=order_obj,review=fd,rating=rating)
+            feedback_obj=feedback.objects.create(order_id=order_obj,review=fd)
             return Response({"success":True})
         return Response({"success":False})
     def get(self,request):
         customer_profile_obj = Profile.objects.filter(user = request.user)[0]
         customer_obj=customer.objects.filter(cust=customer_profile_obj).first()
-        order_obj=orders.objects.filter(order_cust=customer_obj)
+        order_obj=orders.objects.filter(order_cust=customer_obj,status='Delivered')
         feedback_obj_main=list(feedback.objects.filter(order_id=-1))
         for i in order_obj:
             feedback_obj=feedback.objects.filter(order_id=i.id)
             feedback_obj_list=list(feedback_obj.values())
-            if(feedback_obj_list != []):
-                print(feedback_obj)
-                print(feedback_obj_list)
-                feedback_obj_main.append(feedback_obj_list)
-                print(feedback_obj_main)
-        feedback_final=[]
-        for i in feedback_obj_main:
-            for j in i:
-                k=j["order_id_id"]
-                del j["order_id_id"]
-                j["order_id"]=k
-                feedback_final.append(j)
-        print(feedback_final)
-        updated_queryset = feedback.objects.none().union(*[feedback.objects.filter(order_id=item_data['order_id']) for item_data in feedback_final])
-        feedback_serialized=feedbackserializer(updated_queryset,many=True)
-        return Response(feedback_serialized.data,status=status.HTTP_200_OK)
+            k={}
+            if(feedback_obj_list == []):
+                k["order_id"]=i.id
+                #k["items"]=i.items
+                k["canteen"]=str(i.order_canteen)
+                k["total_amount"]=i.total_amount
+                feedback_obj_main.append(k)
+        return Response(feedback_obj_main,status=status.HTTP_200_OK)
         return Response({"success":False})
     
 class OrderDelivered(APIView):
