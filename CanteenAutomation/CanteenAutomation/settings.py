@@ -148,7 +148,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'django.reset.system@gmail.com'
 DEFAULT_FROM_EMAIL= EMAIL_HOST_USER
-EMAIL_HOST_PASSWORD = 'qwzsadbmeaktqadl'    
+EMAIL_HOST_PASSWORD = '#'    
 # AUTH_USER_MODEL = 'CafeApp.User'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
