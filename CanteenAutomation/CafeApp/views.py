@@ -34,6 +34,7 @@ class CustomLogoutView(APIView):
         access_t=token.access_token
         # Blacklist refresh token
         token.blacklist()
+        logout(request)
         return Response({'message': 'Logout successful'}, status=status.HTTP_200_OK)
 
         
@@ -190,13 +191,16 @@ class getaccountdetails(APIView):
     permission_classes = [IsAuthenticated]
     authentication_classes = [JWTAuthentication]
     def get(self,request):        
-        try:
-            customer_obj = Profile.objects.filter(user = request.user)[0]
-            Cust_serialized=AccountDetailsSerializer(customer_obj)
-            return Response(Cust_serialized.data,status=status.HTTP_200_OK)
-        except:
-            return Response({"success":False})
-
+        customer_obj_profile = Profile.objects.filter(user = request.user)[0]
+        customer_obj=customer.objects.filter(cust=customer_obj_profile).first()
+        Cust_serialized=AccountDetailsSerializer(customer_obj_profile)
+        final_obj={}
+        for i in Cust_serialized.data:
+            print(Cust_serialized[i])
+            final_obj[i]=Cust_serialized[i].value
+        k=orders.objects.filter(order_cust=customer_obj).count()
+        final_obj["total_orders"]=k
+        return Response(final_obj,status=status.HTTP_200_OK)
 
 class getPendingOrders(APIView):
     permission_classes = [IsAuthenticated]
@@ -306,7 +310,21 @@ class GetFeedback(APIView):
         order_obj=orders.objects.filter(id=order_id).first()
         if(request.user == order_obj.order_cust.cust.user):
             feedback_obj=feedback.objects.create(order_id=order_obj,review=fd)
-            return Response({"success":True})
+            customer_profile_obj = Profile.objects.filter(user = request.user)[0]
+            customer_obj=customer.objects.filter(cust=customer_profile_obj).first()
+            order_obj=orders.objects.filter(order_cust=customer_obj,status='Delivered')
+            feedback_obj_main=list(feedback.objects.filter(order_id=-1))
+            for i in order_obj:
+                feedback_obj=feedback.objects.filter(order_id=i.id)
+                feedback_obj_list=list(feedback_obj.values())
+                k={}
+                if(feedback_obj_list == []):
+                    k["order_id"]=i.id
+                    #k["items"]=i.items
+                    k["canteen"]=str(i.order_canteen)
+                    k["total_amount"]=i.total_amount
+                    feedback_obj_main.append(k)
+            return Response(feedback_obj_main,status=status.HTTP_200_OK)
         return Response({"success":False})
     def get(self,request):
         customer_profile_obj = Profile.objects.filter(user = request.user)[0]
