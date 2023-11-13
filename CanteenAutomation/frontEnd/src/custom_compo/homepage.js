@@ -32,7 +32,10 @@ import { useState, useEffect } from 'react';
 import Specialities from '../home_compo/specialities';
 import CartContent from './cartContent.js';
 import AccountContent from './accountContent.js';
+import Loading from './loading.js';
 import { Navigate } from 'react-router-dom';
+
+
 
 //defining theme
 const theme = createTheme({
@@ -175,7 +178,7 @@ function HomePage() {
         //onClick={toggleDrawer(anchor, false)}
         //onKeyDown={toggleDrawer(anchor, false)}
         >
-            {anchor === "right" ? <CartContent drawerButton={drawerButton} anchor={anchor} cartDetails={cartDetails} payment={handlePayment} /> : <AccountContent drawerButton={drawerButton} anchor={anchor} accountDetails={accountDetails} signOut={handleSignOut} />}
+            {anchor === "right" ? <CartContent drawerButton={drawerButton} anchor={anchor} cartDetails={cartDetails} payment={handlePayment}/> : <AccountContent drawerButton={drawerButton} anchor={anchor} accountDetails={accountDetails} signOut={handleSignOut} />}
         </Box>
     );
 
@@ -326,7 +329,7 @@ function HomePage() {
                         <Typography style={{ color: '#DAC6C7', marginBottom: '20px' }}>Instagram</Typography>
                     </div>
                 </footer>
-            </div> : <div>Loading</div>}
+            </div> : <Loading/>}
         </ThemeProvider>
     )
 }

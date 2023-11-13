@@ -26,6 +26,7 @@ import cafe from "../general_compo/cafe.png";
 import Card from '../canteens_compo/card.js';
 import CartContent from './cartContent.js';
 import AccountContent from './accountContent.js';
+import Loading from './loading.js';
 
 //importing react cmp
 import { useEffect, useState } from 'react';
@@ -330,7 +331,7 @@ function Canteens() {
                         <Typography style={{ color: '#DAC6C7', marginBottom: '20px' }}>Instagram</Typography>
                     </div>
                 </footer>
-            </div> : <div>Loading</div>}
+            </div> : <Loading/>}
 
         </ThemeProvider>
     )

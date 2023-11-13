@@ -30,6 +30,7 @@ import menu_data from '../data_files/data.json';
 import MenuCard from './menu_card.js';
 import CartContent from './cartContent.js';
 import AccountContent from './accountContent.js';
+import Loading from './loading.js';
 
 //defining theme
 const theme = createTheme({
@@ -355,7 +356,7 @@ function Menu() {
                         <Typography style={{ color: '#DAC6C7', marginBottom: '20px' }}>Instagram</Typography>
                     </div>
                 </footer>
-            </div> : <div>loading</div>}
+            </div> : <Loading/>}
 
         </ThemeProvider>
     )

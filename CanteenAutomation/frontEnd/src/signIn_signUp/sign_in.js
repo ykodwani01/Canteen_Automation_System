@@ -49,7 +49,7 @@ function SignIn() {
   //submitting data to backend
   const handleButtonClick = () => {
     console.log(email, password)
-    //const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$%^&+=!])([A-Za-z\d@#$%^&+=!]{8,12})$/;
+    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$%^&+=!])([A-Za-z\d@#$%^&+=!]{8,12})$/;
     const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
     if (
       !emailRegex.test(email)
@@ -57,14 +57,14 @@ function SignIn() {
       alert("Invalid Email")
       return
     }
-    // if (
-    //   password.length < 8 ||
-    //   password.length > 12 ||
-    //   !passwordRegex.test(password)
-    // ) {
-    //   alert('Password must be between 8 and 12 characters and contain only alphanumeric characters and one special character.');
-    //   return 
-    // }
+    if (
+      password.length < 8 ||
+      password.length > 12 ||
+      !passwordRegex.test(password)
+    ) {
+      alert('Password must be between 8 and 12 characters and contain only alphanumeric characters and one special character.');
+      return 
+    }
 
     fetch(apiUrl, {
       method: 'POST',
@@ -103,7 +103,7 @@ function SignIn() {
         <Container className='signIn' sx={{ background: "rgba(222,216,216,0.5)", borderRadius: '30px', ...signIn_style_ext }}>
           <Typography sx={{ fontWeight: 'bolder', fontSize: '31px', marginTop: '31px' }}>Sign In</Typography>
           <TextField id="Email" label="Email" value={email} onChange={handleChange} variant="outlined" sx={{ background: "rgba(250,249,246,0.1)", borderRadius: "5px", marginBottom: '30px', marginTop: '35px' }} />
-          <TextField id="Password" label="Password" value={password} onChange={handleChange} variant="outlined" sx={{ background: "rgba(250,249,246,0.1)", borderRadius: "5px", marginBottom: '10px' }} />
+          <TextField id="Password" label="Password" value={password} onChange={handleChange} type='password' variant="outlined" sx={{ background: "rgba(250,249,246,0.1)", borderRadius: "5px", marginBottom: '10px' }} />
           <Typography sx={{ marginLeft: '-80px' }}>Forgot Password?</Typography>
           <Button variant="contained" onClick={handleButtonClick} sx={{ fontWeight: "bolder", width: '220px', height: '50px', fontSize: '20px', textTransform: 'none', marginBottom: '30px', marginTop: '50px' }} disableElevation>Login</Button>
           <NavLink to='/sign_up' style={{ textDecoration: 'none', color: 'black' }}>

@@ -3,6 +3,8 @@ import { ThemeProvider } from "styled-components";
 import { green } from '@mui/material/colors';
 import { Button, Typography, createTheme } from '@mui/material/';
 import EastIcon from '@mui/icons-material/East';
+import RemoveShoppingCartIcon from '@mui/icons-material/RemoveShoppingCart';
+
 
 function CartContent(props) {
     const theme = createTheme({
@@ -32,7 +34,7 @@ function CartContent(props) {
     return (
         <ThemeProvider theme={theme}>
             {/* background */}
-            {props.cartDetails.length === 0 ||cartItems.length === 0? <div>Cart is empty</div> : <div>
+            {props.cartDetails.length === 0 ||cartItems.length === 0? <RemoveShoppingCartIcon sx={{display:'flex',justifyContent:'center',alignItems:'center',height:'100vh',width:'50%',paddingLeft:'50px',color:'#C31E2C'}}/> : <div>
                 <div style={{ display: 'flex', alignItems: 'center', width: '460px' }}>
                     <Button variant='contained' sx={{ borderRadius: '30px' }} onClick={() => { props.drawerButton(props.anchor, false) }}><EastIcon /></Button>
                     <Typography variant='h5' sx={{ paddingLeft: '120px', fontWeight: 'bold' }}>Cart Content : {props.cartDetails.order_canteen_name}</Typography>

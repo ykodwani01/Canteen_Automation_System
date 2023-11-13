@@ -24,6 +24,7 @@ import cafe from "../general_compo/cafe.png";
 
 //importing react cmp
 import { useEffect, useState } from 'react';
+import Loading from './loading.js';
 
 
 function PendingOrders() {
@@ -236,7 +237,7 @@ function PendingOrders() {
                             <Typography style={{ color: '#DAC6C7', marginBottom: '20px' }}>Instagram</Typography>
                         </div>
                     </footer>
-                </div> : <div>loading</div>
+                </div> : <Loading/>
             }
 
         </ThemeProvider >

@@ -25,6 +25,7 @@ import grp_img from "../general_compo/grp_img.jpg";
 //importing custom cmp
 import CartContent from './cartContent.js';
 import AccountContent from './accountContent.js';
+import Loading from './loading.js';
 
 //defining theme
 const theme = createTheme({
@@ -252,7 +253,7 @@ function AboutUs() {
                         <Typography style={{ color: '#DAC6C7', marginBottom: '20px' }}>Instagram</Typography>
                     </div>
                 </footer>
-            </div> : <div>loading</div>}
+            </div> : <Loading/>}
 
         </ThemeProvider>
     )
