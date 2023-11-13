@@ -26,7 +26,7 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.primary,
 }));
 
-function PastOrder(props) {
+function PastOrderC(props) {
 
     const displayOrders = props.items.map((item) => (
         <div key={item.canteen} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
@@ -55,8 +55,8 @@ function PastOrder(props) {
         <ThemeProvider theme={theme}>
             <div style={{ display: 'flex', justifyContent: 'space-evenly', padding: '40px', backgroundColor: '#E9DCDC', borderRadius: '30px', margin: '20px', width: '1100px' }}>
                 <div>
-                    <Typography variant='h3' sx={{ marginBottom: '20px' }}>Order Details</Typography>
-                    <Typography variant='h5' sx={{ marginBottom: '20px' }}>{props.name}</Typography>
+                    <Typography variant='h3' sx={{ marginBottom: '30px' }}>Order Details</Typography>
+                    <Typography variant='h5' sx={{ marginBottom: '30px' }}>{props.name}</Typography>
                     <Grid container spacing={2} sx={{marginBottom:'30px'}}>
                         <Grid item xs={4}>
                             <Item><Typography sx={{fontWeight:'bold'}}>Name</Typography></Item>
@@ -69,13 +69,14 @@ function PastOrder(props) {
                         </Grid>
                     </Grid>
                     {displayOrders}
+                    <Typography variant='h6' sx={{marginTop:'50px'}}>Total amount: {props.totalAmount}</Typography>
                 </div>
                 <div>
-                    <div>
-                        <Typography variant='h7'>{props.feedback}</Typography>
-                    </div>
-                    <div style={{ display: 'flex', justifyContent: 'end' }}>
-                        <Button id={props.id} variant='contained' onClick={() => (props.onButtonClick(props.id))} sx={{ marginTop: '50px', marginLeft: '20px', borderRadius:'30px' }}>Submit</Button>
+                    <div style={{margin:'15px 0px'}}>
+                        <Typography variant='h4' sx={{marginBottom:'30px'}}>Feedback</Typography>
+                        <div style={{backgroundColor:'#E9DCDC',width:'350px',borderRadius:'30px',padding:'20px', border:'solid 2px white', boxShadow:'2px 2px 5px'}}>
+                        <Typography variant='h7' >{props.feedback}</Typography>
+                        </div>
                     </div>
 
                 </div>
@@ -84,4 +85,4 @@ function PastOrder(props) {
     )
 }
 
-export default PastOrder;
+export default PastOrderC;

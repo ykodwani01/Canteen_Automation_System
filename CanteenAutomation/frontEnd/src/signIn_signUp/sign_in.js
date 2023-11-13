@@ -17,6 +17,11 @@ import { useState } from 'react';
 import theme from '../general_compo/theme.js'
 import useReSize from './mediaQuery';
 
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+
 
 function SignIn() {
   //custom hook for media query
@@ -92,6 +97,13 @@ function SignIn() {
       .catch(error => console.error('Error:', error));
   }
 
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleTogglePassword = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
+
+
   return (
     <ThemeProvider theme={theme}>
       {/* background */}
@@ -103,7 +115,15 @@ function SignIn() {
         <Container className='signIn' sx={{ background: "rgba(222,216,216,0.5)", borderRadius: '30px', ...signIn_style_ext }}>
           <Typography sx={{ fontWeight: 'bolder', fontSize: '31px', marginTop: '31px' }}>Sign In</Typography>
           <TextField id="Email" label="Email" value={email} onChange={handleChange} variant="outlined" sx={{ background: "rgba(250,249,246,0.1)", borderRadius: "5px", marginBottom: '30px', marginTop: '35px' }} />
-          <TextField id="Password" label="Password" value={password} onChange={handleChange} type='password' variant="outlined" sx={{ background: "rgba(250,249,246,0.1)", borderRadius: "5px", marginBottom: '10px' }} />
+          <TextField id="Password" label="Password" value={password} onChange={handleChange} type={showPassword ? 'text' : 'password'} variant="outlined" sx={{ background: "rgba(250,249,246,0.1)", borderRadius: "5px", marginBottom: '10px', maxWidth:'220px' }} InputProps={{
+        endAdornment: (
+          <InputAdornment position="end">
+            <IconButton onClick={handleTogglePassword} edge="end">
+              {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+            </IconButton>
+          </InputAdornment>
+        ),
+      }}/>
           <Typography sx={{ marginLeft: '-80px' }}>Forgot Password?</Typography>
           <Button variant="contained" onClick={handleButtonClick} sx={{ fontWeight: "bolder", width: '220px', height: '50px', fontSize: '20px', textTransform: 'none', marginBottom: '30px', marginTop: '50px' }} disableElevation>Login</Button>
           <NavLink to='/sign_up' style={{ textDecoration: 'none', color: 'black' }}>

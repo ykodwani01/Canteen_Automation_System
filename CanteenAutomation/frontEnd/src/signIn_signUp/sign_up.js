@@ -17,6 +17,11 @@ import { useState } from "react";
 import theme from '../general_compo/theme.js'
 import useReSize from './mediaQuery';
 
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+
 function SignUp() {
   //custom hook for media query 
   const [background_style_ext, signIn_style_ext] = useReSize()
@@ -113,6 +118,17 @@ function SignUp() {
       .catch(error => console.error('Error:', error));
   }
 
+  const [showPassword1, setShowPassword1] = useState(false);
+  const [showPassword2, setShowPassword2] = useState(false);
+
+  const handleTogglePassword = (event) => {
+    setShowPassword1((prevShowPassword) => !prevShowPassword);
+  };
+
+  const handleToggleConfirmPassword = () =>{
+    setShowPassword2((prevShowPassword) => !prevShowPassword);
+  }
+
   return (
     <ThemeProvider theme={theme}>
       {/* background */}
@@ -122,8 +138,24 @@ function SignUp() {
         <Container className='signIn' sx={{ background: "rgba(222,216,216,0.5)", borderRadius: '30px', ...signIn_style_ext }}>
           <Typography sx={{ fontWeight: 'bolder', fontSize: '31px', marginTop: '31px' }}>Sign Up</Typography>
           <TextField id="Email" label="Email" value={email} onChange={handleChange} variant="outlined" sx={{ background: "rgba(250,249,246,0.1)", borderRadius: "5px", marginBottom: '30px', marginTop: '23px' }} />
-          <TextField id="Password" label="Password" value={password} onChange={handleChange} variant="outlined" type="password" sx={{ background: "rgba(250,249,246,0.1)", borderRadius: "5px", marginBottom: '30px' }} />
-          <TextField id="Confirm Password" label="Confirm Password" value={confirmPassword} onChange={handleChange} variant="outlined" type="password" sx={{ background: "rgba(250,249,246,0.1)", borderRadius: "5px", marginBottom: '30px' }} />
+          <TextField id="Password" label="Password" value={password} onChange={handleChange} variant="outlined" type={showPassword1 ? 'text' : 'password'} sx={{ background: "rgba(250,249,246,0.1)", borderRadius: "5px", marginBottom: '30px', maxWidth:'220px' }} InputProps={{
+        endAdornment: (
+          <InputAdornment position="end">
+            <IconButton onClick={handleTogglePassword} edge="end">
+              {showPassword1 ? <VisibilityIcon /> : <VisibilityOffIcon />}
+            </IconButton>
+          </InputAdornment>
+        ),
+      }}/>
+          <TextField id="Confirm Password" label="Confirm Password" value={confirmPassword} onChange={handleChange} variant="outlined" type={showPassword2 ? 'text' : 'password'} sx={{ background: "rgba(250,249,246,0.1)", borderRadius: "5px", marginBottom: '30px' , maxWidth:'220px'}} InputProps={{
+        endAdornment: (
+          <InputAdornment position="end">
+            <IconButton onClick={handleToggleConfirmPassword} edge="end">
+              {showPassword2 ? <VisibilityIcon /> : <VisibilityOffIcon />}
+            </IconButton>
+          </InputAdornment>
+        ),
+      }}/>
           <TextField id="Name" label="Name" value={name} onChange={handleChange} variant="outlined" sx={{ background: "rgba(250,249,246,0.1)", borderRadius: "5px", marginBottom: '30px' }} />
           <TextField id="ContactNo" label="ContactNo" value={contactNo} onChange={handleChange} variant="outlined" sx={{ background: "rgba(250,249,246,0.1)", borderRadius: "5px", marginBottom: '30px' }} />
           <Button variant="contained" onClick={handleButtonClick} sx={{ fontWeight: "bolder", width: '220px', height: '50px', fontSize: '20px', textTransform: 'none', marginBottom: '20px' }} disableElevation>Sign Up</Button>

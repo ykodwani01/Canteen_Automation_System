@@ -55,8 +55,8 @@ function PastOrder(props) {
         <ThemeProvider theme={theme}>
             <div style={{ display: 'flex', justifyContent: 'space-evenly', padding: '40px', backgroundColor: '#E9DCDC', borderRadius: '30px', margin: '20px', width: '1100px' }}>
                 <div>
-                    <Typography variant='h3' sx={{ marginBottom: '20px' }}>Order Details</Typography>
-                    <Typography variant='h5' sx={{ marginBottom: '20px' }}>{props.name}</Typography>
+                    <Typography variant='h3' sx={{ marginBottom: '25px' }}>Order Details</Typography>
+                    <Typography variant='h5' sx={{ marginBottom: '25px' }}>{props.name}</Typography>
                     <Grid container spacing={2} sx={{marginBottom:'30px'}}>
                         <Grid item xs={4}>
                             <Item><Typography sx={{fontWeight:'bold'}}>Name</Typography></Item>
@@ -69,6 +69,7 @@ function PastOrder(props) {
                         </Grid>
                     </Grid>
                     {displayOrders}
+                    <Typography variant='h6'>Total Amount : {props.totalAmount}</Typography>
                 </div>
                 <div>
                     <div>

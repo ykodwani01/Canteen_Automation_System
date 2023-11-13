@@ -22,7 +22,7 @@ import { useEffect, useState } from 'react';
 
 
 //importing custom cmp
-import PastOrder from './pastOrders.js';
+import PastOrderC from './pastOrdersC.js';
 import CartContent from './cartContent.js';
 import AccountContent from './accountContent.js';
 import Loading from './loading.js';
@@ -95,9 +95,9 @@ function Feedback(){
                 console.log(data);
                 setData(data);
                 setporder(data.map((item) => {
-                    return <PastOrder key={item.id} id={item.id} name={item.order_cust_name} phone={item.order_cust_contact} email={item.order_cust_email} totalAmount={item.total_amount} items={item.items} rating={item.rating} feedback={item.feedback} />
+                    return <PastOrderC key={item.id} id={item.id} name={item.order_cust_name} phone={item.order_cust_contact} email={item.order_cust_email} totalAmount={item.total_amount} items={item.items} rating={item.rating} feedback={item.feedback} />
                 }))
-                isLoaded(true)
+                setIsLoaded(true)
                 })
             .catch(error => console.error('Error:', error));
     }, [])
