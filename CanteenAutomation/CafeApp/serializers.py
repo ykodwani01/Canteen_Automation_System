@@ -21,11 +21,12 @@ class MenuItemSerializer(serializers.ModelSerializer):
 class OrderSerializer(serializers.ModelSerializer):
     order_cust_name = serializers.CharField(source='order_cust.cust.name')
     order_cust_contact = serializers.CharField(source='order_cust.cust.contact_number')
+    order_cust_email = serializers.CharField(source='order_cust.cust.user.email')
     order_canteen_name = serializers.CharField(source='order_canteen.owner.name')
     items = MenuItemSerializer(many=True)
     class Meta:
         model = orders
-        fields = ('id','order_cust_name','order_cust_contact','order_canteen_name','total_amount','items','status')
+        fields = ('id','order_cust_name','order_cust_contact','order_cust_email','order_canteen_name','total_amount','items','status')
 
 class AccountDetailsSerializer(serializers.ModelSerializer):
     class Meta:
