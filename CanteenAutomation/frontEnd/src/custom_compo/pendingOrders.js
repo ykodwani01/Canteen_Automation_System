@@ -82,7 +82,7 @@ function PendingOrders() {
             .then(data => {
                 // Handle the response data here
                 console.log(data);
-                setOrder(data.map((item) => (<Order key={item.id} id={item.id} name={item.order_cust_name} status={item.status} totalAmount={item.total_amount} items={item.items} completed={handleCompleted} />)))
+                setOrder(data.map((item) => (<Order key={item.id} id={item.id} name={item.order_cust_name} status={item.status} totalAmount={item.total_amount} items={item.items} completed={handleCompleted} flag={1}/>)))
                 setIsLoaded(true)
             })
             .catch(error => console.error('Error:', error));
