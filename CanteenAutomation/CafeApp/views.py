@@ -309,12 +309,29 @@ class GetFeedback(APIView):
             return Response({"success":True})
         return Response({"success":False})
     def get(self,request):
-        order_id=request.data.get('order_id')
-        order_obj=orders.objects.filter(id=order_id).first()
-        if(request.user == order_obj.order_cust.cust.user):
-            feedback_obj=feedback.objects.filter(order_id=order_id)
-            feedback_serialized=feedbackserializer(feedback_obj,many=True)
-            return Response(feedback_serialized.data,status=status.HTTP_200_OK)
+        customer_profile_obj = Profile.objects.filter(user = request.user)[0]
+        customer_obj=customer.objects.filter(cust=customer_profile_obj).first()
+        order_obj=orders.objects.filter(order_cust=customer_obj)
+        feedback_obj_main=list(feedback.objects.filter(order_id=-1))
+        for i in order_obj:
+            feedback_obj=feedback.objects.filter(order_id=i.id)
+            feedback_obj_list=list(feedback_obj.values())
+            if(feedback_obj_list != []):
+                print(feedback_obj)
+                print(feedback_obj_list)
+                feedback_obj_main.append(feedback_obj_list)
+                print(feedback_obj_main)
+        feedback_final=[]
+        for i in feedback_obj_main:
+            for j in i:
+                k=j["order_id_id"]
+                del j["order_id_id"]
+                j["order_id"]=k
+                feedback_final.append(j)
+        print(feedback_final)
+        updated_queryset = feedback.objects.none().union(*[feedback.objects.filter(order_id=item_data['order_id']) for item_data in feedback_final])
+        feedback_serialized=feedbackserializer(updated_queryset,many=True)
+        return Response(feedback_serialized.data,status=status.HTTP_200_OK)
         return Response({"success":False})
     
 class OrderDelivered(APIView):

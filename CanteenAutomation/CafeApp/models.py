@@ -68,7 +68,6 @@ class feedback(models.Model):
         (4, '4 Stars'),
         (5, '5 Stars'),
     )
-
     order_id = models.ForeignKey(orders,null=False,on_delete=models.CASCADE)
     review = models.TextField(max_length=200)
     rating = models.IntegerField(choices=RATING_CHOICES, default=3)
