@@ -194,7 +194,10 @@ class getOrders(APIView):
                     for k in i[j]:
                         item_id=k["id"]
                         quantity_value=orderquantity.objects.filter(item_id=item_id,order_id=order_id).first()
-                        k["quantity"]=quantity_value.quantity
+                        if(quantity_value is not None):
+                            k["quantity"]=quantity_value.quantity
+                        else:
+                            print(order_id)
         return Response(Item_serialized.data,status=status.HTTP_200_OK)
 
 class getaccountdetails(APIView):
@@ -340,19 +343,22 @@ class GetFeedback(APIView):
         customer_profile_obj = Profile.objects.filter(user = request.user)[0]
         customer_obj=customer.objects.filter(cust=customer_profile_obj).first()
         order_obj=orders.objects.filter(order_cust=customer_obj,status='Delivered')
+        order_serialzed=NewOrderSerializer(final_list,many=True)
         feedback_obj_main=list(feedback.objects.filter(order_id=-1))
-        for i in order_obj:
-            feedback_obj=feedback.objects.filter(order_id=i.id)
-            feedback_obj_list=list(feedback_obj.values())
-            k={}
-            if(feedback_obj_list == []):
-                k["order_id"]=i.id
-                #k["items"]=i.items
-                k["canteen"]=str(i.order_canteen)
-                k["total_amount"]=i.total_amount
-                feedback_obj_main.append(k)
-        return Response(feedback_obj_main,status=status.HTTP_200_OK)
+        order_list=list(order_obj.values())
+        final_list=[]
+        for i in order_list:
+            feedback_object=feedback.objects.filter(order_id=i["id"])
+            if(len(feedback_object) == 0):
+                final_list.append(i)
+        print(final_list)
+        order_serialzed=NewOrderSerializer(final_list,many=True)
+        print(order_serialzed.data)
+        #updated_queryset = Item.objects.none().union(*[Item.objects.filter(pk=item_data['id']) for item_data in items_list])
+
+        #return Response(order_serialzed.data,status=status.HTTP_200_OK)
         return Response({"success":False})
+
 from django.core.mail import send_mail
 class OrderDelivered(APIView):
     permission_classes = [IsAuthenticated]

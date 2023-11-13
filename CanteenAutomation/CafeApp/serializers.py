@@ -48,3 +48,9 @@ class OrderDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = orders
         fields = ('id','total_amount','items','status')
+
+class NewOrderSerializer(serializers.ModelSerializer):
+    items = MenuItemSerializer(many=True)
+    class Meta:
+        model = orders
+        fields = ('id','total_amount','items','status')
