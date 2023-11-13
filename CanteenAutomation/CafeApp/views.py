@@ -7,6 +7,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.forms import inlineformset_factory
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
+from rest_framework_simplejwt.views import TokenObtainPairView
+
 # from .forms import CreateUserForm
 from django.contrib import messages
 from .models import *
@@ -20,24 +22,30 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.tokens import RefreshToken,AccessToken
 from django.contrib.auth import login, authenticate
 from .models import User
 from .serializers import *
 from .models import CustomBlacklistedToken
+import time
+from datetime import timezone,timedelta
 class CustomLogoutView(APIView):
+    # permission_classes = [IsAuthenticated]
+
     def post(self, request):
-        refresh_token = request.data['refresh_token']
-        token = RefreshToken(refresh_token)
-
-        # Blacklist access token
-        access_t=token.access_token
-        # Blacklist refresh token
-        token.blacklist()
-        logout(request)
-        return Response({'message': 'Logout successful'}, status=status.HTTP_200_OK)
-
+        try:
+            refresh_token = request.data.get("refresh_token")
+            # logout(request)
+            # If the request doesn't contain a refresh token in the data, handle the exception
+        except KeyError:
+            return Response({'detail': 'Refresh token is required in the request data.'}, status=status.HTTP_400_BAD_REQUEST)
         
+        refresh_token_obj = RefreshToken(refresh_token)
+        refresh_token_obj.blacklist()
+        # access_token_obj.blacklist()
+        
+        return Response({'detail': 'Successfully logged out.'}, status=status.HTTP_200_OK)
+
 # Create your views here.
 class UserLogin(APIView):
     def post(self, request):
@@ -106,7 +114,9 @@ class RefreshAccessToken(APIView):
         except Exception as e:
             # Handle any exceptions that might occur during token refresh
             print(f"Token refresh failed: {e}")
-            return None
+            return Response({
+                'message': 'Fail'
+            })
 def index(request):
     return HttpResponse('Hello world')
 
