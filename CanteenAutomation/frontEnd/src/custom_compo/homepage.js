@@ -46,7 +46,7 @@ function HomePage() {
     const [accountDetails, setAccountDetails] = useState()
     const [gotAccountDetails, setGotAccountDetails] = useState(false)
     const [cartDetails, setCartDetails] = useState()
-    const [gotCartDetails, setGotCartDetails] = useState(false )
+    const [gotCartDetails, setGotCartDetails] = useState(false)
 
     const apiUrl = "http://127.0.0.1:8000/get-account-details"
     const token = JSON.parse(localStorage.getItem('token'))
@@ -93,9 +93,9 @@ function HomePage() {
                 }
             })
             .then(data => {
-                if(data.length===0)setCartDetails(data)
-                else if (data[data.length-1].status!=="AddedToCart")setCartDetails([])
-                else setCartDetails(data[data.length-1])
+                if (data.length === 0) setCartDetails(data)
+                else if (data[data.length - 1].status !== "AddedToCart") setCartDetails([])
+                else setCartDetails(data[data.length - 1])
                 setGotCartDetails(true)
             })
             .catch(error => console.error('Error:', error));
@@ -139,11 +139,38 @@ function HomePage() {
         //onClick={toggleDrawer(anchor, false)}
         //onKeyDown={toggleDrawer(anchor, false)}
         >
-            {anchor === "right" ? <CartContent drawerButton={drawerButton} anchor={anchor} cartDetails={cartDetails} payment={handlePayment}/> : <AccountContent drawerButton={drawerButton} anchor={anchor} accountDetails={accountDetails} />}
+            {anchor === "right" ? <CartContent drawerButton={drawerButton} anchor={anchor} cartDetails={cartDetails} payment={handlePayment} /> : <AccountContent drawerButton={drawerButton} anchor={anchor} accountDetails={accountDetails} signOut={handleSignOut} />}
         </Box>
     );
 
-    const handlePayment = (order_id) =>{
+    const handleSignOut = () => {
+        const userConfirm = window.confirm("Do you want to Sign Out?")
+        if (userConfirm) {
+            const apiSignOut = "http://127.0.0.1:8000/signout"
+            fetch(apiSignOut, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error('Something went wrong ...');
+                    }
+                })
+                .then(() => {
+                    localStorage.removeItem('token')
+                    window.location.reload()
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    }
+
+
+    const handlePayment = (order_id) => {
         const apiPayment = "http://127.0.0.1:8000/confirm-order"
         fetch(apiPayment, {
             method: 'POST',
