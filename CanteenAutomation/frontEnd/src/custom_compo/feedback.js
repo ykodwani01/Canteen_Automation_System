@@ -39,6 +39,8 @@ function Feedback(){
     const [gotAccountDetails, setGotAccountDetails] = useState(false)
     const [cartDetails, setCartDetails] = useState()
     const [gotCartDetails, setGotCartDetails] = useState(false)
+    const [feedbacks, setFeedbacks] = useState()
+    const [data, setData] = useState()
 
     const [porder, setPOrder] = useState()
     const [isLoaded, setIsLoaded] = useState(false)
@@ -47,8 +49,33 @@ function Feedback(){
 
     const token = JSON.parse(localStorage.getItem('token'))
 
-    const handleChildButton = () => {
-        console.log("Button was clicked");
+    const handleChildButton = (id) => {
+        const userConfirm = window.confirm("Are you sure you want to submit!")
+        if (userConfirm){
+        const apiFeedback = "http://127.0.0.1:8000/get-feedback"
+        fetch(apiFeedback, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token.access}`
+            },
+            body: JSON.stringify({
+                "order_id": id,
+                "feedback":feedbacks.filter((item)=>(item.order_id===id))[0].feedback
+            })
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Something went wrong ...');
+                }
+            })
+            .then(data => {
+                setData(data)
+                setFeedbacks(data.map((item)=>({"order_id":item.id,"feedback":""})))
+            })
+            .catch(error => console.error('Error:', error));}
     }
 
     useEffect(() => {
@@ -121,11 +148,30 @@ function Feedback(){
             .then(data => {
                 // Handle the response data here
                 console.log(data);
-                setPOrder(data.map((item) => (<PastOrder key={item.order_id} id={item.order_id} totalAmount={item.total_amount} name={item.canteen} onButtonClick = {handleChildButton}/>)))  //items={item.items}
-                setIsLoaded(true)
-            })
+                setData(data)
+                setPOrder(data.map((item) => (<PastOrder key={item.id} id={item.id} totalAmount={item.total_amount} name={item.order_canteen_name} items={item.items} feedback={feedbacks} changeFeedBack={handleChangeFeedBack} onButtonClick = {handleChildButton}/>)))  
+                setFeedbacks(data.map((item)=>({"order_id":item.id,"feedback":""})))
+                })
             .catch(error => console.error('Error:', error));
     }, [])
+
+    useEffect(()=>{
+        if(feedbacks&&data){
+            setPOrder(data.map((item) => (<PastOrder key={item.id} id={item.id} totalAmount={item.total_amount} name={item.order_canteen_name} items={item.items} feedback={feedbacks} changeFeedBack={handleChangeFeedBack} onButtonClick = {handleChildButton}/>)))  
+            setIsLoaded(true)
+        }
+    },[feedbacks])
+
+    const handleChangeFeedBack = (id,value) => {
+        setFeedbacks(feedbacks.map((item)=>{
+            if(item.order_id===id){
+                return {"order_id":item.order_id,"feedback":value}
+            }
+            else{
+                return item
+            }
+        }))
+    }
 
 
     //state for drawer
@@ -207,9 +253,9 @@ function Feedback(){
             {/* background */}
             {gotAccountDetails&&gotCartDetails&&isLoaded?<div style={{ backgroundColor: '#DED8D8', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
                 {/* first box */}
-                <div style={{ borderRadius: '108px', marginTop: '70px', backgroundColor: '#EBE7E6', border: '2px solid white', width: '1341px', height: '732px', boxShadow: '0px 10px 5px darkgrey', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ borderRadius: '108px',padding:'30px 0px', marginTop: '70px', backgroundColor: '#EBE7E6', border: '2px solid white', width: '1341px', boxShadow: '0px 10px 5px darkgrey', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                     {/* padding box */}
-                    <div style={{ width: '1191px', height: '2032px' }}>
+                    <div style={{ width: '1191px' }}>
                         {/* header div / Navigation bar */}
                         <div style={{ display: 'flex', height: '70px', justifyContent: 'center', marginTop: '70px' }}>
                             <img src={logo} alt='website logo' style={{ marginRight: '250px', height: '80px' }} />
