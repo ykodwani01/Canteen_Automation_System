@@ -67,7 +67,7 @@ function HomePage() {
                 if (response.ok) {
                     return response.json();
                 } else {
-                    throw new Error('Something went wrong ...');
+                    window.location.href="http://localhost:3000/"
                 }
             })
             .then(data => {

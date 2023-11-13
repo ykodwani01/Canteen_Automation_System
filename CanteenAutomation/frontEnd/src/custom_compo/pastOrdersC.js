@@ -5,6 +5,7 @@ import '../App.css';
 import { Typography } from '@mui/material/';
 import { ThemeProvider } from '@mui/material/';
 import Button from '@mui/material/Button';
+import { TextField } from '@mui/material/'
 
 //importing react cmp
 //import { useState } from 'react';
@@ -25,7 +26,7 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.primary,
 }));
 
-function Order(props) {
+function PastOrder(props) {
 
     const displayOrders = props.items.map((item) => (
         <div key={item.canteen} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
@@ -43,13 +44,20 @@ function Order(props) {
         </div>
     ))
 
+    const handleChange = (event) => {
+        const feedback = event.target.value;
+        console.log(event)
+        props.changeFeedBack(props.id, feedback);
+    }
+
     return (
         //displaying order
         <ThemeProvider theme={theme}>
-            <div style={{ display: 'flex', justifyContent: 'space-around', padding: '40px', backgroundColor: '#E9DCDC', borderRadius: '30px', margin: '20px', width: '1100px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-evenly', padding: '40px', backgroundColor: '#E9DCDC', borderRadius: '30px', margin: '20px', width: '1100px' }}>
                 <div>
                     <Typography variant='h3' sx={{ marginBottom: '20px' }}>Order Details</Typography>
-                    <Grid container spacing={2} sx={{marginBottom:'20px'}}>
+                    <Typography variant='h5' sx={{ marginBottom: '20px' }}>{props.name}</Typography>
+                    <Grid container spacing={2} sx={{marginBottom:'30px'}}>
                         <Grid item xs={4}>
                             <Item><Typography sx={{fontWeight:'bold'}}>Name</Typography></Item>
                         </Grid>
@@ -61,22 +69,19 @@ function Order(props) {
                         </Grid>
                     </Grid>
                     {displayOrders}
-                    <Typography>Total Amount : {props.totalAmount}</Typography>
-                    {props.flag?<div style={{ display: 'flex', justifyContent: 'end' }}>
-                        {/* <Button variant='contained' sx={{ marginTop: '50px', marginLeft: '20px' }}>Prepared</Button> */}
-                        <Button id={props.id} onClick={()=>(props.completed(props.id))} variant='contained' sx={{ marginTop: '50px', marginLeft: '20px' }}>Completed</Button>
-                    </div>:<div></div>}
-                    
                 </div>
                 <div>
-                    <Typography variant='h3' sx={{ marginBottom: '20px' }}>Customer Details</Typography>
-                    <Typography>Name: {props.name}</Typography>
-                    <Typography>Contact Number: {parseInt(props.phone)}</Typography>
-                    <Typography>Email: {props.email}</Typography>
+                    <div>
+                        <Typography variant='h7'>{props.feedback}</Typography>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'end' }}>
+                        <Button id={props.id} variant='contained' onClick={() => (props.onButtonClick(props.id))} sx={{ marginTop: '50px', marginLeft: '20px', borderRadius:'30px' }}>Submit</Button>
+                    </div>
+
                 </div>
             </div>
         </ThemeProvider>
     )
 }
 
-export default Order;
+export default PastOrder;

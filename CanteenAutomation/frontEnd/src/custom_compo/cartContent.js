@@ -6,6 +6,22 @@ import EastIcon from '@mui/icons-material/East';
 import RemoveShoppingCartIcon from '@mui/icons-material/RemoveShoppingCart';
 
 
+import * as React from 'react';
+import { styled } from '@mui/material/styles';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
+
+const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#FAF9F6',
+    // ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.primary,
+    border:'none',
+    boxShadow:'none'
+}));
+
+
 function CartContent(props) {
     const theme = createTheme({
         palette: {
@@ -19,11 +35,19 @@ function CartContent(props) {
         cartItems = props.cartDetails.items.map((item) => {
             if (item.quantity !== 0) {
                 return (
-                    <div key={item.name} style={{ display: 'flex', justifyContent: 'space-around' }}>
-                        <Typography variant="h6">{item.name}</Typography>
-                        <Typography variant="h6">{item.quantity}</Typography>
-                        <Typography variant="h6">{item.quantity * item.price}</Typography>
-                    </div>
+                    <div key={item.name} style={{ display: 'flex', justifyContent: 'space-between', }}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={4}>
+                            <Item sx={{margin:'15px'}}><Typography variant="h6">{item.name}</Typography></Item>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <Item sx={{margin:'15px'}}><Typography variant="h6">{item.quantity}</Typography></Item>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <Item sx={{margin:'15px'}}><Typography variant="h6">{item.price}</Typography></Item>
+                        </Grid>
+                    </Grid>
+                </div>
                 )
             }
             else return([])
@@ -37,10 +61,21 @@ function CartContent(props) {
             {props.cartDetails.length === 0 ||cartItems.length === 0? <RemoveShoppingCartIcon sx={{display:'flex',justifyContent:'center',alignItems:'center',height:'100vh',width:'50%',paddingLeft:'50px',color:'#C31E2C'}}/> : <div>
                 <div style={{ display: 'flex', alignItems: 'center', width: '460px' }}>
                     <Button variant='contained' sx={{ borderRadius: '30px' }} onClick={() => { props.drawerButton(props.anchor, false) }}><EastIcon /></Button>
-                    <Typography variant='h5' sx={{ paddingLeft: '120px', fontWeight: 'bold' }}>Cart Content : {props.cartDetails.order_canteen_name}</Typography>
+                    <Typography variant='h5' sx={{ marginLeft:'30px', fontWeight: 'bold' }}>Cart Content : {props.cartDetails.order_canteen_name}</Typography>
                 </div>
                 {/* box to show items that customer wants to purchase */}
                 <div style={{ border: '2px solid white', borderRadius: '30px', width: '460px', margin: '5px', marginTop: '40px', padding: '5px' }}>
+                <Grid container spacing={2} sx={{marginBottom:'20px',padding:'10px',border:'none',boxShadow:'none'}}>
+                        <Grid item xs={4}>
+                            <Item sx={{backgroundColor:'#DED8D8'}}><Typography variant="h6" sx={{fontWeight:'bold'}}>Name</Typography></Item>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <Item sx={{backgroundColor:'#DED8D8'}}><Typography variant="h6" sx={{fontWeight:'bold'}}>Quantity</Typography></Item>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <Item sx={{backgroundColor:'#DED8D8'}}><Typography variant="h6" sx={{fontWeight:'bold'}}>Price</Typography></Item>
+                        </Grid>
+                    </Grid>
                     {cartItems}
                 </div>
                 {/* box to show the final summary of the items  */}

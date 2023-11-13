@@ -36,21 +36,21 @@ function Error() {
                     <div style={{ width: '1191px', height: '632px' }}>
                         {/* header div / Navigation bar */}
                         <div style={{ display: 'flex', height: '70px', justifyContent: 'center', marginTop: '20px' }}>
-                            <img src={logo} alt='website logo' style={{ marginRight: '250px', height: '80px' }} />
+                            <img src={logo} alt='website logo' style={{ height: '80px' }} />
                             <div style={{ display: 'flex', boxShadow: '0px 2px 0px darkGrey', paddingBottom: '10px', marginTop: '10px' }}>
-                                <Button style={{ color: 'black', marginRight: '20px', marginTop: '11px', fontWeight: 'bold' }} href='/home'>Home</Button>
+                                {/* <Button style={{ color: 'black', marginRight: '20px', marginTop: '11px', fontWeight: 'bold' }} href='/home'>Home</Button>
                                 <Button style={{ color: 'black', marginRight: '20px', marginTop: '11px', fontWeight: 'bold' }} href='/home/feedback'>Feedback</Button>
                                 <Button style={{ color: 'black', marginRight: '20px', marginTop: '11px', fontWeight: 'bold' }} href='/home/aboutus'>About Us</Button>
                                 <Button style={{ color: 'black', marginRight: '60px', marginTop: '11px', fontWeight: 'bold' }} href='/home/contact'>Contact</Button>
                                 <Button variant='contained' style={{ borderRadius: '30px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='/home/account'>Account</Button>
-                                <Button variant='contained' startIcon={<ShoppingCartIcon />} style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='/home/cart'>0</Button>
+                                <Button variant='contained' startIcon={<ShoppingCartIcon />} style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='/home/cart'>0</Button> */}
                             </div>
                         </div>
                         {/* child box of padding box */}
                         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '100px', marginLeft: '100px' }}>
                             <div style={{ width: '450px' }}>
                                 <Typography variant='h3'>Sorry, it looks like someone took a bite of this page!</Typography>
-                                <Button variant='contained' endIcon={<EastIcon/>} style={{ borderRadius: '30px', marginTop: '60px', height: '50px' }}>Return to Home</Button>
+                                <Button variant='contained' endIcon={<EastIcon/>} style={{ borderRadius: '30px', marginTop: '60px', height: '50px' }} href="http://localhost:3000/">Return to Home</Button>
                             </div>
                             <div style={{ marginLeft: '70px' }}>
                                 <img src={error_404} alt='error_404' style={{ height: '300px' }} />

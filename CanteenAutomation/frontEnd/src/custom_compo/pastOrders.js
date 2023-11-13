@@ -19,11 +19,11 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 
 const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    ...theme.typography.body2,
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#FAF9F6',
+    // ...theme.typography.body2,
     padding: theme.spacing(1),
     textAlign: 'center',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.primary,
 }));
 
 function PastOrder(props) {
@@ -59,13 +59,13 @@ function PastOrder(props) {
                     <Typography variant='h5' sx={{ marginBottom: '20px' }}>{props.name}</Typography>
                     <Grid container spacing={2} sx={{marginBottom:'30px'}}>
                         <Grid item xs={4}>
-                            <Item><Typography>Name</Typography></Item>
+                            <Item><Typography sx={{fontWeight:'bold'}}>Name</Typography></Item>
                         </Grid>
                         <Grid item xs={4}>
-                            <Item><Typography>Quantity</Typography></Item>
+                            <Item><Typography sx={{fontWeight:'bold'}}>Quantity</Typography></Item>
                         </Grid>
                         <Grid item xs={4}>
-                            <Item><Typography>Price</Typography></Item>
+                            <Item><Typography sx={{fontWeight:'bold'}}>Price</Typography></Item>
                         </Grid>
                     </Grid>
                     {displayOrders}
@@ -78,13 +78,13 @@ function PastOrder(props) {
                             multiline
                             rows={5}
                             variant="outlined"
-                            sx={{ width: '165%' }}
+                            sx={{ width: '165%' , marginTop:'30px'}}
                             value={props.feedback.filter((item) => (item.order_id === props.id))[0].feedback}
                             onChange={handleChange}
                         />
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'end' }}>
-                        <Button id={props.id} variant='contained' onClick={() => (props.onButtonClick(props.id))} sx={{ marginTop: '50px', marginLeft: '20px' }}>Submit</Button>
+                        <Button id={props.id} variant='contained' onClick={() => (props.onButtonClick(props.id))} sx={{ marginTop: '50px', marginLeft: '20px', borderRadius:'30px' }}>Submit</Button>
                     </div>
 
                 </div>

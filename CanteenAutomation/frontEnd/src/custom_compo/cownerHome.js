@@ -87,7 +87,7 @@ function CownerHome() {
                 if (response.ok) {
                     return response.json();
                 } else {
-                    throw new Error('Something went wrong ...');
+                    window.location.href="http://localhost:3000/"
                 }
             })
             .then(data => {
@@ -172,6 +172,15 @@ function CownerHome() {
     }
 
     const handleAdd = () => {
+        const regex = /^[a-zA-Z]{1,10}$/;
+        if (!regex.test(newItem.name)) {
+            alert("Name should be of 1-10 characters and should not contain any special characters or numbers")
+            return
+        }
+        if(newItem.price<=0||newItem.price>1000){
+            alert("Price should be positive or less than 1000")
+            return
+        }
         const userConfirm = window.confirm("Are you sure you want to add this item?")
         if (userConfirm) {
             const apiUrl = "http://localhost:8000/get-items"
@@ -218,13 +227,13 @@ function CownerHome() {
                     {/* padding box */}
                     <div style={{ width: '1191px' }}>
                         {/* header div / Navigation bar */}
-                        <div style={{ display: 'flex', height: '70px', justifyContent: 'center', marginTop: '20px' }}>
-                            <img src={logo} alt='website logo' style={{ marginRight: '100px', height: '80px' }} />
+                        <div style={{ display: 'flex', height: '70px', justifyContent: 'center', marginTop: '50px' }}>
+                            <img src={logo} alt='website logo' style={{ marginRight: '170px', height: '80px' }} />
                             <div style={{ display: 'flex', boxShadow: '0px 2px 0px darkGrey', paddingBottom: '10px', marginTop: '10px' }}>
                                 <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`/cownerHome/${data[0].canteen}`}>Home</Button>
-                                <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='/home/feedback'>Feedback</Button>
-                                <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='/home/aboutus'>About Us</Button>
-                                <Button style={{ color: 'black', marginRight: '60px', marginTop: '10px', fontWeight: 'bold' }} href='/home/contact'>Contact</Button>
+                                <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`/cownerHome/feedbackCanteen/${data[0].canteen}`}>Feedback</Button>
+                                {/* <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='/home/aboutus'>About Us</Button>
+                                <Button style={{ color: 'black', marginRight: '60px', marginTop: '10px', fontWeight: 'bold' }} href='/home/contact'>Contact</Button> */}
                                 <Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`/cownerHome/pendingOrders/${data[0].canteen}`}>Pending Orders</Button>
                                 <Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`/cownerHome/allOrders/${data[0].canteen}`}>All orders</Button>
                                 {/* drawer for cart */}
@@ -256,7 +265,7 @@ function CownerHome() {
                         {!toggleAdd?<div></div>:<div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginTop: '20px' }}>
                             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '10px', backgroundColor: color ? '#E8CFCF' : '#E9DCDC', borderRadius: '30px', margin: '10px' }} onMouseEnter={() => (setColor(true))} onMouseLeave={() => (setColor(false))}>
                                 <TextField id="Name" onChange={handleNewItemChange} value={newItem.name} variant='outlined' label="Name" sx={{ width: '350px', marginLeft: '20px', margin: '10px 30px' }} />
-                                <TextField id="Price" onChange={handleNewItemChange} value={newItem.price} variant='outlined' label="Price" sx={{ fontWeight: 'bold', width: '150px' }} />
+                                <TextField type='number' id="Price" onChange={handleNewItemChange} value={newItem.price} variant='outlined' label="Price" sx={{ fontWeight: 'bold', width: '150px' }} />
                                 <Button variant='contained' sx={{ margin: '0px 20px', borderRadius: '30px', height: '40px' }} onClick={handleAdd}>Add</Button>
                             </div>
                         </div>}

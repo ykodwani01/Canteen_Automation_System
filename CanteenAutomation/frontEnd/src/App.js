@@ -18,6 +18,7 @@ import Menu from './custom_compo/menu.js';
 import CownerHome from './custom_compo/cownerHome.js';
 import PendingOrders from './custom_compo/pendingOrders';
 import AllOrders from './custom_compo/allOrders';
+import FeedbackCanteen from './custom_compo/feedbackCanteen.js';
 
 //creating routes
 const router = createBrowserRouter(
@@ -34,6 +35,7 @@ const router = createBrowserRouter(
       <Route path='/cownerHome/:id' element={<CownerHome/>}/>
       <Route path='/cownerHome/pendingOrders/:id' element={<PendingOrders/>}/>
       <Route path='/cownerHome/allOrders/:id' element={<AllOrders/>}/>
+      <Route path='/cownerHome/feedbackCanteen/:id' element={<FeedbackCanteen/>}/>
       <Route path='*' element={<Error/>}/>
     </Route>
   )
