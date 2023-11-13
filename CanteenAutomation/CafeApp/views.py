@@ -353,7 +353,7 @@ class GetFeedback(APIView):
                 feedback_obj_main.append(k)
         return Response(feedback_obj_main,status=status.HTTP_200_OK)
         return Response({"success":False})
-    
+from django.core.mail import send_mail
 class OrderDelivered(APIView):
     permission_classes = [IsAuthenticated]
     authentication_classes = [JWTAuthentication]
@@ -364,6 +364,14 @@ class OrderDelivered(APIView):
         if(order_obj.order_canteen==canteen_obj):
             order_obj.status="Delivered"
             order_obj.save()
+            name = order_obj.order_cust.cust.name
+            send_mail(
+                "Your Order Is Prepared",
+                f"Hii {name}. Your order is prepared",
+                "django.reset.system@gmail.com",
+                [f"{order_obj.order_cust.cust.user.email}"],
+                fail_silently=False,
+            )
         if canteen_obj is not None:
             order_obj = orders.objects.filter(order_canteen=canteen_obj, status__in=['Received'])
             Item_serialized = OrderSerializer(order_obj,many=True)
