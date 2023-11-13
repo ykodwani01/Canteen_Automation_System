@@ -238,9 +238,17 @@ function Menu() {
         //onClick={toggleDrawer(anchor, false)}
         //onKeyDown={toggleDrawer(anchor, false)}
         >
-            {anchor === "right" ? <CartContent drawerButton={drawerButton} anchor={anchor} cartDetails={cartDetails} payment={handlePayment}/> : <AccountContent drawerButton={drawerButton} anchor={anchor} accountDetails={accountDetails} />}
+            {anchor === "right" ? <CartContent drawerButton={drawerButton} anchor={anchor} cartDetails={cartDetails} payment={handlePayment}/> : <AccountContent drawerButton={drawerButton} anchor={anchor} accountDetails={accountDetails} signOut={handleSignOut}/>}
         </Box>
     );
+
+    const handleSignOut = () => {
+        const userConfirm = window.confirm("Do you want to Sign Out?")
+        if (userConfirm) {
+            localStorage.removeItem('token')
+            window.location.href="http://localhost:3000/"
+        }
+    }
 
     const handleUpdateCart = () => {
         const useConfirmed = window.confirm("By updating your cart, your past cart will be cleared. Do you want to procced?")

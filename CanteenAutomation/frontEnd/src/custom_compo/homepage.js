@@ -32,6 +32,7 @@ import { useState, useEffect } from 'react';
 import Specialities from '../home_compo/specialities';
 import CartContent from './cartContent.js';
 import AccountContent from './accountContent.js';
+import { Navigate } from 'react-router-dom';
 
 //defining theme
 const theme = createTheme({
@@ -101,8 +102,29 @@ function HomePage() {
             .catch(error => console.error('Error:', error));
     }, [])
 
-
-
+    // const apiRefresh = "http://127.0.0.1:8000/token/refresh"
+    // useEffect(()=>{
+    //     fetch(apiRefresh,
+    //     {
+    //         method: 'GET',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             'Authorization': `Bearer ${token.refresh}`,
+    //         },
+    //     }).then((res)=>{
+    //         if(res.ok){
+    //             return res.json()
+    //         }else{
+    //             throw new Error('Something went wrong ...');
+    //         }
+    //     }
+    //     ).then((data)=>{
+    //         console.log("success")
+    //         localStorage.setItem('token',JSON.stringify(data))
+    //     }).catch((error)=>{
+    //         console.error('Error:', error);
+    //     })
+    // },[])
 
     //state for drawer
     const [state, setState] = React.useState({
@@ -146,28 +168,12 @@ function HomePage() {
     const handleSignOut = () => {
         const userConfirm = window.confirm("Do you want to Sign Out?")
         if (userConfirm) {
-            const apiSignOut = "http://127.0.0.1:8000/signout"
-            fetch(apiSignOut, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-            })
-                .then(response => {
-                    if (response.ok) {
-                        return response.json();
-                    } else {
-                        throw new Error('Something went wrong ...');
-                    }
-                })
-                .then(() => {
-                    localStorage.removeItem('token')
-                    window.location.reload()
-                })
-                .catch(error => console.error('Error:', error));
+            localStorage.removeItem('token')
+            window.location.href="http://localhost:3000/"
         }
     }
+
+    
 
 
     const handlePayment = (order_id) => {

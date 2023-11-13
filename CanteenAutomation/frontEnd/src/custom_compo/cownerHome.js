@@ -158,9 +158,17 @@ function CownerHome() {
         //onClick={toggleDrawer(anchor, false)}
         //onKeyDown={toggleDrawer(anchor, false)}
         >
-            {<AccountContent drawerButton={drawerButton} anchor={anchor} accountDetails={accountDetails} />}
+            {<AccountContent drawerButton={drawerButton} anchor={anchor} accountDetails={accountDetails} signOut={handleSignOut}/>}
         </Box>
     );
+
+    const handleSignOut = () => {
+        const userConfirm = window.confirm("Do you want to Sign Out?")
+        if (userConfirm) {
+            localStorage.removeItem('token')
+            window.location.href="http://localhost:3000/"
+        }
+    }
 
     const handleAdd = () => {
         const userConfirm = window.confirm("Are you sure you want to add this item?")

@@ -84,7 +84,7 @@ function AllOrders() {
             .then(data => {
                 // Handle the response data here
                 console.log(data);
-                setOrder(data.map((item) => (<Order key={item.id} name={item.order_cust_name} status={item.status} totalAmount={item.total_amount} items={item.items} flag={0}/>)))
+                setOrder(data.map((item) => (<Order key={item.id} name={item.order_cust_name} phone={item.order_cust_contact} email={item.order_cust_email} status={item.status} totalAmount={item.total_amount} items={item.items} flag={0}/>)))
                 setIsLoaded(true)
             })
             .catch(error => console.error('Error:', error));
@@ -124,9 +124,17 @@ function AllOrders() {
                 //onClick={toggleDrawer(anchor, false)}
                 //onKeyDown={toggleDrawer(anchor, false)}
                 >
-                    {<AccountContent drawerButton={drawerButton} anchor={anchor} accountDetails={accountDetails} />}
+                    {<AccountContent drawerButton={drawerButton} anchor={anchor} accountDetails={accountDetails} signOut={handleSignOut}/>}
                 </Box>
             );
+
+            const handleSignOut = () => {
+                const userConfirm = window.confirm("Do you want to Sign Out?")
+                if (userConfirm) {
+                    localStorage.removeItem('token')
+                    window.location.href="http://localhost:3000/"
+                }
+            }
 
     const id = useParams()
 

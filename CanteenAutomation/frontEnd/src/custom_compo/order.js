@@ -70,9 +70,9 @@ function Order(props) {
                 </div>
                 <div>
                     <Typography variant='h3' sx={{ marginBottom: '20px' }}>Customer Details</Typography>
-                    <Typography>Name:{props.name}</Typography>
-                    <Typography>Contact Number:xxx</Typography>
-                    <Typography>Email:abc@gmail.com</Typography>
+                    <Typography>Name: {props.name}</Typography>
+                    <Typography>Contact Number: {parseInt(props.phone)}</Typography>
+                    <Typography>Email: {props.email}</Typography>
                 </div>
             </div>
         </ThemeProvider>
