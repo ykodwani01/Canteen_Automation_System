@@ -102,29 +102,43 @@ function HomePage() {
             .catch(error => console.error('Error:', error));
     }, [])
 
-    // const apiRefresh = "http://127.0.0.1:8000/token/refresh"
-    // useEffect(()=>{
-    //     fetch(apiRefresh,
-    //     {
-    //         method: 'GET',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             'Authorization': `Bearer ${token.refresh}`,
-    //         },
-    //     }).then((res)=>{
-    //         if(res.ok){
-    //             return res.json()
-    //         }else{
-    //             throw new Error('Something went wrong ...');
-    //         }
-    //     }
-    //     ).then((data)=>{
-    //         console.log("success")
-    //         localStorage.setItem('token',JSON.stringify(data))
-    //     }).catch((error)=>{
-    //         console.error('Error:', error);
-    //     })
-    // },[])
+    useEffect(() => {
+        const refreshToken = token.refresh; // Replace with your actual refresh token
+    
+        const refreshAccessToken = () => {
+            console.log("hi")
+            const apiRefresh = "http://127.0.0.1:8000/refresh"
+          fetch(apiRefresh, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token.access}`
+            },
+            body: JSON.stringify({
+              "refresh": refreshToken,
+            }),
+          })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error('Failed to refresh access token');
+              }
+              return response.json();
+            })
+            .then((data) => {
+                console.log(data)
+              localStorage.setItem('token',data)
+            })
+            .catch((error) => {
+              console.error('Error refreshing access token:', error);
+            });
+        };
+    
+        // Set up a timer to refresh the access token every 10 minutes
+        const intervalId = setInterval(refreshAccessToken,9*60*1000); // 10 minutes
+    
+        // Clean up the interval when the component unmounts
+        return () => clearInterval(intervalId);
+      }, []);
 
     //state for drawer
     const [state, setState] = React.useState({
@@ -238,7 +252,7 @@ function HomePage() {
                                 ))}
                                 {['right'].map((anchor) => (
                                     <React.Fragment key={anchor}>
-                                        <Button variant='contained' startIcon={<ShoppingCartIcon />} style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} onClick={toggleDrawer(anchor, true)}>{cartDetails.total_quantity}</Button>
+                                        <Button variant='contained' startIcon={<ShoppingCartIcon />} style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} onClick={toggleDrawer(anchor, true)}>{cartDetails.total_quantity?cartDetails.total_quantity:0}</Button>
                                         <SwipeableDrawer
                                             anchor={anchor}
                                             open={state[anchor]}

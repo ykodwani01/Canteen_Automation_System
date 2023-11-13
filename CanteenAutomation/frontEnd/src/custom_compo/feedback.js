@@ -149,7 +149,6 @@ function Feedback(){
                 // Handle the response data here
                 console.log(data);
                 setData(data)
-                setPOrder(data.map((item) => (<PastOrder key={item.id} id={item.id} totalAmount={item.total_amount} name={item.order_canteen_name} items={item.items} feedback={feedbacks} changeFeedBack={handleChangeFeedBack} onButtonClick = {handleChildButton}/>)))  
                 setFeedbacks(data.map((item)=>({"order_id":item.id,"feedback":""})))
                 })
             .catch(error => console.error('Error:', error));
@@ -282,7 +281,7 @@ function Feedback(){
                                 ))}
                                 {['right'].map((anchor) => (
                                     <React.Fragment key={anchor}>
-                                        <Button variant='contained' startIcon={<ShoppingCartIcon />} style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} onClick={toggleDrawer(anchor, true)}>{cartDetails.total_quantity}</Button>
+                                        <Button variant='contained' startIcon={<ShoppingCartIcon />} style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} onClick={toggleDrawer(anchor, true)}>{cartDetails.total_quantity?cartDetails.total_quantity:0}</Button>
                                         <SwipeableDrawer
                                             anchor={anchor}
                                             open={state[anchor]}
