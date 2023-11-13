@@ -28,21 +28,21 @@ const Item = styled(Paper)(({ theme }) => ({
 
 function PastOrder(props) {
 
-    const displayOrders = props.items.map((item) => (
-        <div key={item.canteen} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
-            <Grid container spacing={2}>
-                <Grid item xs={4}>
-                    <Item><Typography>{item.name}</Typography></Item>
-                </Grid>
-                <Grid item xs={4}>
-                    <Item><Typography>{item.quantity}</Typography></Item>
-                </Grid>
-                <Grid item xs={4}>
-                    <Item><Typography>{item.price}</Typography></Item>
-                </Grid>
-            </Grid>
-        </div>
-    ))
+    // const displayOrders = props.items.map((item) => (
+    //     <div key={item.canteen} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
+    //         <Grid container spacing={2}>
+    //             <Grid item xs={4}>
+    //                 <Item><Typography>{item.name}</Typography></Item>
+    //             </Grid>
+    //             <Grid item xs={4}>
+    //                 <Item><Typography>{item.quantity}</Typography></Item>
+    //             </Grid>
+    //             <Grid item xs={4}>
+    //                 <Item><Typography>{item.price}</Typography></Item>
+    //             </Grid>
+    //         </Grid>
+    //     </div>
+    // ))
 
     return (
         //displaying order
@@ -50,7 +50,8 @@ function PastOrder(props) {
             <div style={{ display: 'flex', justifyContent: 'space-around', padding: '40px', backgroundColor: '#E9DCDC', borderRadius: '30px', margin: '20px', width: '1100px' }}>
                 <div>
                     <Typography variant='h3' sx={{ marginBottom: '20px' }}>Order Details</Typography>
-                    {displayOrders}
+                    {/* {displayOrders} */}
+                    <Typography variant='h3' sx={{ marginBottom: '20px' }}>{props.name}</Typography>
                 </div>
                 <div>
                     <div>

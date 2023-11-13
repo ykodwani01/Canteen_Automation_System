@@ -121,7 +121,7 @@ function Feedback(){
             .then(data => {
                 // Handle the response data here
                 console.log(data);
-                setPOrder(data.map((item) => (<PastOrder key={item.id} totalAmount={item.total_amount} items={item.items} onButtonClick = {handleChildButton}/>)))
+                setPOrder(data.map((item) => (<PastOrder key={item.order_id} id={item.order_id} totalAmount={item.total_amount} name={item.canteen} onButtonClick = {handleChildButton}/>)))  //items={item.items}
                 setIsLoaded(true)
             })
             .catch(error => console.error('Error:', error));
