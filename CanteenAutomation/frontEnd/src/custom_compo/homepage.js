@@ -281,7 +281,7 @@ function HomePage() {
                     <div style={{ width: '1191px', height: '532px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                         <div>
                             <Typography variant='h3' style={{ marginBottom: '30px' }}>Explore your favourite cafe's food.</Typography>
-                            <Typography>Lorem ipsum dolor sit amet consectetur. Ornare massa nunc nibh tristique. Non ligula tristique ut ut libero sit convallis maecenas. At egestas auctor porta mattis.</Typography>
+                            <Typography>Discover a world of culinary delights at your fingertips. Explore a diverse menu, from savory classics to innovative creations, all ready to tantalize your taste buds. Order online and let us bring the flavors of your favorite canteens right to your doorstep.</Typography>
                             {/*<Button variant="contained" endIcon={<EastIcon />} style={{ borderRadius: '30px', marginTop: '50px', height: '50px' }}>Explore</Button>*/}
                         </div>
                         <div>
@@ -292,9 +292,9 @@ function HomePage() {
                 {/* third box */}
                 <div style={{ borderRadius: '108px', marginTop: '70px', backgroundColor: '#EBE7E6', border: '2px solid white', width: '1341px', height: '582px', boxShadow: '0px 10px 5px darkgrey', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     <div style={{ width: '1191px', height: '532px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                        <Specialities key="one" id="one" image={home_3_3} title="Wide selection of FOOD!" description="Lorem ipsum dolor sit amet consectetur. Ornare massa nunc nibh tristique." />
-                        <Specialities key="two" id="two" image={home_3_2} title="Easy order placing!" description="Lorem ipsum dolor sit amet consectetur. Ornare massa nunc nibh tristique." />
-                        <Specialities key="three" id="three" image={home_3_1} title="Fast preparation within 20 mins" description="Lorem ipsum dolor sit amet consectetur. Ornare massa nunc nibh tristique." />
+                        <Specialities key="one" id="one" image={home_3_3} title="Wide selection of FOOD!" description="Enjoy an extensive menu featuring dishes from around the world. Whether you're in the mood for classic comfort food or adventurous flavors, we've got something to please every palate. Explore our wide variety of delicious options and find your new favorites today!" />
+                        <Specialities key="two" id="two" image={home_3_2} title="Easy order placing!" description="Ordering made simple! With just a few clicks, enjoy hassle-free meal selection and speedy checkout. Say goodbye to long queues and complicated processes - experience easy, straightforward ordering for a delicious dining experience delivered right to your doorstep." />
+                        <Specialities key="three" id="three" image={home_3_1} title="Fast preparation within 20 mins" description="Quick and fresh! Our promise: savory meals prepared swiftly in under 20 minutes. Enjoy the convenience of speedy service without compromising on taste or quality. Order now for a deliciously fast dining experience delivered straight to you." />
                     </div>
                 </div>
                 {/* footer */}
