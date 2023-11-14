@@ -7,7 +7,6 @@ import { ThemeProvider } from '@mui/material/';
 import { green } from '@mui/material/colors';
 import Button from '@mui/material/Button';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import EastIcon from '@mui/icons-material/East';
 
 import * as React from 'react';
 import Box from '@mui/material/Box';
@@ -33,8 +32,6 @@ import Specialities from '../home_compo/specialities';
 import CartContent from './cartContent.js';
 import AccountContent from './accountContent.js';
 import Loading from './loading.js';
-import { Navigate } from 'react-router-dom';
-
 
 
 //defining theme
@@ -291,7 +288,7 @@ function HomePage() {
                         <div>
                             <Typography variant='h3' style={{ marginBottom: '30px' }}>Explore your favourite cafe's food.</Typography>
                             <Typography>Lorem ipsum dolor sit amet consectetur. Ornare massa nunc nibh tristique. Non ligula tristique ut ut libero sit convallis maecenas. At egestas auctor porta mattis.</Typography>
-                            <Button variant="contained" endIcon={<EastIcon />} style={{ borderRadius: '30px', marginTop: '50px', height: '50px' }}>Explore</Button>
+                            {/*<Button variant="contained" endIcon={<EastIcon />} style={{ borderRadius: '30px', marginTop: '50px', height: '50px' }}>Explore</Button>*/}
                         </div>
                         <div>
                             <img src={del_man} alt='Delivery man' style={{ height: '500px' }} />

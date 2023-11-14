@@ -16,7 +16,7 @@ import Order from './order.js';
 import AccountContent from './accountContent.js';
 
 //importing router
-import { Navigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 //importing images
 import logo from '../general_compo/logo.png';

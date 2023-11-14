@@ -23,9 +23,6 @@ import { Navigate, useParams } from 'react-router-dom';
 import logo from '../general_compo/logo.png'
 import cafe from "../general_compo/cafe.png";
 
-//importing JSON data
-import menu_data from '../data_files/data.json';
-
 //importing custom cmp
 import MenuCard from './menu_card.js';
 import CartContent from './cartContent.js';

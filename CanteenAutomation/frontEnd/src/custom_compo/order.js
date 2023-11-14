@@ -6,9 +6,6 @@ import { Typography } from '@mui/material/';
 import { ThemeProvider } from '@mui/material/';
 import Button from '@mui/material/Button';
 
-//importing react cmp
-//import { useState } from 'react';
-
 //importing custom cmp
 import theme from "../general_compo/theme.js";
 

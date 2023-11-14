@@ -51,6 +51,11 @@ function Feedback(){
     const token = JSON.parse(localStorage.getItem('token'))
 
     const handleChildButton = (id) => {
+        console.log(feedbacks.filter((item)=>(item.order_id===id))[0].feedback);
+        if (feedbacks.filter((item)=>(item.order_id===id))[0].feedback.length <=0 || feedbacks.filter((item)=>(item.order_id===id))[0].feedback.length >100) {
+            alert("Feedback must be between 1 and 100 characters.")
+            return
+        }
         const userConfirm = window.confirm("Are you sure you want to submit!")
         if (userConfirm){
         const apiFeedback = "http://127.0.0.1:8000/get-feedback"

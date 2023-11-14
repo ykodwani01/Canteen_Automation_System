@@ -3,8 +3,8 @@ import { ThemeProvider } from "styled-components";
 import { green } from '@mui/material/colors';
 import { Button, Typography, createTheme } from '@mui/material/';
 import EastIcon from '@mui/icons-material/East';
-import RemoveShoppingCartIcon from '@mui/icons-material/RemoveShoppingCart';
 
+import Empty_Cart from "../general_compo/empty_cart.png";
 
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
@@ -58,7 +58,7 @@ function CartContent(props) {
     return (
         <ThemeProvider theme={theme}>
             {/* background */}
-            {props.cartDetails.length === 0 ||cartItems.length === 0? <RemoveShoppingCartIcon sx={{display:'flex',justifyContent:'center',alignItems:'center',height:'100vh',width:'50%',paddingLeft:'50px',color:'#C31E2C'}}/> : <div>
+            {props.cartDetails.length === 0 ||cartItems.length === 0? <div> <img src={Empty_Cart} alt='emptycart' style={{ display:"flex", justifyContent:"center", alignItems:"center", paddingTop:"70px", paddingLeft:"140px" }} /> <Typography variant="h4" sx={{ display:'flex', justifyContent:"center", alignItems:"center", paddingTop: "100px", width: "400px", paddingLeft:"55px" }}> Your cart is empty. </Typography> <Typography variant="h6" sx={{ display:'flex', justifyContent:"center", alignItems:"center", paddingTop: "50px", color:"grey", width: "400px", paddingLeft:"55px" }}> Looks like you haven't made </Typography> <Typography variant="h6" sx={{ display:'flex', justifyContent:"center", alignItems:"center", color:"grey", width: "400px", paddingLeft:"55px" }}> your menu yet. </Typography> </div> : <div>
                 <div style={{ display: 'flex', alignItems: 'center', width: '460px' }}>
                     <Button variant='contained' sx={{ borderRadius: '30px' }} onClick={() => { props.drawerButton(props.anchor, false) }}><EastIcon /></Button>
                     <Typography variant='h5' sx={{ marginLeft:'30px', fontWeight: 'bold' }}>Cart Content : {props.cartDetails.order_canteen_name}</Typography>
