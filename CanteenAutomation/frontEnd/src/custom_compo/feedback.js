@@ -35,7 +35,7 @@ const theme = createTheme({
     }
 })
 
-function Feedback(){
+function Feedback() {
     const [accountDetails, setAccountDetails] = useState()
     const [gotAccountDetails, setGotAccountDetails] = useState(false)
     const [cartDetails, setCartDetails] = useState()
@@ -51,37 +51,38 @@ function Feedback(){
     const token = JSON.parse(localStorage.getItem('token'))
 
     const handleChildButton = (id) => {
-        console.log(feedbacks.filter((item)=>(item.order_id===id))[0].feedback);
-        if (feedbacks.filter((item)=>(item.order_id===id))[0].feedback.length <=0 || feedbacks.filter((item)=>(item.order_id===id))[0].feedback.length >100) {
+        console.log(feedbacks.filter((item) => (item.order_id === id))[0].feedback);
+        if (feedbacks.filter((item) => (item.order_id === id))[0].feedback.length <= 0 || feedbacks.filter((item) => (item.order_id === id))[0].feedback.length > 100) {
             alert("Feedback must be between 1 and 100 characters.")
             return
         }
         const userConfirm = window.confirm("Are you sure you want to submit!")
-        if (userConfirm){
-        const apiFeedback = "http://127.0.0.1:8000/get-feedback"
-        fetch(apiFeedback, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token.access}`
-            },
-            body: JSON.stringify({
-                "order_id": id,
-                "feedback":feedbacks.filter((item)=>(item.order_id===id))[0].feedback
+        if (userConfirm) {
+            const apiFeedback = "http://127.0.0.1:8000/get-feedback"
+            fetch(apiFeedback, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token.access}`
+                },
+                body: JSON.stringify({
+                    "order_id": id,
+                    "feedback": feedbacks.filter((item) => (item.order_id === id))[0].feedback
+                })
             })
-        })
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    throw new Error('Something went wrong ...');
-                }
-            })
-            .then(data => {
-                setData(data)
-                setFeedbacks(data.map((item)=>({"order_id":item.id,"feedback":""})))
-            })
-            .catch(error => console.error('Error:', error));}
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error('Something went wrong ...');
+                    }
+                })
+                .then(data => {
+                    setData(data)
+                    setFeedbacks(data.map((item) => ({ "order_id": item.id, "feedback": "" })))
+                })
+                .catch(error => console.error('Error:', error));
+        }
     }
 
     useEffect(() => {
@@ -96,7 +97,7 @@ function Feedback(){
                 if (response.ok) {
                     return response.json();
                 } else {
-                    window.location.href="http://localhost:3000/"
+                    window.location.href = "http://localhost:3000/"
                 }
             })
             .then(data => {
@@ -126,9 +127,9 @@ function Feedback(){
                 }
             })
             .then(data => {
-                if(data.length===0)setCartDetails(data)
-                else if (data[data.length-1].status!=="AddedToCart")setCartDetails([])
-                else setCartDetails(data[data.length-1])
+                if (data.length === 0) setCartDetails(data)
+                else if (data[data.length - 1].status !== "AddedToCart") setCartDetails([])
+                else setCartDetails(data[data.length - 1])
                 setGotCartDetails(true)
             })
             .catch(error => console.error('Error:', error));
@@ -155,24 +156,24 @@ function Feedback(){
                 // Handle the response data here
                 console.log(data);
                 setData(data)
-                setFeedbacks(data.map((item)=>({"order_id":item.id,"feedback":""})))
-                })
+                setFeedbacks(data.map((item) => ({ "order_id": item.id, "feedback": "" })))
+            })
             .catch(error => console.error('Error:', error));
     }, [])
 
-    useEffect(()=>{
-        if(feedbacks&&data){
-            setPOrder(data.map((item) => (<PastOrder key={item.id} id={item.id} totalAmount={item.total_amount} name={item.order_canteen_name} items={item.items} feedback={feedbacks} changeFeedBack={handleChangeFeedBack} onButtonClick = {handleChildButton}/>)))  
+    useEffect(() => {
+        if (feedbacks && data) {
+            setPOrder(data.map((item) => (<PastOrder key={item.id} id={item.id} totalAmount={item.total_amount} name={item.order_canteen_name} items={item.items} feedback={feedbacks} changeFeedBack={handleChangeFeedBack} onButtonClick={handleChildButton} />)))
             setIsLoaded(true)
         }
-    },[feedbacks])
+    }, [feedbacks])
 
-    const handleChangeFeedBack = (id,value) => {
-        setFeedbacks(feedbacks.map((item)=>{
-            if(item.order_id===id){
-                return {"order_id":item.order_id,"feedback":value}
+    const handleChangeFeedBack = (id, value) => {
+        setFeedbacks(feedbacks.map((item) => {
+            if (item.order_id === id) {
+                return { "order_id": item.order_id, "feedback": value }
             }
-            else{
+            else {
                 return item
             }
         }))
@@ -211,10 +212,8 @@ function Feedback(){
         <Box
             sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
             role="presentation"
-        //onClick={toggleDrawer(anchor, false)}
-        //onKeyDown={toggleDrawer(anchor, false)}
         >
-            {anchor === "right" ? <CartContent drawerButton={drawerButton} anchor={anchor} cartDetails={cartDetails} payment={handlePayment}/> : <AccountContent drawerButton={drawerButton} anchor={anchor} accountDetails={accountDetails} signOut={handleSignOut}/>}
+            {anchor === "right" ? <CartContent drawerButton={drawerButton} anchor={anchor} cartDetails={cartDetails} payment={handlePayment} /> : <AccountContent drawerButton={drawerButton} anchor={anchor} accountDetails={accountDetails} signOut={handleSignOut} />}
         </Box>
     );
 
@@ -222,11 +221,11 @@ function Feedback(){
         const userConfirm = window.confirm("Do you want to Sign Out?")
         if (userConfirm) {
             localStorage.removeItem('token')
-            window.location.href="http://localhost:3000/"
+            window.location.href = "http://localhost:3000/"
         }
     }
 
-    const handlePayment = (order_id) =>{
+    const handlePayment = (order_id) => {
         const apiPayment = "http://127.0.0.1:8000/confirm-order"
         fetch(apiPayment, {
             method: 'POST',
@@ -256,9 +255,9 @@ function Feedback(){
     return (
         <ThemeProvider theme={theme}>
             {/* background */}
-            {gotAccountDetails&&gotCartDetails&&isLoaded?<div style={{ backgroundColor: '#DED8D8', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+            {gotAccountDetails && gotCartDetails && isLoaded ? <div style={{ backgroundColor: '#DED8D8', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
                 {/* first box */}
-                <div style={{ borderRadius: '108px',padding:'30px 0px', marginTop: '70px', backgroundColor: '#EBE7E6', border: '2px solid white', width: '1341px', boxShadow: '0px 10px 5px darkgrey', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ borderRadius: '108px', padding: '30px 0px', marginTop: '70px', backgroundColor: '#EBE7E6', border: '2px solid white', width: '1341px', boxShadow: '0px 10px 5px darkgrey', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                     {/* padding box */}
                     <div style={{ width: '1191px' }}>
                         {/* header div / Navigation bar */}
@@ -287,7 +286,7 @@ function Feedback(){
                                 ))}
                                 {['right'].map((anchor) => (
                                     <React.Fragment key={anchor}>
-                                        <Button variant='contained' startIcon={<ShoppingCartIcon />} style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} onClick={toggleDrawer(anchor, true)}>{cartDetails.total_quantity?cartDetails.total_quantity:0}</Button>
+                                        <Button variant='contained' startIcon={<ShoppingCartIcon />} style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} onClick={toggleDrawer(anchor, true)}>{cartDetails.total_quantity ? cartDetails.total_quantity : 0}</Button>
                                         <SwipeableDrawer
                                             anchor={anchor}
                                             open={state[anchor]}
@@ -303,14 +302,14 @@ function Feedback(){
                             </div>
                         </div>
                         {/* child box of padding box */}
-                        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '60px'}}>
-                            <Typography variant='h4' style={{ color: 'black', textDecoration: 'underline'}}> Your Orders </Typography>
+                        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '60px' }}>
+                            <Typography variant='h4' style={{ color: 'black', textDecoration: 'underline' }}> Your Orders </Typography>
                         </div>
 
                         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginTop: '20px' }}>
-                                {porder}
+                            {porder}
                         </div>
-                        
+
                     </div>
                 </div>
                 {/* footer */}
@@ -336,7 +335,7 @@ function Feedback(){
                         <Typography style={{ color: '#DAC6C7', marginBottom: '20px' }}>Instagram</Typography>
                     </div>
                 </footer>
-            </div>:<Loading/>}
+            </div> : <Loading />}
         </ThemeProvider>
     )
 }

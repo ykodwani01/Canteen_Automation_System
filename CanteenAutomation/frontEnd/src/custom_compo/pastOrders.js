@@ -54,15 +54,15 @@ function PastOrder(props) {
                 <div>
                     <Typography variant='h3' sx={{ marginBottom: '25px' }}>Order Details</Typography>
                     <Typography variant='h5' sx={{ marginBottom: '25px' }}>{props.name}</Typography>
-                    <Grid container spacing={2} sx={{marginBottom:'30px'}}>
+                    <Grid container spacing={2} sx={{ marginBottom: '30px' }}>
                         <Grid item xs={4}>
-                            <Item><Typography sx={{fontWeight:'bold'}}>Name</Typography></Item>
+                            <Item><Typography sx={{ fontWeight: 'bold' }}>Name</Typography></Item>
                         </Grid>
                         <Grid item xs={4}>
-                            <Item><Typography sx={{fontWeight:'bold'}}>Quantity</Typography></Item>
+                            <Item><Typography sx={{ fontWeight: 'bold' }}>Quantity</Typography></Item>
                         </Grid>
                         <Grid item xs={4}>
-                            <Item><Typography sx={{fontWeight:'bold'}}>Price</Typography></Item>
+                            <Item><Typography sx={{ fontWeight: 'bold' }}>Price</Typography></Item>
                         </Grid>
                     </Grid>
                     {displayOrders}
@@ -76,13 +76,13 @@ function PastOrder(props) {
                             multiline
                             rows={5}
                             variant="outlined"
-                            sx={{ width: '165%' , marginTop:'30px'}}
+                            sx={{ width: '165%', marginTop: '30px' }}
                             value={props.feedback.filter((item) => (item.order_id === props.id))[0].feedback}
                             onChange={handleChange}
                         />
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'end' }}>
-                        <Button id={props.id} variant='contained' onClick={() => (props.onButtonClick(props.id))} sx={{ marginTop: '50px', marginLeft: '20px', borderRadius:'30px' }}>Submit</Button>
+                        <Button id={props.id} variant='contained' onClick={() => (props.onButtonClick(props.id))} sx={{ marginTop: '50px', marginLeft: '20px', borderRadius: '30px' }}>Submit</Button>
                     </div>
 
                 </div>

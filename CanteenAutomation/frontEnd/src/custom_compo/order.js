@@ -46,24 +46,24 @@ function Order(props) {
             <div style={{ display: 'flex', justifyContent: 'space-around', padding: '40px', backgroundColor: '#E9DCDC', borderRadius: '30px', margin: '20px', width: '1100px' }}>
                 <div>
                     <Typography variant='h3' sx={{ marginBottom: '20px' }}>Order Details</Typography>
-                    <Grid container spacing={2} sx={{marginBottom:'20px'}}>
+                    <Grid container spacing={2} sx={{ marginBottom: '20px' }}>
                         <Grid item xs={4}>
-                            <Item><Typography sx={{fontWeight:'bold'}}>Name</Typography></Item>
+                            <Item><Typography sx={{ fontWeight: 'bold' }}>Name</Typography></Item>
                         </Grid>
                         <Grid item xs={4}>
-                            <Item><Typography sx={{fontWeight:'bold'}}>Quantity</Typography></Item>
+                            <Item><Typography sx={{ fontWeight: 'bold' }}>Quantity</Typography></Item>
                         </Grid>
                         <Grid item xs={4}>
-                            <Item><Typography sx={{fontWeight:'bold'}}>Price</Typography></Item>
+                            <Item><Typography sx={{ fontWeight: 'bold' }}>Price</Typography></Item>
                         </Grid>
                     </Grid>
                     {displayOrders}
                     <Typography>Total Amount : {props.totalAmount}</Typography>
-                    {props.flag?<div style={{ display: 'flex', justifyContent: 'end' }}>
+                    {props.flag ? <div style={{ display: 'flex', justifyContent: 'end' }}>
                         {/* <Button variant='contained' sx={{ marginTop: '50px', marginLeft: '20px' }}>Prepared</Button> */}
-                        <Button id={props.id} onClick={()=>(props.completed(props.id))} variant='contained' sx={{ marginTop: '50px', marginLeft: '20px' }}>Completed</Button>
-                    </div>:<div></div>}
-                    
+                        <Button id={props.id} onClick={() => (props.completed(props.id))} variant='contained' sx={{ marginTop: '50px', marginLeft: '20px' }}>Completed</Button>
+                    </div> : <div></div>}
+
                 </div>
                 <div>
                     <Typography variant='h3' sx={{ marginBottom: '20px' }}>Customer Details</Typography>

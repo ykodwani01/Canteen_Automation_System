@@ -7,16 +7,11 @@ import { ThemeProvider } from '@mui/material/';
 import { green } from '@mui/material/colors';
 import Button from '@mui/material/Button';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-
-import * as React from 'react';
 import Box from '@mui/material/Box';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import { experimentalStyled as styled } from '@mui/material/styles';
-
-//importing router
-//import { NavLink } from 'react-router-dom';
 
 //importing images
 import logo from '../general_compo/logo.png'
@@ -29,11 +24,8 @@ import AccountContent from './accountContent.js';
 import Loading from './loading.js';
 
 //importing react cmp
+import * as React from 'react';
 import { useEffect, useState } from 'react';
-
-//importing json data
-import cafe_data from '../data_files/data.json';
-import { Navigate } from 'react-router-dom';
 
 //defining theme
 const theme = createTheme({
@@ -49,8 +41,8 @@ const Item = styled(Paper)(({ theme }) => ({
     padding: theme.spacing(1),
     textAlign: 'center',
     color: theme.palette.text.primary,
-    border:'none',
-    boxShadow:'none'
+    border: 'none',
+    boxShadow: 'none'
 }));
 
 function Canteens() {
@@ -88,8 +80,6 @@ function Canteens() {
             .then(data => {
                 // Handle the response data here
                 console.log(data);
-                // localStorage.setItem(`canteen`, JSON.stringify(data));
-                // localStorage.setItem('cartItems',JSON.stringify({ "canteen_id": event.target.id, "order": data.map((item) => ({ "item_id": item.id, "quantity": 0 })), "total_amount": 0 }))
             })
             .catch(error => console.error('Error:', error));
     }
@@ -132,7 +122,7 @@ function Canteens() {
                 if (response.ok) {
                     return response.json();
                 } else {
-                    window.location.href="http://localhost:3000/"
+                    window.location.href = "http://localhost:3000/"
                 }
             })
             .then(data => {
@@ -162,18 +152,13 @@ function Canteens() {
                 }
             })
             .then(data => {
-                if(data.length===0)setCartDetails(data)
-                else if (data[data.length-1].status!=="AddedToCart")setCartDetails([])
-                else setCartDetails(data[data.length-1])
+                if (data.length === 0) setCartDetails(data)
+                else if (data[data.length - 1].status !== "AddedToCart") setCartDetails([])
+                else setCartDetails(data[data.length - 1])
                 setGotCartDetails(true)
             })
             .catch(error => console.error('Error:', error));
     }, [])
-
-
-    //retriving data from json file 
-    //code optimization is left (i.e. using Grid)
-
 
     //state for drawer
     const [state, setState] = React.useState({
@@ -207,10 +192,8 @@ function Canteens() {
         <Box
             sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
             role="presentation"
-        //onClick={toggleDrawer(anchor, false)}
-        //onKeyDown={toggleDrawer(anchor, false)}
         >
-            {anchor === "right" ? <CartContent drawerButton={drawerButton} anchor={anchor} cartDetails={cartDetails} payment={handlePayment}/> : <AccountContent drawerButton={drawerButton} anchor={anchor} accountDetails={accountDetails} signOut={handleSignOut}/>}
+            {anchor === "right" ? <CartContent drawerButton={drawerButton} anchor={anchor} cartDetails={cartDetails} payment={handlePayment} /> : <AccountContent drawerButton={drawerButton} anchor={anchor} accountDetails={accountDetails} signOut={handleSignOut} />}
         </Box>
     );
 
@@ -218,11 +201,11 @@ function Canteens() {
         const userConfirm = window.confirm("Do you want to Sign Out?")
         if (userConfirm) {
             localStorage.removeItem('token')
-            window.location.href="http://localhost:3000/"
+            window.location.href = "http://localhost:3000/"
         }
     }
 
-    const handlePayment = (order_id) =>{
+    const handlePayment = (order_id) => {
         const apiPayment = "http://127.0.0.1:8000/confirm-order"
         fetch(apiPayment, {
             method: 'POST',
@@ -243,7 +226,6 @@ function Canteens() {
             })
             .then(data => {
                 alert("Payment Successful")
-                //setCartItems({ "order_id": -1, "canteen_id": parseInt(id.id), "order": data.map((item) => ({ "item_id": item.id, "quantity": 0 })), "total_amount": 0 })
                 window.location.reload()
             })
             .catch(error => console.error('Error:', error));
@@ -256,7 +238,7 @@ function Canteens() {
                 {/* first box */}
                 <div style={{ borderRadius: '108px', marginTop: '70px', backgroundColor: '#EBE7E6', border: '2px solid white', width: '1341px', boxShadow: '0px 10px 5px darkgrey', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                     {/* padding box */}
-                    <div style={{ width: '1191px',margin:'50px 0px' }}>
+                    <div style={{ width: '1191px', margin: '50px 0px' }}>
                         {/* header div / Navigation bar */}
                         <div style={{ display: 'flex', height: '70px', justifyContent: 'center', marginTop: '20px' }}>
                             <img src={logo} alt='website logo' style={{ marginRight: '250px', height: '80px' }} />
@@ -283,7 +265,7 @@ function Canteens() {
                                 ))}
                                 {['right'].map((anchor) => (
                                     <React.Fragment key={anchor}>
-                                        <Button variant='contained' startIcon={<ShoppingCartIcon />} style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} onClick={toggleDrawer(anchor, true)}>{cartDetails.total_quantity?cartDetails.total_quantity:0}</Button>
+                                        <Button variant='contained' startIcon={<ShoppingCartIcon />} style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} onClick={toggleDrawer(anchor, true)}>{cartDetails.total_quantity ? cartDetails.total_quantity : 0}</Button>
                                         <SwipeableDrawer
                                             anchor={anchor}
                                             open={state[anchor]}
@@ -300,10 +282,10 @@ function Canteens() {
                         </div>
                         {/* displaying canteens */}
                         <div style={{ marginTop: '100px' }}>
-                            <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} sx={{border:'none',boxShadow:'none'}}>
+                            <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} sx={{ border: 'none', boxShadow: 'none' }}>
                                 {cafe_data_all.map((items, index) => (
                                     <Grid item xs={2} sm={4} md={4} key={index}>
-                                        <Item elevation={false} sx={{borderRadius:'30px',backgroundColor:'#EBE7E6'}}>{items}</Item>
+                                        <Item elevation={false} sx={{ borderRadius: '30px', backgroundColor: '#EBE7E6' }}>{items}</Item>
                                     </Grid>
                                 ))}
                             </Grid>
@@ -333,7 +315,7 @@ function Canteens() {
                         <Typography style={{ color: '#DAC6C7', marginBottom: '20px' }}>Instagram</Typography>
                     </div>
                 </footer>
-            </div> : <Loading/>}
+            </div> : <Loading />}
 
         </ThemeProvider>
     )

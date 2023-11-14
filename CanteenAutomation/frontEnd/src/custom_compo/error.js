@@ -6,11 +6,7 @@ import { Typography, createTheme } from '@mui/material/';
 import { ThemeProvider } from '@mui/material/';
 import { green } from '@mui/material/colors';
 import Button from '@mui/material/Button';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import EastIcon from '@mui/icons-material/East';
-
-//importing router
-//import { NavLink } from 'react-router-dom';
 
 //importing photos
 import logo from '../general_compo/logo.png'
@@ -50,7 +46,7 @@ function Error() {
                         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '100px', marginLeft: '100px' }}>
                             <div style={{ width: '450px' }}>
                                 <Typography variant='h3'>Sorry, it looks like someone took a bite of this page!</Typography>
-                                <Button variant='contained' endIcon={<EastIcon/>} style={{ borderRadius: '30px', marginTop: '60px', height: '50px' }} href="http://localhost:3000/">Return to Home</Button>
+                                <Button variant='contained' endIcon={<EastIcon />} style={{ borderRadius: '30px', marginTop: '60px', height: '50px' }} href="http://localhost:3000/">Return to Home</Button>
                             </div>
                             <div style={{ marginLeft: '70px' }}>
                                 <img src={error_404} alt='error_404' style={{ height: '300px' }} />

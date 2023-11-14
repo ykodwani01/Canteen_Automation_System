@@ -12,9 +12,6 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 
-//importing router
-//import { NavLink } from 'react-router-dom';
-
 //importing images
 import logo from '../general_compo/logo.png'
 import home_image from '../home_compo/home_image.png';
@@ -64,7 +61,7 @@ function HomePage() {
                 if (response.ok) {
                     return response.json();
                 } else {
-                    window.location.href="http://localhost:3000/"
+                    window.location.href = "http://localhost:3000/"
                 }
             })
             .then(data => {
@@ -104,41 +101,41 @@ function HomePage() {
 
     useEffect(() => {
         const refreshToken = token.refresh; // Replace with your actual refresh token
-    
+
         const refreshAccessToken = () => {
             console.log("hi")
             const apiRefresh = "http://127.0.0.1:8000/refresh"
-          fetch(apiRefresh, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${token.access}`
-            },
-            body: JSON.stringify({
-              "refresh": refreshToken,
-            }),
-          })
-            .then((response) => {
-              if (!response.ok) {
-                throw new Error('Failed to refresh access token');
-              }
-              return response.json();
+            fetch(apiRefresh, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token.access}`
+                },
+                body: JSON.stringify({
+                    "refresh": refreshToken,
+                }),
             })
-            .then((data) => {
-                console.log(data)
-              localStorage.setItem('token',data)
-            })
-            .catch((error) => {
-              console.error('Error refreshing access token:', error);
-            });
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error('Failed to refresh access token');
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+                    console.log(data)
+                    localStorage.setItem('token', data)
+                })
+                .catch((error) => {
+                    console.error('Error refreshing access token:', error);
+                });
         };
-    
+
         // Set up a timer to refresh the access token every 10 minutes
-        const intervalId = setInterval(refreshAccessToken,9*60*1000); // 10 minutes
-    
+        const intervalId = setInterval(refreshAccessToken, 9 * 60 * 1000); // 10 minutes
+
         // Clean up the interval when the component unmounts
         return () => clearInterval(intervalId);
-      }, []);
+    }, []);
 
     //state for drawer
     const [state, setState] = React.useState({
@@ -172,10 +169,8 @@ function HomePage() {
         <Box
             sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
             role="presentation"
-        //onClick={toggleDrawer(anchor, false)}
-        //onKeyDown={toggleDrawer(anchor, false)}
         >
-            {anchor === "right" ? <CartContent drawerButton={drawerButton} anchor={anchor} cartDetails={cartDetails} payment={handlePayment}/> : <AccountContent drawerButton={drawerButton} anchor={anchor} accountDetails={accountDetails} signOut={handleSignOut} />}
+            {anchor === "right" ? <CartContent drawerButton={drawerButton} anchor={anchor} cartDetails={cartDetails} payment={handlePayment} /> : <AccountContent drawerButton={drawerButton} anchor={anchor} accountDetails={accountDetails} signOut={handleSignOut} />}
         </Box>
     );
 
@@ -183,11 +178,11 @@ function HomePage() {
         const userConfirm = window.confirm("Do you want to Sign Out?")
         if (userConfirm) {
             localStorage.removeItem('token')
-            window.location.href="http://localhost:3000/"
+            window.location.href = "http://localhost:3000/"
         }
     }
 
-    
+
 
 
     const handlePayment = (order_id) => {
@@ -211,7 +206,6 @@ function HomePage() {
             })
             .then(data => {
                 alert("Payment Successful")
-                //setCartItems({ "order_id": -1, "canteen_id": parseInt(id.id), "order": data.map((item) => ({ "item_id": item.id, "quantity": 0 })), "total_amount": 0 })
                 window.location.reload()
             })
             .catch(error => console.error('Error:', error));
@@ -252,7 +246,7 @@ function HomePage() {
                                 ))}
                                 {['right'].map((anchor) => (
                                     <React.Fragment key={anchor}>
-                                        <Button variant='contained' startIcon={<ShoppingCartIcon />} style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} onClick={toggleDrawer(anchor, true)}>{cartDetails.total_quantity?cartDetails.total_quantity:0}</Button>
+                                        <Button variant='contained' startIcon={<ShoppingCartIcon />} style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} onClick={toggleDrawer(anchor, true)}>{cartDetails.total_quantity ? cartDetails.total_quantity : 0}</Button>
                                         <SwipeableDrawer
                                             anchor={anchor}
                                             open={state[anchor]}
@@ -326,7 +320,7 @@ function HomePage() {
                         <Typography style={{ color: '#DAC6C7', marginBottom: '20px' }}>Instagram</Typography>
                     </div>
                 </footer>
-            </div> : <Loading/>}
+            </div> : <Loading />}
         </ThemeProvider>
     )
 }

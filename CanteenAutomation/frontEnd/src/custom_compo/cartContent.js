@@ -17,8 +17,8 @@ const Item = styled(Paper)(({ theme }) => ({
     padding: theme.spacing(1),
     textAlign: 'center',
     color: theme.palette.text.primary,
-    border:'none',
-    boxShadow:'none'
+    border: 'none',
+    boxShadow: 'none'
 }));
 
 
@@ -36,44 +36,44 @@ function CartContent(props) {
             if (item.quantity !== 0) {
                 return (
                     <div key={item.name} style={{ display: 'flex', justifyContent: 'space-between', }}>
-                    <Grid container spacing={2}>
-                        <Grid item xs={4}>
-                            <Item sx={{margin:'15px'}}><Typography variant="h6">{item.name}</Typography></Item>
+                        <Grid container spacing={2}>
+                            <Grid item xs={4}>
+                                <Item sx={{ margin: '15px' }}><Typography variant="h6">{item.name}</Typography></Item>
+                            </Grid>
+                            <Grid item xs={4}>
+                                <Item sx={{ margin: '15px' }}><Typography variant="h6">{item.quantity}</Typography></Item>
+                            </Grid>
+                            <Grid item xs={4}>
+                                <Item sx={{ margin: '15px' }}><Typography variant="h6">{item.price}</Typography></Item>
+                            </Grid>
                         </Grid>
-                        <Grid item xs={4}>
-                            <Item sx={{margin:'15px'}}><Typography variant="h6">{item.quantity}</Typography></Item>
-                        </Grid>
-                        <Grid item xs={4}>
-                            <Item sx={{margin:'15px'}}><Typography variant="h6">{item.price}</Typography></Item>
-                        </Grid>
-                    </Grid>
-                </div>
+                    </div>
                 )
             }
-            else return([])
+            else return ([])
         })
-        cartItems = cartItems.filter((item)=>(item.length!==0))
+        cartItems = cartItems.filter((item) => (item.length !== 0))
     }
 
     return (
         <ThemeProvider theme={theme}>
             {/* background */}
-            {props.cartDetails.length === 0 ||cartItems.length === 0? <div> <img src={Empty_Cart} alt='emptycart' style={{ display:"flex", justifyContent:"center", alignItems:"center", paddingTop:"70px", paddingLeft:"140px" }} /> <Typography variant="h4" sx={{ display:'flex', justifyContent:"center", alignItems:"center", paddingTop: "100px", width: "400px", paddingLeft:"55px" }}> Your cart is empty. </Typography> <Typography variant="h6" sx={{ display:'flex', justifyContent:"center", alignItems:"center", paddingTop: "50px", color:"grey", width: "400px", paddingLeft:"55px" }}> Looks like you haven't made </Typography> <Typography variant="h6" sx={{ display:'flex', justifyContent:"center", alignItems:"center", color:"grey", width: "400px", paddingLeft:"55px" }}> your menu yet. </Typography> </div> : <div>
+            {props.cartDetails.length === 0 || cartItems.length === 0 ? <div> <img src={Empty_Cart} alt='emptycart' style={{ display: "flex", justifyContent: "center", alignItems: "center", paddingTop: "70px", paddingLeft: "140px" }} /> <Typography variant="h4" sx={{ display: 'flex', justifyContent: "center", alignItems: "center", paddingTop: "100px", width: "400px", paddingLeft: "55px" }}> Your cart is empty. </Typography> <Typography variant="h6" sx={{ display: 'flex', justifyContent: "center", alignItems: "center", paddingTop: "50px", color: "grey", width: "400px", paddingLeft: "55px" }}> Looks like you haven't made </Typography> <Typography variant="h6" sx={{ display: 'flex', justifyContent: "center", alignItems: "center", color: "grey", width: "400px", paddingLeft: "55px" }}> your menu yet. </Typography> </div> : <div>
                 <div style={{ display: 'flex', alignItems: 'center', width: '460px' }}>
                     <Button variant='contained' sx={{ borderRadius: '30px' }} onClick={() => { props.drawerButton(props.anchor, false) }}><EastIcon /></Button>
-                    <Typography variant='h5' sx={{ marginLeft:'30px', fontWeight: 'bold' }}>Cart Content : {props.cartDetails.order_canteen_name}</Typography>
+                    <Typography variant='h5' sx={{ marginLeft: '30px', fontWeight: 'bold' }}>Cart Content : {props.cartDetails.order_canteen_name}</Typography>
                 </div>
                 {/* box to show items that customer wants to purchase */}
                 <div style={{ border: '2px solid white', borderRadius: '30px', width: '460px', margin: '5px', marginTop: '40px', padding: '5px' }}>
-                <Grid container spacing={2} sx={{marginBottom:'20px',padding:'10px',border:'none',boxShadow:'none'}}>
+                    <Grid container spacing={2} sx={{ marginBottom: '20px', padding: '10px', border: 'none', boxShadow: 'none' }}>
                         <Grid item xs={4}>
-                            <Item sx={{backgroundColor:'#DED8D8'}}><Typography variant="h6" sx={{fontWeight:'bold'}}>Name</Typography></Item>
+                            <Item sx={{ backgroundColor: '#DED8D8' }}><Typography variant="h6" sx={{ fontWeight: 'bold' }}>Name</Typography></Item>
                         </Grid>
                         <Grid item xs={4}>
-                            <Item sx={{backgroundColor:'#DED8D8'}}><Typography variant="h6" sx={{fontWeight:'bold'}}>Quantity</Typography></Item>
+                            <Item sx={{ backgroundColor: '#DED8D8' }}><Typography variant="h6" sx={{ fontWeight: 'bold' }}>Quantity</Typography></Item>
                         </Grid>
                         <Grid item xs={4}>
-                            <Item sx={{backgroundColor:'#DED8D8'}}><Typography variant="h6" sx={{fontWeight:'bold'}}>Price</Typography></Item>
+                            <Item sx={{ backgroundColor: '#DED8D8' }}><Typography variant="h6" sx={{ fontWeight: 'bold' }}>Price</Typography></Item>
                         </Grid>
                     </Grid>
                     {cartItems}
@@ -101,7 +101,7 @@ function CartContent(props) {
                         <Typography variant="h6" sx={{ fontWeight: 'bold' }}>{props.cartDetails.total_amount + 40}</Typography>
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                        <Button variant='contained' sx={{ borderRadius: '30px', margin: '20px 0px 5px 0px', width: '300px', padding: '10px' }} endIcon={<EastIcon />} onClick={()=>(props.payment(props.cartDetails.id))}>Continue to Payment</Button>
+                        <Button variant='contained' sx={{ borderRadius: '30px', margin: '20px 0px 5px 0px', width: '300px', padding: '10px' }} endIcon={<EastIcon />} onClick={() => (props.payment(props.cartDetails.id))}>Continue to Payment</Button>
                     </div>
 
                 </div>

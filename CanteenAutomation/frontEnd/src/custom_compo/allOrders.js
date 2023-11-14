@@ -5,8 +5,6 @@ import '../App.css';
 import { Typography } from '@mui/material/';
 import { ThemeProvider } from '@mui/material/';
 import Button from '@mui/material/Button';
-
-import * as React from 'react';
 import Box from '@mui/material/Box';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 
@@ -24,10 +22,8 @@ import logo from '../general_compo/logo.png';
 import cafe from "../general_compo/cafe.png";
 
 //importing react cmp
+import * as React from 'react';
 import { useEffect, useState } from 'react';
-
-//importing data files
-import pending_orders from '../data_files/data.json';
 
 function AllOrders() {
 
@@ -52,7 +48,7 @@ function AllOrders() {
                 if (response.ok) {
                     return response.json();
                 } else {
-                    window.location.href="http://localhost:3000/"
+                    window.location.href = "http://localhost:3000/"
                 }
             })
             .then(data => {
@@ -85,57 +81,57 @@ function AllOrders() {
             .then(data => {
                 // Handle the response data here
                 console.log(data);
-                setOrder(data.map((item) => (<Order key={item.id} name={item.order_cust_name} phone={item.order_cust_contact} email={item.order_cust_email} status={item.status} totalAmount={item.total_amount} items={item.items} flag={0}/>)))
+                setOrder(data.map((item) => (<Order key={item.id} name={item.order_cust_name} phone={item.order_cust_contact} email={item.order_cust_email} status={item.status} totalAmount={item.total_amount} items={item.items} flag={0} />)))
                 setIsLoaded(true)
             })
             .catch(error => console.error('Error:', error));
     }, [])
 
-            //state for drawer
-            const [state, setState] = React.useState({
-                left: false
-            });
-        
-            //function for toggling the drawer
-            const toggleDrawer = (anchor, open) => (event) => {
-                if (
-                    event &&
-                    event.type === 'keydown' &&
-                    (event.key === 'Tab' || event.key === 'Shift')
-                ) {
-                    return;
-                }
-        
-                setState({ ...state, [anchor]: open });
-            };
-        
-            const closeButton = (anchor, status) => {
-                setState({ ...state, [anchor]: status });
-            }
-        
-            const drawerButton = (anchor, status) => {
-                closeButton(anchor, status)
-            }
-        
-            //list of all the items we need to display in the cart drawer
-            const list = (anchor) => (
-                <Box
-                    sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
-                    role="presentation"
-                //onClick={toggleDrawer(anchor, false)}
-                //onKeyDown={toggleDrawer(anchor, false)}
-                >
-                    {<AccountContent drawerButton={drawerButton} anchor={anchor} accountDetails={accountDetails} signOut={handleSignOut}/>}
-                </Box>
-            );
+    //state for drawer
+    const [state, setState] = React.useState({
+        left: false
+    });
 
-            const handleSignOut = () => {
-                const userConfirm = window.confirm("Do you want to Sign Out?")
-                if (userConfirm) {
-                    localStorage.removeItem('token')
-                    window.location.href="http://localhost:3000/"
-                }
-            }
+    //function for toggling the drawer
+    const toggleDrawer = (anchor, open) => (event) => {
+        if (
+            event &&
+            event.type === 'keydown' &&
+            (event.key === 'Tab' || event.key === 'Shift')
+        ) {
+            return;
+        }
+
+        setState({ ...state, [anchor]: open });
+    };
+
+    const closeButton = (anchor, status) => {
+        setState({ ...state, [anchor]: status });
+    }
+
+    const drawerButton = (anchor, status) => {
+        closeButton(anchor, status)
+    }
+
+    //list of all the items we need to display in the cart drawer
+    const list = (anchor) => (
+        <Box
+            sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
+            role="presentation"
+        //onClick={toggleDrawer(anchor, false)}
+        //onKeyDown={toggleDrawer(anchor, false)}
+        >
+            {<AccountContent drawerButton={drawerButton} anchor={anchor} accountDetails={accountDetails} signOut={handleSignOut} />}
+        </Box>
+    );
+
+    const handleSignOut = () => {
+        const userConfirm = window.confirm("Do you want to Sign Out?")
+        if (userConfirm) {
+            localStorage.removeItem('token')
+            window.location.href = "http://localhost:3000/"
+        }
+    }
 
     const id = useParams()
 
@@ -145,7 +141,7 @@ function AllOrders() {
             {isLoaded ?
                 < div style={{ backgroundColor: '#DED8D8', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
                     {/* first box */}
-                    <div style={{ borderRadius: '108px', marginTop: '70px', backgroundColor: '#EBE7E6', border: '2px solid white', width: '1341px', padding:"30px 0px",boxShadow: '0px 10px 5px darkgrey', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                    <div style={{ borderRadius: '108px', marginTop: '70px', backgroundColor: '#EBE7E6', border: '2px solid white', width: '1341px', padding: "30px 0px", boxShadow: '0px 10px 5px darkgrey', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                         {/* padding box */}
                         <div style={{ width: '1191px' }}>
                             {/* header div / Navigation bar */}
@@ -157,22 +153,22 @@ function AllOrders() {
                                     {/* <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='/home/aboutus'>About Us</Button>
                                     <Button style={{ color: 'black', marginRight: '60px', marginTop: '10px', fontWeight: 'bold' }} href='/home/contact'>Contact</Button> */}
                                     <Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`/cownerHome/pendingOrders/${id.id}`}>Pending Orders</Button>
-                                    <Button variant='contained' style={{borderRadius:'50px',marginRight:'20px',marginTop:'10px',fontWeight:'bold'}} href={`/cownerHome/allOrders/${id.id}`}>All orders</Button>
-                                        {/* drawer for cart */}
-                                {['left'].map((anchor) => (
-                                    <React.Fragment key={anchor}>
-                                        <Button variant='contained' style={{ borderRadius: '30px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} onClick={toggleDrawer(anchor, true)}>Account</Button>
-                                        <SwipeableDrawer
-                                            anchor={anchor}
-                                            open={state[anchor]}
-                                            onClose={toggleDrawer(anchor, false)}
-                                            onOpen={toggleDrawer(anchor, true)}
-                                            PaperProps={{ style: { borderTopRightRadius: '30px', backgroundColor: '#DED8D8', padding: '20px', width: '480px' } }}
-                                        >
-                                            {list(anchor)}
-                                        </SwipeableDrawer>
-                                    </React.Fragment>
-                                ))}
+                                    <Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`/cownerHome/allOrders/${id.id}`}>All orders</Button>
+                                    {/* drawer for cart */}
+                                    {['left'].map((anchor) => (
+                                        <React.Fragment key={anchor}>
+                                            <Button variant='contained' style={{ borderRadius: '30px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} onClick={toggleDrawer(anchor, true)}>Account</Button>
+                                            <SwipeableDrawer
+                                                anchor={anchor}
+                                                open={state[anchor]}
+                                                onClose={toggleDrawer(anchor, false)}
+                                                onOpen={toggleDrawer(anchor, true)}
+                                                PaperProps={{ style: { borderTopRightRadius: '30px', backgroundColor: '#DED8D8', padding: '20px', width: '480px' } }}
+                                            >
+                                                {list(anchor)}
+                                            </SwipeableDrawer>
+                                        </React.Fragment>
+                                    ))}
                                 </div>
                             </div>
                             {/* child box of padding box */}
@@ -208,7 +204,7 @@ function AllOrders() {
                             <Typography style={{ color: '#DAC6C7', marginBottom: '20px' }}>Instagram</Typography>
                         </div>
                     </footer>
-                </div> : <Loading/>
+                </div> : <Loading />
             }
 
         </ThemeProvider >

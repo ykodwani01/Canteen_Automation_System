@@ -17,18 +17,12 @@ import OwnMenuCard from './ownMenuCard';
 import AccountContent from './accountContent.js';
 import Loading from './loading.js';
 
-//importing router
-import { Navigate, useParams } from 'react-router-dom';
-
 //importing images
 import logo from '../general_compo/logo.png';
 import cafe from "../general_compo/cafe.png";
 
 //importing react cmp
 import { useEffect, useState } from 'react';
-
-//importing data files
-import menu_data from '../data_files/data.json';
 
 function CownerHome() {
 
@@ -87,7 +81,7 @@ function CownerHome() {
                 if (response.ok) {
                     return response.json();
                 } else {
-                    window.location.href="http://localhost:3000/"
+                    window.location.href = "http://localhost:3000/"
                 }
             })
             .then(data => {
@@ -156,10 +150,8 @@ function CownerHome() {
         <Box
             sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
             role="presentation"
-        //onClick={toggleDrawer(anchor, false)}
-        //onKeyDown={toggleDrawer(anchor, false)}
         >
-            {<AccountContent drawerButton={drawerButton} anchor={anchor} accountDetails={accountDetails} signOut={handleSignOut}/>}
+            {<AccountContent drawerButton={drawerButton} anchor={anchor} accountDetails={accountDetails} signOut={handleSignOut} />}
         </Box>
     );
 
@@ -167,7 +159,7 @@ function CownerHome() {
         const userConfirm = window.confirm("Do you want to Sign Out?")
         if (userConfirm) {
             localStorage.removeItem('token')
-            window.location.href="http://localhost:3000/"
+            window.location.href = "http://localhost:3000/"
         }
     }
 
@@ -177,7 +169,7 @@ function CownerHome() {
             alert("Name should be of 1-10 characters and should not contain any special characters or numbers")
             return
         }
-        if(newItem.price<=0||newItem.price>1000){
+        if (newItem.price <= 0 || newItem.price > 1000) {
             alert("Price should be positive or less than 1000")
             return
         }
@@ -216,14 +208,14 @@ function CownerHome() {
     }
 
     const handleAddItem = () => {
-        setToggleAdd((toggleAdd)=>(!toggleAdd))
+        setToggleAdd((toggleAdd) => (!toggleAdd))
     }
     console.log(data)
     return (
         <ThemeProvider theme={theme}>
             {isLoaded && gotAccountDetails ? <div style={{ backgroundColor: '#DED8D8', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
                 {/* first box */}
-                <div style={{ borderRadius: '108px', marginTop: '70px', backgroundColor: '#EBE7E6', border: '2px solid white', width: '1341px', boxShadow: '0px 10px 5px darkgrey', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',paddingBottom:'50px' }}>
+                <div style={{ borderRadius: '108px', marginTop: '70px', backgroundColor: '#EBE7E6', border: '2px solid white', width: '1341px', boxShadow: '0px 10px 5px darkgrey', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', paddingBottom: '50px' }}>
                     {/* padding box */}
                     <div style={{ width: '1191px' }}>
                         {/* header div / Navigation bar */}
@@ -262,14 +254,14 @@ function CownerHome() {
                             {/* <Button variant='contained' sx={{ borderRadius: '30px', marginRight: '20px' }}>Save Changes</Button> */}
                         </div>
                         {/* child box of padding box */}
-                        {!toggleAdd?<div></div>:<div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginTop: '20px' }}>
+                        {!toggleAdd ? <div></div> : <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginTop: '20px' }}>
                             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '10px', backgroundColor: color ? '#E8CFCF' : '#E9DCDC', borderRadius: '30px', margin: '10px' }} onMouseEnter={() => (setColor(true))} onMouseLeave={() => (setColor(false))}>
                                 <TextField id="Name" onChange={handleNewItemChange} value={newItem.name} variant='outlined' label="Name" sx={{ width: '350px', marginLeft: '20px', margin: '10px 30px' }} />
                                 <TextField type='number' id="Price" onChange={handleNewItemChange} value={newItem.price} variant='outlined' label="Price" sx={{ fontWeight: 'bold', width: '150px' }} />
                                 <Button variant='contained' sx={{ margin: '0px 20px', borderRadius: '30px', height: '40px' }} onClick={handleAdd}>Add</Button>
                             </div>
                         </div>}
-                        
+
                         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginTop: '20px' }}>
                             {menu}
                         </div>
@@ -298,7 +290,7 @@ function CownerHome() {
                         <Typography style={{ color: '#DAC6C7', marginBottom: '20px' }}>Instagram</Typography>
                     </div>
                 </footer>
-            </div> : <Loading/>
+            </div> : <Loading />
             }
             {/* background */}
 

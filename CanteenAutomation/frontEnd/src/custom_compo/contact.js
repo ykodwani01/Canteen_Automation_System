@@ -57,7 +57,7 @@ function Contact() {
                 if (response.ok) {
                     return response.json();
                 } else {
-                    window.location.href="http://localhost:3000/"
+                    window.location.href = "http://localhost:3000/"
                 }
             })
             .then(data => {
@@ -87,9 +87,9 @@ function Contact() {
                 }
             })
             .then(data => {
-                if(data.length===0)setCartDetails(data)
-                else if (data[data.length-1].status!=="AddedToCart")setCartDetails([])
-                else setCartDetails(data[data.length-1])
+                if (data.length === 0) setCartDetails(data)
+                else if (data[data.length - 1].status !== "AddedToCart") setCartDetails([])
+                else setCartDetails(data[data.length - 1])
                 setGotCartDetails(true)
             })
             .catch(error => console.error('Error:', error));
@@ -128,10 +128,8 @@ function Contact() {
         <Box
             sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
             role="presentation"
-        //onClick={toggleDrawer(anchor, false)}
-        //onKeyDown={toggleDrawer(anchor, false)}
         >
-            {anchor === "right" ? <CartContent drawerButton={drawerButton} anchor={anchor} cartDetails={cartDetails} payment={handlePayment}/> : <AccountContent drawerButton={drawerButton} anchor={anchor} accountDetails={accountDetails} signOut={handleSignOut}/>}
+            {anchor === "right" ? <CartContent drawerButton={drawerButton} anchor={anchor} cartDetails={cartDetails} payment={handlePayment} /> : <AccountContent drawerButton={drawerButton} anchor={anchor} accountDetails={accountDetails} signOut={handleSignOut} />}
         </Box>
     );
 
@@ -139,11 +137,11 @@ function Contact() {
         const userConfirm = window.confirm("Do you want to Sign Out?")
         if (userConfirm) {
             localStorage.removeItem('token')
-            window.location.href="http://localhost:3000/"
+            window.location.href = "http://localhost:3000/"
         }
     }
 
-    const handlePayment = (order_id) =>{
+    const handlePayment = (order_id) => {
         const apiPayment = "http://127.0.0.1:8000/confirm-order"
         fetch(apiPayment, {
             method: 'POST',
@@ -164,7 +162,6 @@ function Contact() {
             })
             .then(data => {
                 alert("Payment Successful")
-                //setCartItems({ "order_id": -1, "canteen_id": parseInt(id.id), "order": data.map((item) => ({ "item_id": item.id, "quantity": 0 })), "total_amount": 0 })
                 window.location.reload()
             })
             .catch(error => console.error('Error:', error));
@@ -173,7 +170,7 @@ function Contact() {
     return (
         <ThemeProvider theme={theme}>
             {/* background */}
-            {gotAccountDetails&&gotCartDetails?<div style={{ backgroundColor: '#DED8D8', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+            {gotAccountDetails && gotCartDetails ? <div style={{ backgroundColor: '#DED8D8', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
                 {/* first box */}
                 <div style={{ borderRadius: '108px', marginTop: '70px', backgroundColor: '#EBE7E6', border: '2px solid white', width: '1341px', height: '732px', boxShadow: '0px 10px 5px darkgrey', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                     {/* padding box */}
@@ -204,7 +201,7 @@ function Contact() {
                                 ))}
                                 {['right'].map((anchor) => (
                                     <React.Fragment key={anchor}>
-                                        <Button variant='contained' startIcon={<ShoppingCartIcon />} style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} onClick={toggleDrawer(anchor, true)}>{cartDetails.total_quantity?cartDetails.total_quantity:0}</Button>
+                                        <Button variant='contained' startIcon={<ShoppingCartIcon />} style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} onClick={toggleDrawer(anchor, true)}>{cartDetails.total_quantity ? cartDetails.total_quantity : 0}</Button>
                                         <SwipeableDrawer
                                             anchor={anchor}
                                             open={state[anchor]}
@@ -220,40 +217,40 @@ function Contact() {
                             </div>
                         </div>
                         {/* child box of padding box */}
-                        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '60px'}}>
-                            <Typography variant='h4' style={{ color: '#C31E2C'}}> Members </Typography>
+                        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '60px' }}>
+                            <Typography variant='h4' style={{ color: '#C31E2C' }}> Members </Typography>
                         </div>
 
-                        <div style={{ display: 'flex', justifyContent: 'left', marginTop: '60px', marginLeft: '200px'}}>
+                        <div style={{ display: 'flex', justifyContent: 'left', marginTop: '60px', marginLeft: '200px' }}>
                             <Typography variant='h6'> Thakor Dhruvilsingh </Typography> <Typography variant='h6' style={{ marginLeft: '50px' }}> 202101462 </Typography>
-                            <Typography variant='h6' style={{ marginLeft: '150px'}}> Vrajkumar Patel </Typography> <Typography variant='h6' style={{ marginLeft: '50px' }}> 202101060 </Typography>
+                            <Typography variant='h6' style={{ marginLeft: '150px' }}> Vrajkumar Patel </Typography> <Typography variant='h6' style={{ marginLeft: '50px' }}> 202101060 </Typography>
                         </div>
 
-                        <div style={{ display: 'flex', justifyContent: 'left', marginTop: '30px', marginLeft: '200px'}}>
+                        <div style={{ display: 'flex', justifyContent: 'left', marginTop: '30px', marginLeft: '200px' }}>
                             <Typography variant='h6'> Bhuva Vandan </Typography> <Typography variant='h6' style={{ marginLeft: '100px' }}> 202101404 </Typography>
                             <Typography variant='h6' style={{ marginLeft: '150px' }}> Yash Kodwani </Typography> <Typography variant='h6' style={{ marginLeft: '65px' }}> 202101418 </Typography>
                         </div>
 
-                        <div style={{ display: 'flex', justifyContent: 'left', marginTop: '30px', marginLeft: '200px'}}>
+                        <div style={{ display: 'flex', justifyContent: 'left', marginTop: '30px', marginLeft: '200px' }}>
                             <Typography variant='h6'> Dweej Pandya </Typography> <Typography variant='h6' style={{ marginLeft: '100px' }}> 202101432 </Typography>
                             <Typography variant='h6' style={{ marginLeft: '150px' }}> Krishna Choksi </Typography> <Typography variant='h6' style={{ marginLeft: '56px' }}> 202101459 </Typography>
                         </div>
 
-                        <div style={{ display: 'flex', justifyContent: 'left', marginTop: '30px', marginLeft: '200px'}}>
+                        <div style={{ display: 'flex', justifyContent: 'left', marginTop: '30px', marginLeft: '200px' }}>
                             <Typography variant='h6'> Kalhar Patel </Typography> <Typography variant='h6' style={{ marginLeft: '120px' }}> 202101009 </Typography>
                             <Typography variant='h6' style={{ marginLeft: '150px' }}> Umang Trivedi </Typography> <Typography variant='h6' style={{ marginLeft: '60px' }}> 202101471 </Typography>
                         </div>
 
-                        <div style={{ display: 'flex', justifyContent: 'left', marginTop: '30px', marginLeft: '200px'}}>
+                        <div style={{ display: 'flex', justifyContent: 'left', marginTop: '30px', marginLeft: '200px' }}>
                             <Typography variant='h6'> Mihir Gohel </Typography> <Typography variant='h6' style={{ marginLeft: '127px' }}> 202101473 </Typography>
-                            <Typography variant='h6' style={{ marginLeft: '150px'}}> Kalathiya Shrut </Typography> <Typography variant='h6' style={{ marginLeft: '53px' }}> 202101479 </Typography>
+                            <Typography variant='h6' style={{ marginLeft: '150px' }}> Kalathiya Shrut </Typography> <Typography variant='h6' style={{ marginLeft: '53px' }}> 202101479 </Typography>
                         </div>
 
-                        <div style={{ display: 'flex', justifyContent: 'left', marginTop: '30px', marginLeft: '200px'}}>
+                        <div style={{ display: 'flex', justifyContent: 'left', marginTop: '30px', marginLeft: '200px' }}>
                             <Typography variant='h6'> Khakhariya Shrey </Typography> <Typography variant='h6' style={{ marginLeft: '70px' }}> 202101493 </Typography>
                             <Typography variant='h6' style={{ marginLeft: '150px' }}> Jay Dobariya </Typography> <Typography variant='h6' style={{ marginLeft: '70px' }}> 202101521 </Typography>
                         </div>
-                        
+
                     </div>
                 </div>
                 {/* footer */}
@@ -279,7 +276,7 @@ function Contact() {
                         <Typography style={{ color: '#DAC6C7', marginBottom: '20px' }}>Instagram</Typography>
                     </div>
                 </footer>
-            </div>:<Loading/>}
+            </div> : <Loading />}
         </ThemeProvider>
     )
 }

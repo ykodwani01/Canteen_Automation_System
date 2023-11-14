@@ -17,7 +17,7 @@ import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import { useEffect, useState } from 'react';
 
 //importing router
-import { Navigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 //importing photos
 import logo from '../general_compo/logo.png'
@@ -101,7 +101,7 @@ function Menu() {
                 if (response.ok) {
                     return response.json();
                 } else {
-                    window.location.href="http://localhost:3000/"
+                    window.location.href = "http://localhost:3000/"
                 }
             })
             .then(data => {
@@ -130,21 +130,21 @@ function Menu() {
             })
             .then(data => {
                 console.log(data)
-                if(data.length===0)setCartDetails(data)
-                else if (data[data.length-1].status!=="AddedToCart")setCartDetails([])
-                else{ 
+                if (data.length === 0) setCartDetails(data)
+                else if (data[data.length - 1].status !== "AddedToCart") setCartDetails([])
+                else {
                     setCartDetails(data[data.length - 1])
-                    if(cartItems&&cartItems.order_id===-1){
-                        if(data[data.length-1].items[0].canteen===parseInt(id.id))setCartItems({ "order_id": data[data.length-1].id, "canteen_id": parseInt(id.id), "order":data[data.length-1].items.map((item)=>({"item_id":item.id,"quantity":item.quantity})), "total_amount": data[data.length-1].total_amount })
+                    if (cartItems && cartItems.order_id === -1) {
+                        if (data[data.length - 1].items[0].canteen === parseInt(id.id)) setCartItems({ "order_id": data[data.length - 1].id, "canteen_id": parseInt(id.id), "order": data[data.length - 1].items.map((item) => ({ "item_id": item.id, "quantity": item.quantity })), "total_amount": data[data.length - 1].total_amount })
                     }
                 }
                 setGotCartDetails(true)
             })
             .catch(error => console.error('Error:', error));
     }, [cartItems])
-    
 
-    const handlePayment = () =>{
+
+    const handlePayment = () => {
         const apiPayment = "http://127.0.0.1:8000/confirm-order"
         fetch(apiPayment, {
             method: 'POST',
@@ -165,7 +165,6 @@ function Menu() {
             })
             .then(data => {
                 alert("Payment Successful")
-                //setCartItems({ "order_id": -1, "canteen_id": parseInt(id.id), "order": data.map((item) => ({ "item_id": item.id, "quantity": 0 })), "total_amount": 0 })
                 window.location.reload()
             })
             .catch(error => console.error('Error:', error));
@@ -236,7 +235,7 @@ function Menu() {
         //onClick={toggleDrawer(anchor, false)}
         //onKeyDown={toggleDrawer(anchor, false)}
         >
-            {anchor === "right" ? <CartContent drawerButton={drawerButton} anchor={anchor} cartDetails={cartDetails} payment={handlePayment}/> : <AccountContent drawerButton={drawerButton} anchor={anchor} accountDetails={accountDetails} signOut={handleSignOut}/>}
+            {anchor === "right" ? <CartContent drawerButton={drawerButton} anchor={anchor} cartDetails={cartDetails} payment={handlePayment} /> : <AccountContent drawerButton={drawerButton} anchor={anchor} accountDetails={accountDetails} signOut={handleSignOut} />}
         </Box>
     );
 
@@ -244,34 +243,35 @@ function Menu() {
         const userConfirm = window.confirm("Do you want to Sign Out?")
         if (userConfirm) {
             localStorage.removeItem('token')
-            window.location.href="http://localhost:3000/"
+            window.location.href = "http://localhost:3000/"
         }
     }
 
     const handleUpdateCart = () => {
         const useConfirmed = window.confirm("By updating your cart, your past cart will be cleared. Do you want to procced?")
         if (useConfirmed) {
-        const apiUrl = "http://127.0.0.1:8000/create-order"
-        fetch(apiUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token.access}`
-            },
-            body: JSON.stringify(cartItems),
-        })
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    throw new Error('Something went wrong ...');
-                }
+            const apiUrl = "http://127.0.0.1:8000/create-order"
+            fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token.access}`
+                },
+                body: JSON.stringify(cartItems),
             })
-            .then(data => {
-                setCartItems((cartItems) => ({ ...cartItems, "order_id": data.order_id }))
-                alert("Your cart is updated")
-            })
-            .catch(error => console.error('Error:', error));}
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error('Something went wrong ...');
+                    }
+                })
+                .then(data => {
+                    setCartItems((cartItems) => ({ ...cartItems, "order_id": data.order_id }))
+                    alert("Your cart is updated")
+                })
+                .catch(error => console.error('Error:', error));
+        }
     }
 
     return (
@@ -308,7 +308,7 @@ function Menu() {
                                 ))}
                                 {['right'].map((anchor) => (
                                     <React.Fragment key={anchor}>
-                                        <Button variant='contained' startIcon={<ShoppingCartIcon />} style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} onClick={toggleDrawer(anchor, true)}>{cartDetails.total_quantity?cartDetails.total_quantity:0}</Button>
+                                        <Button variant='contained' startIcon={<ShoppingCartIcon />} style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} onClick={toggleDrawer(anchor, true)}>{cartDetails.total_quantity ? cartDetails.total_quantity : 0}</Button>
                                         <SwipeableDrawer
                                             anchor={anchor}
                                             open={state[anchor]}
@@ -353,7 +353,7 @@ function Menu() {
                         <Typography style={{ color: '#DAC6C7', marginBottom: '20px' }}>Instagram</Typography>
                     </div>
                 </footer>
-            </div> : <Loading/>}
+            </div> : <Loading />}
 
         </ThemeProvider>
     )
