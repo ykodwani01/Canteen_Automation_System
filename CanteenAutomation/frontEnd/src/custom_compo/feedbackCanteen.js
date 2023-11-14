@@ -41,7 +41,7 @@ function Feedback() {
 
     const [isLoaded, setIsLoaded] = useState(false)
 
-    const apiUrlAcount = "http://127.0.0.1:8000/get-account-details"
+    const apiUrlAcount = "https://dacanteen.pythonanywhere.com/get-account-details"
 
     const token = JSON.parse(localStorage.getItem('token'))
 
@@ -58,7 +58,7 @@ function Feedback() {
                 if (response.ok) {
                     return response.json();
                 } else {
-                    window.location.href = "http://localhost:3000/"
+                    window.location.href = "https://canteenautomation-cc940.web.app/"
                 }
             })
             .then(data => {
@@ -71,7 +71,7 @@ function Feedback() {
     }, [])
 
 
-    const apiUrlPOrder = "http://127.0.0.1:8000/see-feedback"
+    const apiUrlPOrder = "https://dacanteen.pythonanywhere.com/see-feedback"
 
     useEffect(() => {
         fetch(apiUrlPOrder, {
@@ -142,7 +142,7 @@ function Feedback() {
         const userConfirm = window.confirm("Do you want to Sign Out?")
         if (userConfirm) {
             localStorage.removeItem('token')
-            window.location.href = "http://localhost:3000/"
+            window.location.href = "https://canteenautomation-cc940.web.app/"
         }
     }
 
@@ -158,11 +158,12 @@ function Feedback() {
                         <div style={{ display: 'flex', height: '70px', justifyContent: 'center', marginTop: '70px' }}>
                             <img src={logo} alt='website logo' style={{ marginRight: '250px', height: '80px' }} />
                             <div style={{ display: 'flex', boxShadow: '0px 2px 0px darkGrey', paddingBottom: '10px', marginTop: '10px' }}>
-                                <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='/home'>Home</Button>
-                                <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='/home/feedback'>Feedback</Button>
-                                <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='/home/aboutus'>About Us</Button>
-                                <Button style={{ color: 'black', marginRight: '60px', marginTop: '10px', fontWeight: 'bold' }} href='/home/contact'>Contact</Button>
-
+                                <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`https://dacanteen.pythonanywhere.com/cownerHome/${data[0].canteen}`}>Home</Button>
+                                <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`https://dacanteen.pythonanywhere.com/cownerHome/feedbackCanteen/${data[0].canteen}`}>Feedback</Button>
+                                {/* <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='/home/aboutus'>About Us</Button>
+                                <Button style={{ color: 'black', marginRight: '60px', marginTop: '10px', fontWeight: 'bold' }} href='/home/contact'>Contact</Button> */}
+                                <Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`https://dacanteen.pythonanywhere.com/cownerHome/pendingOrders/${data[0].canteen}`}>Pending Orders</Button>
+                                <Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`https://dacanteen.pythonanywhere.com/cownerHome/allOrders/${data[0].canteen}`}>All orders</Button>
                                 {/* drawer for cart */}
                                 {['left'].map((anchor) => (
                                     <React.Fragment key={anchor}>
@@ -178,7 +179,6 @@ function Feedback() {
                                         </SwipeableDrawer>
                                     </React.Fragment>
                                 ))}
-
                             </div>
                         </div>
                         {/* child box of padding box */}

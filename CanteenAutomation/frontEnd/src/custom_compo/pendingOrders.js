@@ -35,7 +35,7 @@ function PendingOrders() {
     const [accountDetails, setAccountDetails] = useState()
     const [gotAccountDetails, setGotAccountDetails] = useState(false)
 
-    const apiUrlAccount = "http://127.0.0.1:8000/get-account-details"
+    const apiUrlAccount = "https://dacanteen.pythonanywhere.com/get-account-details"
     const token = JSON.parse(localStorage.getItem('token'))
 
     useEffect(() => {
@@ -50,7 +50,7 @@ function PendingOrders() {
                 if (response.ok) {
                     return response.json();
                 } else {
-                    window.location.href = "http://localhost:3000/"
+                    window.location.href = "https://canteenautomation-cc940.web.app/"
                 }
             })
             .then(data => {
@@ -63,7 +63,7 @@ function PendingOrders() {
     }, [])
 
 
-    const apiUrl = "http://127.0.0.1:8000/get-pending-orders"
+    const apiUrl = "https://dacanteen.pythonanywhere.com/get-pending-orders"
 
     useEffect(() => {
         fetch(apiUrl, {
@@ -129,14 +129,14 @@ function PendingOrders() {
         const userConfirm = window.confirm("Do you want to Sign Out?")
         if (userConfirm) {
             localStorage.removeItem('token')
-            window.location.href = "http://localhost:3000/"
+            window.location.href = "https://canteenautomation-cc940.web.app/"
         }
     }
 
     const handleCompleted = (id) => {
         const userConfirm = window.confirm("Click OK to confirm!")
         if (userConfirm) {
-            const apiCompleted = "http://127.0.0.1:8000/order-delivered"
+            const apiCompleted = "https://dacanteen.pythonanywhere.com/order-delivered"
             fetch(apiCompleted, {
                 method: 'POST',
                 headers: {
@@ -179,28 +179,28 @@ function PendingOrders() {
                             <div style={{ display: 'flex', height: '70px', justifyContent: 'center', marginTop: '50px' }}>
                                 <img src={logo} alt='website logo' style={{ marginRight: '150px', height: '80px' }} />
                                 <div style={{ display: 'flex', boxShadow: '0px 2px 0px darkGrey', paddingBottom: '10px', marginTop: '10px' }}>
-                                    <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`/cownerHome/${id.id}`}>Home</Button>
-                                    <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='/home/feedback'>Feedback</Button>
-                                    {/* <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='/home/aboutus'>About Us</Button>
-                                    <Button style={{ color: 'black', marginRight: '60px', marginTop: '10px', fontWeight: 'bold' }} href='/home/contact'>Contact</Button> */}
-                                    <Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`/cownerHome/pendingOrders/${id.id}`}>Pending Orders</Button>
-                                    <Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`/cownerHome/allOrders/${id.id}`}>All orders</Button>
-                                    {/* drawer for cart */}
-                                    {['left'].map((anchor) => (
-                                        <React.Fragment key={anchor}>
-                                            <Button variant='contained' style={{ borderRadius: '30px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} onClick={toggleDrawer(anchor, true)}>Account</Button>
-                                            <SwipeableDrawer
-                                                anchor={anchor}
-                                                open={state[anchor]}
-                                                onClose={toggleDrawer(anchor, false)}
-                                                onOpen={toggleDrawer(anchor, true)}
-                                                PaperProps={{ style: { borderTopRightRadius: '30px', backgroundColor: '#DED8D8', padding: '20px', width: '480px' } }}
-                                            >
-                                                {list(anchor)}
-                                            </SwipeableDrawer>
-                                        </React.Fragment>
-                                    ))}
-                                </div>
+                                <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`https://dacanteen.pythonanywhere.com/cownerHome/${data[0].canteen}`}>Home</Button>
+                                <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`https://dacanteen.pythonanywhere.com/cownerHome/feedbackCanteen/${data[0].canteen}`}>Feedback</Button>
+                                {/* <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='/home/aboutus'>About Us</Button>
+                                <Button style={{ color: 'black', marginRight: '60px', marginTop: '10px', fontWeight: 'bold' }} href='/home/contact'>Contact</Button> */}
+                                <Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`https://dacanteen.pythonanywhere.com/cownerHome/pendingOrders/${data[0].canteen}`}>Pending Orders</Button>
+                                <Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`https://dacanteen.pythonanywhere.com/cownerHome/allOrders/${data[0].canteen}`}>All orders</Button>
+                                {/* drawer for cart */}
+                                {['left'].map((anchor) => (
+                                    <React.Fragment key={anchor}>
+                                        <Button variant='contained' style={{ borderRadius: '30px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} onClick={toggleDrawer(anchor, true)}>Account</Button>
+                                        <SwipeableDrawer
+                                            anchor={anchor}
+                                            open={state[anchor]}
+                                            onClose={toggleDrawer(anchor, false)}
+                                            onOpen={toggleDrawer(anchor, true)}
+                                            PaperProps={{ style: { borderTopRightRadius: '30px', backgroundColor: '#DED8D8', padding: '20px', width: '480px' } }}
+                                        >
+                                            {list(anchor)}
+                                        </SwipeableDrawer>
+                                    </React.Fragment>
+                                ))}
+                            </div>
                             </div>
                             {/* child box of padding box */}
                             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '70px' }}>

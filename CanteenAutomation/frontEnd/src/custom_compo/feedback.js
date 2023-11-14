@@ -46,7 +46,7 @@ function Feedback() {
     const [porder, setPOrder] = useState()
     const [isLoaded, setIsLoaded] = useState(false)
 
-    const apiUrlAcount = "http://127.0.0.1:8000/get-account-details"
+    const apiUrlAcount = "https://dacanteen.pythonanywhere.com/get-account-details"
 
     const token = JSON.parse(localStorage.getItem('token'))
 
@@ -58,7 +58,7 @@ function Feedback() {
         }
         const userConfirm = window.confirm("Are you sure you want to submit!")
         if (userConfirm) {
-            const apiFeedback = "http://127.0.0.1:8000/get-feedback"
+            const apiFeedback = "https://dacanteen.pythonanywhere.com/get-feedback"
             fetch(apiFeedback, {
                 method: 'POST',
                 headers: {
@@ -97,7 +97,7 @@ function Feedback() {
                 if (response.ok) {
                     return response.json();
                 } else {
-                    window.location.href = "http://localhost:3000/"
+                    window.location.href = "https://canteenautomation-cc940.web.app/"
                 }
             })
             .then(data => {
@@ -109,7 +109,7 @@ function Feedback() {
             .catch(error => console.error('Error:', error));
     }, [])
 
-    const apiUrlCart = "http://127.0.0.1:8000/get-cust-orders"
+    const apiUrlCart = "https://dacanteen.pythonanywhere.com/get-cust-orders"
 
     useEffect(() => {
         fetch(apiUrlCart, {
@@ -135,7 +135,7 @@ function Feedback() {
             .catch(error => console.error('Error:', error));
     }, [])
 
-    const apiUrlPOrder = "http://127.0.0.1:8000/get-feedback"
+    const apiUrlPOrder = "https://dacanteen.pythonanywhere.com/get-feedback"
 
     useEffect(() => {
         fetch(apiUrlPOrder, {
@@ -221,12 +221,12 @@ function Feedback() {
         const userConfirm = window.confirm("Do you want to Sign Out?")
         if (userConfirm) {
             localStorage.removeItem('token')
-            window.location.href = "http://localhost:3000/"
+            window.location.href = "https://canteenautomation-cc940.web.app/"
         }
     }
 
     const handlePayment = (order_id) => {
-        const apiPayment = "http://127.0.0.1:8000/confirm-order"
+        const apiPayment = "https://dacanteen.pythonanywhere.com/confirm-order"
         fetch(apiPayment, {
             method: 'POST',
             headers: {
@@ -264,10 +264,10 @@ function Feedback() {
                         <div style={{ display: 'flex', height: '70px', justifyContent: 'center', marginTop: '70px' }}>
                             <img src={logo} alt='website logo' style={{ marginRight: '250px', height: '80px' }} />
                             <div style={{ display: 'flex', boxShadow: '0px 2px 0px darkGrey', paddingBottom: '10px', marginTop: '10px' }}>
-                                <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='/home'>Home</Button>
-                                <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='/home/feedback'>Feedback</Button>
-                                <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='/home/aboutus'>About Us</Button>
-                                <Button style={{ color: 'black', marginRight: '60px', marginTop: '10px', fontWeight: 'bold' }} href='/home/contact'>Contact</Button>
+                                <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='https://canteenautomation-cc940.web.app/home'>Home</Button>
+                                <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='https://canteenautomation-cc940.web.app/home/feedback'>Feedback</Button>
+                                <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='https://canteenautomation-cc940.web.app/home/aboutus'>About Us</Button>
+                                <Button style={{ color: 'black', marginRight: '60px', marginTop: '10px', fontWeight: 'bold' }} href='https://canteenautomation-cc940.web.app/home/contact'>Contact</Button>
 
                                 {/* drawer for cart */}
                                 {['left'].map((anchor) => (

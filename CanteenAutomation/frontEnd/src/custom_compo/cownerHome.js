@@ -38,7 +38,7 @@ function CownerHome() {
 
     const [color, setColor] = useState(false)
 
-    const apiUrlDelete = "http://127.0.0.1:8000/delete-items"
+    const apiUrlDelete = "https://dacanteen.pythonanywhere.com/delete-items"
 
     const handleRemoveItem = (id) => {
         const userConfirm = window.confirm("On clicking OK, whole item will be permanentely deleted.")
@@ -66,7 +66,7 @@ function CownerHome() {
         }
     }
 
-    const apiUrlAccount = "http://127.0.0.1:8000/get-account-details"
+    const apiUrlAccount = "https://dacanteen.pythonanywhere.com/get-account-details"
     const token = JSON.parse(localStorage.getItem('token'))
 
     useEffect(() => {
@@ -81,7 +81,7 @@ function CownerHome() {
                 if (response.ok) {
                     return response.json();
                 } else {
-                    window.location.href = "http://localhost:3000/"
+                    window.location.href = "https://canteenautomation-cc940.web.app/"
                 }
             })
             .then(data => {
@@ -92,7 +92,7 @@ function CownerHome() {
     }, [])
 
 
-    const apiUrl = "http://localhost:8000/get-items"
+    const apiUrl = "https://dacanteen.pythonanywhere.com/get-items"
 
 
     useEffect(() => {
@@ -159,7 +159,7 @@ function CownerHome() {
         const userConfirm = window.confirm("Do you want to Sign Out?")
         if (userConfirm) {
             localStorage.removeItem('token')
-            window.location.href = "http://localhost:3000/"
+            window.location.href = "https://canteenautomation-cc940.web.app/"
         }
     }
 
@@ -175,7 +175,7 @@ function CownerHome() {
         }
         const userConfirm = window.confirm("Are you sure you want to add this item?")
         if (userConfirm) {
-            const apiUrl = "http://localhost:8000/get-items"
+            const apiUrl = "https://dacanteen.pythonanywhere.com/get-items"
             fetch(apiUrl, {
                 method: 'POST',
                 headers: {
@@ -222,12 +222,12 @@ function CownerHome() {
                         <div style={{ display: 'flex', height: '70px', justifyContent: 'center', marginTop: '50px' }}>
                             <img src={logo} alt='website logo' style={{ marginRight: '170px', height: '80px' }} />
                             <div style={{ display: 'flex', boxShadow: '0px 2px 0px darkGrey', paddingBottom: '10px', marginTop: '10px' }}>
-                                <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`/cownerHome/${data[0].canteen}`}>Home</Button>
-                                <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`/cownerHome/feedbackCanteen/${data[0].canteen}`}>Feedback</Button>
+                                <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`https://dacanteen.pythonanywhere.com/cownerHome/${data[0].canteen}`}>Home</Button>
+                                <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`https://dacanteen.pythonanywhere.com/cownerHome/feedbackCanteen/${data[0].canteen}`}>Feedback</Button>
                                 {/* <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='/home/aboutus'>About Us</Button>
                                 <Button style={{ color: 'black', marginRight: '60px', marginTop: '10px', fontWeight: 'bold' }} href='/home/contact'>Contact</Button> */}
-                                <Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`/cownerHome/pendingOrders/${data[0].canteen}`}>Pending Orders</Button>
-                                <Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`/cownerHome/allOrders/${data[0].canteen}`}>All orders</Button>
+                                <Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`https://dacanteen.pythonanywhere.com/cownerHome/pendingOrders/${data[0].canteen}`}>Pending Orders</Button>
+                                <Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`https://dacanteen.pythonanywhere.com/cownerHome/allOrders/${data[0].canteen}`}>All orders</Button>
                                 {/* drawer for cart */}
                                 {['left'].map((anchor) => (
                                     <React.Fragment key={anchor}>

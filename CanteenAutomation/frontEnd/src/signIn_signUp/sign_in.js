@@ -49,7 +49,7 @@ function SignIn() {
   }
 
 
-  const apiUrl = 'http://localhost:8000/login';
+  const apiUrl = 'https://dacanteen.pythonanywhere.com/login';
 
   //submitting data to backend
   const handleButtonClick = () => {
