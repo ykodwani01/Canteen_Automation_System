@@ -115,12 +115,12 @@ function SignIn() {
       <Container className="App" maxWidth='xl' sx={{ backgroundImage: `url(${login_photo})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center', ...background_style_ext }}>
         {isSignupSuccessful === 0 && <Navigate to="/" />}
         {isSignupSuccessful === 1 && <Navigate to="/home" />}
-        {isSignupSuccessful === 2 && <Navigate to="http://127.0.0.1:8000/cownerHome/1" />}
-        {isSignupSuccessful === 3 && <Navigate to="http://127.0.0.1:8000/cownerHome/2" />}
-        {isSignupSuccessful === 4 && <Navigate to="http://127.0.0.1:8000/cownerHome/3" />}
-        {isSignupSuccessful === 5 && <Navigate to="http://127.0.0.1:8000/cownerHome/4" />}
-        {isSignupSuccessful === 6 && <Navigate to="http://127.0.0.1:8000/cownerHome/5" />}
-        {isSignupSuccessful === 7 && <Navigate to="http://127.0.0.1:8000/cownerHome/6" />}
+        {isSignupSuccessful === 2 && <Navigate to="/cownerHome/1" />}
+        {isSignupSuccessful === 3 && <Navigate to="/cownerHome/2" />}
+        {isSignupSuccessful === 4 && <Navigate to="/cownerHome/3" />}
+        {isSignupSuccessful === 5 && <Navigate to="/cownerHome/4" />}
+        {isSignupSuccessful === 6 && <Navigate to="/cownerHome/5" />}
+        {isSignupSuccessful === 7 && <Navigate to="/cownerHome/6" />}
 
         {/* sign-in box */}
         <Container className='signIn' sx={{ background: "rgba(222,216,216,0.5)", borderRadius: '30px', ...signIn_style_ext }}>
