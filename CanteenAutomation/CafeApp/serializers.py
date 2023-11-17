@@ -50,3 +50,9 @@ class OrderDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = orders
         fields = ('id','total_amount','items','status')
+
+class ALLCanteenSerializer(serializers.ModelSerializer):
+    canteen_user_email  = serializers.CharField(source='owner.user.username', read_only=True)
+    class Meta:
+        model=canteen
+        fields = ('canteen_user_email','canteen_id')

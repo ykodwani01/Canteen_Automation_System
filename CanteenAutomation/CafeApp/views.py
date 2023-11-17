@@ -480,3 +480,9 @@ class CustDeliveredOrders(APIView):
             if feedback_obj is not None:
                 i["feedback"]=feedback_obj.review
         return Response(order_serialized.data,status=status.HTTP_200_OK)
+    
+class GetCanteenLoginDetails(APIView):
+    def get(self,request):
+        canteens=canteen.objects.all()
+        canteen_ser=ALLCanteenSerializer(canteens,many=True)
+        return Response(canteen_ser.data,status=status.HTTP_200_OK)

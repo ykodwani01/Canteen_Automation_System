@@ -27,6 +27,7 @@ urlpatterns = [
     path('see-feedback', views.seefeedback.as_view(), name='see-feedback'),
     path('cust-pending-orders', views.CustPendingOrders.as_view(), name='cust-pending-orders'),
     path('cust-delivered-orders', views.CustDeliveredOrders.as_view(), name='cust-delivered-orders'),
+    path('get-canteen-Login-details', views.GetCanteenLoginDetails.as_view(), name='get-canteen-Login-details'),
 
 
     
