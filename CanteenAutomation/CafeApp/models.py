@@ -47,6 +47,7 @@ class items(models.Model):
     name = models.CharField(max_length=25)
     desc = models.TextField()
     price = models.IntegerField(null=False)
+    available=models.BooleanField(default=True)
     def __str__(self):
         return self.name
     
