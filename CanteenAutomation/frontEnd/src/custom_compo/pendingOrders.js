@@ -89,6 +89,45 @@ function PendingOrders() {
             .catch(error => console.error('Error:', error));
     }, [])
 
+    useEffect(() => {
+        const refreshToken = token.refresh; // Replace with your actual refresh token
+
+        const refreshAccessToken = () => {
+            console.log("hi")
+            const apiRefresh = "http://127.0.0.1:8000/refresh"
+            fetch(apiRefresh, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token.access}`
+                },
+                body: JSON.stringify({
+                    "refresh": refreshToken,
+                }),
+            })
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error('Failed to refresh access token');
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+                    console.log(data)
+                    localStorage.setItem('token', data)
+                })
+                .catch((error) => {
+                    console.error('Error refreshing access token:', error);
+                });
+        };
+
+        // Set up a timer to refresh the access token every 10 minutes
+        const intervalId = setInterval(refreshAccessToken, 9 * 60 * 1000); // 10 minutes
+
+        // Clean up the interval when the component unmounts
+        return () => clearInterval(intervalId);
+    }, []);
+
+
     //state for drawer
     const [state, setState] = React.useState({
         left: false

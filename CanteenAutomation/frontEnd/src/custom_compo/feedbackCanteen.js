@@ -24,6 +24,7 @@ import { useEffect, useState } from 'react';
 import PastOrderC from './pastOrdersC.js';
 import AccountContent from './accountContent.js';
 import Loading from './loading.js';
+import { useParams } from 'react-router-dom';
 
 //defining theme
 const theme = createTheme({
@@ -44,6 +45,45 @@ function Feedback() {
     const apiUrlAcount = "http://127.0.0.1:8000/get-account-details"
 
     const token = JSON.parse(localStorage.getItem('token'))
+
+    useEffect(() => {
+        const refreshToken = token.refresh; // Replace with your actual refresh token
+
+        const refreshAccessToken = () => {
+            console.log("hi")
+            const apiRefresh = "http://127.0.0.1:8000/refresh"
+            fetch(apiRefresh, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token.access}`
+                },
+                body: JSON.stringify({
+                    "refresh": refreshToken,
+                }),
+            })
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error('Failed to refresh access token');
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+                    console.log(data)
+                    localStorage.setItem('token', data)
+                })
+                .catch((error) => {
+                    console.error('Error refreshing access token:', error);
+                });
+        };
+
+        // Set up a timer to refresh the access token every 10 minutes
+        const intervalId = setInterval(refreshAccessToken, 9 * 60 * 1000); // 10 minutes
+
+        // Clean up the interval when the component unmounts
+        return () => clearInterval(intervalId);
+    }, []);
+
 
 
     useEffect(() => {
@@ -146,6 +186,8 @@ function Feedback() {
         }
     }
 
+    const id = useParams()
+
     return (
         <ThemeProvider theme={theme}>
             {/* background */}
@@ -158,11 +200,12 @@ function Feedback() {
                         <div style={{ display: 'flex', height: '70px', justifyContent: 'center', marginTop: '70px' }}>
                             <img src={logo} alt='website logo' style={{ marginRight: '250px', height: '80px' }} />
                             <div style={{ display: 'flex', boxShadow: '0px 2px 0px darkGrey', paddingBottom: '10px', marginTop: '10px' }}>
-                                <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='/home'>Home</Button>
-                                <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='/home/feedback'>Feedback</Button>
-                                <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='/home/aboutus'>About Us</Button>
-                                <Button style={{ color: 'black', marginRight: '60px', marginTop: '10px', fontWeight: 'bold' }} href='/home/contact'>Contact</Button>
-
+                                <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`/cownerHome/${id.id}`}>Home</Button>
+                                <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`/cownerHome/feedbackCanteen/${id.id}`}>Feedback</Button>
+                                {/* <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='/home/aboutus'>About Us</Button>
+                                <Button style={{ color: 'black', marginRight: '60px', marginTop: '10px', fontWeight: 'bold' }} href='/home/contact'>Contact</Button> */}
+                                <Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`/cownerHome/pendingOrders/${id.id}`}>Pending Orders</Button>
+                                <Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`/cownerHome/allOrders/${id.id}`}>All orders</Button>
                                 {/* drawer for cart */}
                                 {['left'].map((anchor) => (
                                     <React.Fragment key={anchor}>
@@ -178,7 +221,6 @@ function Feedback() {
                                         </SwipeableDrawer>
                                     </React.Fragment>
                                 ))}
-
                             </div>
                         </div>
                         {/* child box of padding box */}
