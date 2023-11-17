@@ -38,44 +38,7 @@ function CownerHome() {
     const [toggleAdd, setToggleAdd] = useState(false)
 
     const [color, setColor] = useState(false)
-
-    useEffect(() => {
-        const refreshToken = token.refresh; // Replace with your actual refresh token
-
-        const refreshAccessToken = () => {
-            console.log("hi")
-            const apiRefresh = "http://127.0.0.1:8000/refresh"
-            fetch(apiRefresh, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token.access}`
-                },
-                body: JSON.stringify({
-                    "refresh": refreshToken,
-                }),
-            })
-                .then((response) => {
-                    if (!response.ok) {
-                        throw new Error('Failed to refresh access token');
-                    }
-                    return response.json();
-                })
-                .then((data) => {
-                    console.log(data)
-                    localStorage.setItem('token', data)
-                })
-                .catch((error) => {
-                    console.error('Error refreshing access token:', error);
-                });
-        };
-
-        // Set up a timer to refresh the access token every 10 minutes
-        const intervalId = setInterval(refreshAccessToken, 9 * 60 * 1000); // 10 minutes
-
-        // Clean up the interval when the component unmounts
-        return () => clearInterval(intervalId);
-    }, []);
+    const token = JSON.parse(localStorage.getItem('token'))
 
 
     useEffect(() => {
@@ -116,6 +79,8 @@ function CownerHome() {
         return () => clearInterval(intervalId);
     }, []);
 
+
+    
 
     const apiUrlDelete = "http://127.0.0.1:8000/delete-items"
 
@@ -145,8 +110,7 @@ function CownerHome() {
         }
     }
 
-    const apiUrlAccount = "https://dacanteen.pythonanywhere.com/get-account-details"
-    const token = JSON.parse(localStorage.getItem('token'))
+    const apiUrlAccount = "http://127.0.0.1:8000/get-account-details"
 
     useEffect(() => {
         fetch(apiUrlAccount, {
@@ -160,7 +124,7 @@ function CownerHome() {
                 if (response.ok) {
                     return response.json();
                 } else {
-                    window.location.href = "https://canteenautomation-cc940.web.app/"
+                    window.location.href = "/"
                 }
             })
             .then(data => {
@@ -171,7 +135,7 @@ function CownerHome() {
     }, [])
 
 
-    const apiUrl = "https://dacanteen.pythonanywhere.com/get-items"
+    const apiUrl = "http://127.0.0.1:8000/get-items"
 
 
     useEffect(() => {
@@ -238,7 +202,7 @@ function CownerHome() {
         const userConfirm = window.confirm("Do you want to Sign Out?")
         if (userConfirm) {
             localStorage.removeItem('token')
-            window.location.href = "https://canteenautomation-cc940.web.app/"
+            window.location.href = "/"
         }
     }
 
@@ -254,7 +218,7 @@ function CownerHome() {
         }
         const userConfirm = window.confirm("Are you sure you want to add this item?")
         if (userConfirm) {
-            const apiUrl = "https://dacanteen.pythonanywhere.com/get-items"
+            const apiUrl = "http://127.0.0.1:8000/get-items"
             fetch(apiUrl, {
                 method: 'POST',
                 headers: {
@@ -304,12 +268,12 @@ function CownerHome() {
                         <div style={{ display: 'flex', height: '70px', justifyContent: 'center', marginTop: '50px' }}>
                             <img src={logo} alt='website logo' style={{ marginRight: '170px', height: '80px' }} />
                             <div style={{ display: 'flex', boxShadow: '0px 2px 0px darkGrey', paddingBottom: '10px', marginTop: '10px' }}>
-                                <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`/cownerHome/${id.id}`}>Home</Button>
-                                <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`/cownerHome/feedbackCanteen/${id.id}`}>Feedback</Button>
+                                <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`http://127.0.0.1:8000/cownerHome/${id.id}`}>Home</Button>
+                                <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`http://127.0.0.1:8000/cownerHome/feedbackCanteen/${id.id}`}>Feedback</Button>
                                 {/* <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='/home/aboutus'>About Us</Button>
                                 <Button style={{ color: 'black', marginRight: '60px', marginTop: '10px', fontWeight: 'bold' }} href='/home/contact'>Contact</Button> */}
-                                <Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`/cownerHome/pendingOrders/${id.id}`}>Pending Orders</Button>
-                                <Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`/cownerHome/allOrders/${id.id}`}>All orders</Button>
+                                <Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`http://127.0.0.1:8000/cownerHome/pendingOrders/${id.id}`}>Pending Orders</Button>
+                                <Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`http://127.0.0.1:8000/cownerHome/allOrders/${id.id}`}>All orders</Button>
                                 {/* drawer for cart */}
                                 {['left'].map((anchor) => (
                                     <React.Fragment key={anchor}>

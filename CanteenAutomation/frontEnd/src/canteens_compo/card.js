@@ -32,7 +32,7 @@ function Card(props) {
             <div id={props.id} style={{ display:'flex', justifyContent:'center', alignItems:'center',flexDirection:'column',padding:'20px',borderRadius:'30px',backgroundColor:color?'#E8CFCF':'#E9DCDC',margin:'20px'}} onClick={props.onHover} onMouseEnter={()=>(setColor(true))} onMouseLeave={()=>(setColor(false))}>
                 <Typography variant='h6' id={props.id}> {props.name} </Typography>
                 <img id={props.id} src={canteen_img} alt='cafe' style={{height:'200px',margin:'20px 0px',borderRadius:'20px'}}/>
-                <Button id={props.id} variant='contained' endIcon={<EastIcon/>} sx={{borderRadius:'30px'}} onClick={(event)=>(props.canteenClicked(event))} href={`https://canteenautomation-cc940.web.app/home/canteens/${props.id}`}>Order</Button>
+                <Button id={props.id} variant='contained' endIcon={<EastIcon/>} sx={{borderRadius:'30px'}} onClick={(event)=>(props.canteenClicked(event))} href={`/home/canteens/${props.id}`}>Order</Button>
             </div>
         </ThemeProvider>
     );

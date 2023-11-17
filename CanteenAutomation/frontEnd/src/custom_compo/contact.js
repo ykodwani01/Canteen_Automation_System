@@ -41,9 +41,48 @@ function Contact() {
     const [cartDetails, setCartDetails] = useState()
     const [gotCartDetails, setGotCartDetails] = useState(false)
 
-    const apiUrlAcount = "https://dacanteen.pythonanywhere.com/get-account-details"
+    const apiUrlAcount = "http://127.0.0.1:8000/get-account-details"
 
     const token = JSON.parse(localStorage.getItem('token'))
+
+    useEffect(() => {
+        const refreshToken = token.refresh; // Replace with your actual refresh token
+
+        const refreshAccessToken = () => {
+            console.log("hi")
+            const apiRefresh = "https://dacanteen.pythonanywhere.com/refresh"
+            fetch(apiRefresh, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token.access}`
+                },
+                body: JSON.stringify({
+                    "refresh": refreshToken,
+                }),
+            })
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error('Failed to refresh access token');
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+                    console.log(data)
+                    localStorage.setItem('token', data)
+                })
+                .catch((error) => {
+                    console.error('Error refreshing access token:', error);
+                });
+        };
+
+        // Set up a timer to refresh the access token every 10 minutes
+        const intervalId = setInterval(refreshAccessToken, 9 * 60 * 1000); // 10 minutes
+
+        // Clean up the interval when the component unmounts
+        return () => clearInterval(intervalId);
+    }, []);
+
 
     useEffect(() => {
         fetch(apiUrlAcount, {
@@ -57,7 +96,7 @@ function Contact() {
                 if (response.ok) {
                     return response.json();
                 } else {
-                    window.location.href = "https://canteenautomation-cc940.web.app/"
+                    window.location.href = "/"
                 }
             })
             .then(data => {
@@ -69,7 +108,7 @@ function Contact() {
             .catch(error => console.error('Error:', error));
     }, [])
 
-    const apiUrlCart = "https://dacanteen.pythonanywhere.com/get-cust-orders"
+    const apiUrlCart = "http://127.0.0.1:8000/get-cust-orders"
 
     useEffect(() => {
         fetch(apiUrlCart, {
@@ -137,12 +176,12 @@ function Contact() {
         const userConfirm = window.confirm("Do you want to Sign Out?")
         if (userConfirm) {
             localStorage.removeItem('token')
-            window.location.href = "https://canteenautomation-cc940.web.app/"
+            window.location.href = "/"
         }
     }
 
     const handlePayment = (order_id) => {
-        const apiPayment = "https://dacanteen.pythonanywhere.com/confirm-order"
+        const apiPayment = "http://127.0.0.1:8000/confirm-order"
         fetch(apiPayment, {
             method: 'POST',
             headers: {
@@ -179,10 +218,10 @@ function Contact() {
                         <div style={{ display: 'flex', height: '70px', justifyContent: 'center', marginTop: '70px' }}>
                             <img src={logo} alt='website logo' style={{ marginRight: '250px', height: '80px' }} />
                             <div style={{ display: 'flex', boxShadow: '0px 2px 0px darkGrey', paddingBottom: '10px', marginTop: '10px' }}>
-                                <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='https://canteenautomation-cc940.web.app//home'>Home</Button>
-                                <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='https://canteenautomation-cc940.web.app//home/feedback'>Feedback</Button>
-                                <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='https://canteenautomation-cc940.web.app//home/aboutus'>About Us</Button>
-                                <Button style={{ color: 'black', marginRight: '60px', marginTop: '10px', fontWeight: 'bold' }} href='https://canteenautomation-cc940.web.app//home/contact'>Contact</Button>
+                                <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='/home'>Home</Button>
+                                <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='/home/feedback'>Feedback</Button>
+                                <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='/home/aboutus'>About Us</Button>
+                                <Button style={{ color: 'black', marginRight: '60px', marginTop: '10px', fontWeight: 'bold' }} href='/home/contact'>Contact</Button>
 
                                 {/* drawer for cart */}
                                 {['left'].map((anchor) => (

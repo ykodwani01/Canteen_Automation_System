@@ -33,7 +33,7 @@ function AllOrders() {
     const [accountDetails, setAccountDetails] = useState()
     const [gotAccountDetails, setGotAccountDetails] = useState(false)
 
-    const apiUrlAccount = "https://dacanteen.pythonanywhere.com/get-account-details"
+    const apiUrlAccount = "http://127.0.0.1:8000/get-account-details"
     const token = JSON.parse(localStorage.getItem('token'))
 
     useEffect(() => {
@@ -86,7 +86,7 @@ function AllOrders() {
                 if (response.ok) {
                     return response.json();
                 } else {
-                    window.location.href = "https://canteenautomation-cc940.web.app/"
+                    window.location.href = "/"
                 }
             })
             .then(data => {
@@ -99,7 +99,7 @@ function AllOrders() {
     }, [])
 
 
-    const apiUrl = "https://dacanteen.pythonanywhere.com/get-orders"
+    const apiUrl = "http://127.0.0.1:8000/get-orders"
 
     useEffect(() => {
         fetch(apiUrl, {
@@ -167,7 +167,7 @@ function AllOrders() {
         const userConfirm = window.confirm("Do you want to Sign Out?")
         if (userConfirm) {
             localStorage.removeItem('token')
-            window.location.href = "https://canteenautomation-cc940.web.app/"
+            window.location.href = "/"
         }
     }
 
@@ -186,12 +186,12 @@ function AllOrders() {
                             <div style={{ display: 'flex', height: '70px', justifyContent: 'center', marginTop: '50px' }}>
                                 <img src={logo} alt='website logo' style={{ marginRight: '150px', height: '80px' }} />
                                 <div style={{ display: 'flex', boxShadow: '0px 2px 0px darkGrey', paddingBottom: '10px', marginTop: '10px' }}>
-                                <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`/cownerHome/${id.id}`}>Home</Button>
-                                <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`/cownerHome/feedbackCanteen/${id.id}`}>Feedback</Button>
+                                <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`http://127.0.0.1:8000/cownerHome/${id.id}`}>Home</Button>
+                                <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`http://127.0.0.1:8000/cownerHome/feedbackCanteen/${id.id}`}>Feedback</Button>
                                 {/* <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='/home/aboutus'>About Us</Button>
                                 <Button style={{ color: 'black', marginRight: '60px', marginTop: '10px', fontWeight: 'bold' }} href='/home/contact'>Contact</Button> */}
-                                <Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`/cownerHome/pendingOrders/${id.id}`}>Pending Orders</Button>
-                                <Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`/cownerHome/allOrders/${id.id}`}>All orders</Button>
+                                <Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`http://127.0.0.1:8000/cownerHome/pendingOrders/${id.id}`}>Pending Orders</Button>
+                                <Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`http://127.0.0.1:8000/cownerHome/allOrders/${id.id}`}>All orders</Button>
                                 {/* drawer for cart */}
                                 {['left'].map((anchor) => (
                                     <React.Fragment key={anchor}>
