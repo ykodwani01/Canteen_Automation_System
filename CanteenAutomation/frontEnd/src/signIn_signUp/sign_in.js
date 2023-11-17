@@ -49,7 +49,7 @@ function SignIn() {
   }
 
 
-  const apiUrl = 'https://dacanteen.pythonanywhere.com/login';
+  const apiUrl = 'http://localhost:8000/login';
 
   //submitting data to backend
   const handleButtonClick = () => {
@@ -91,6 +91,11 @@ function SignIn() {
 
         localStorage.setItem('token', JSON.stringify(data));
         if (email === "padma_kamal@gmail.com") setIsSignupSuccessful(2)
+        else if (email === "cafe_management_comm@gmail.com") setIsSignupSuccessful(3)
+        else if (email === "dweej@gmail.com") setIsSignupSuccessful(4)
+        else if (email === "kodwani@gmail.com") setIsSignupSuccessful(5)
+        else if (email === "mihir@gmail.com") setIsSignupSuccessful(6)
+        else if (email === "vandan@gmail.com") setIsSignupSuccessful(7)
         else if (type === "Customer") setIsSignupSuccessful(1)
         else setIsSignupSuccessful(0)
       })
@@ -111,11 +116,17 @@ function SignIn() {
         {isSignupSuccessful === 0 && <Navigate to="/" />}
         {isSignupSuccessful === 1 && <Navigate to="/home" />}
         {isSignupSuccessful === 2 && <Navigate to="/cownerHome/1" />}
+        {isSignupSuccessful === 3 && <Navigate to="/cownerHome/2" />}
+        {isSignupSuccessful === 4 && <Navigate to="/cownerHome/3" />}
+        {isSignupSuccessful === 5 && <Navigate to="/cownerHome/4" />}
+        {isSignupSuccessful === 6 && <Navigate to="/cownerHome/5" />}
+        {isSignupSuccessful === 7 && <Navigate to="/cownerHome/6" />}
+
         {/* sign-in box */}
         <Container className='signIn' sx={{ background: "rgba(222,216,216,0.5)", borderRadius: '30px', ...signIn_style_ext }}>
           <Typography sx={{ fontWeight: 'bolder', fontSize: '31px', marginTop: '31px' }}>Sign In</Typography>
           <TextField id="Email" label="Email" value={email} onChange={handleChange} variant="outlined" sx={{ background: "rgba(250,249,246,0.1)", borderRadius: "5px", marginBottom: '30px', marginTop: '35px' }} />
-          <TextField id="Password" label="Password" value={password} onChange={handleChange} type={showPassword ? 'text' : 'password'} variant="outlined" sx={{ background: "rgba(250,249,246,0.1)", borderRadius: "5px", marginBottom: '10px', maxWidth: '220px' }} InputProps={{
+          <TextField id="Password" label="Password" value={password} onChange={handleChange} type={showPassword ? 'text' : 'password'} variant="outlined" sx={{ background: "rgba(250,249,246,0.1)", borderRadius: "5px", marginBottom: '10px', width:'195px' }} InputProps={{
             endAdornment: (
               <InputAdornment position="end">
                 <IconButton onClick={handleTogglePassword} edge="end">

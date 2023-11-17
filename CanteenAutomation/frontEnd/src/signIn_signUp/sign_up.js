@@ -59,7 +59,7 @@ function SignUp() {
     }
   };
 
-  const apiUrl = 'https://dacanteen.pythonanywhere.com/register';
+  const apiUrl = 'http://localhost:8000/register';
 
   //submitting data to backend
   const handleButtonClick = () => {
@@ -138,7 +138,7 @@ function SignUp() {
         <Container className='signIn' sx={{ background: "rgba(222,216,216,0.5)", borderRadius: '30px', ...signIn_style_ext }}>
           <Typography sx={{ fontWeight: 'bolder', fontSize: '31px', marginTop: '31px' }}>Sign Up</Typography>
           <TextField id="Email" label="Email" value={email} onChange={handleChange} variant="outlined" sx={{ background: "rgba(250,249,246,0.1)", borderRadius: "5px", marginBottom: '30px', marginTop: '23px' }} />
-          <TextField id="Password" label="Password" value={password} onChange={handleChange} variant="outlined" type={showPassword1 ? 'text' : 'password'} sx={{ background: "rgba(250,249,246,0.1)", borderRadius: "5px", marginBottom: '30px', maxWidth: '220px' }} InputProps={{
+          <TextField id="Password" label="Password" value={password} onChange={handleChange} variant="outlined" type={showPassword1 ? 'text' : 'password'} sx={{ background: "rgba(250,249,246,0.1)", borderRadius: "5px", marginBottom: '30px', width: '195px' }} InputProps={{
             endAdornment: (
               <InputAdornment position="end">
                 <IconButton onClick={handleTogglePassword} edge="end">
@@ -147,7 +147,7 @@ function SignUp() {
               </InputAdornment>
             ),
           }} />
-          <TextField id="Confirm Password" label="Confirm Password" value={confirmPassword} onChange={handleChange} variant="outlined" type={showPassword2 ? 'text' : 'password'} sx={{ background: "rgba(250,249,246,0.1)", borderRadius: "5px", marginBottom: '30px', maxWidth: '220px' }} InputProps={{
+          <TextField id="Confirm Password" label="Confirm Password" value={confirmPassword} onChange={handleChange} variant="outlined" type={showPassword2 ? 'text' : 'password'} sx={{ background: "rgba(250,249,246,0.1)", borderRadius: "5px", marginBottom: '30px', width: '195px' }} InputProps={{
             endAdornment: (
               <InputAdornment position="end">
                 <IconButton onClick={handleToggleConfirmPassword} edge="end">

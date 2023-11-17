@@ -23,6 +23,7 @@ import cafe from "../general_compo/cafe.png";
 
 //importing react cmp
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 function CownerHome() {
 
@@ -38,7 +39,85 @@ function CownerHome() {
 
     const [color, setColor] = useState(false)
 
-    const apiUrlDelete = "https://dacanteen.pythonanywhere.com/delete-items"
+    useEffect(() => {
+        const refreshToken = token.refresh; // Replace with your actual refresh token
+
+        const refreshAccessToken = () => {
+            console.log("hi")
+            const apiRefresh = "http://127.0.0.1:8000/refresh"
+            fetch(apiRefresh, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token.access}`
+                },
+                body: JSON.stringify({
+                    "refresh": refreshToken,
+                }),
+            })
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error('Failed to refresh access token');
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+                    console.log(data)
+                    localStorage.setItem('token', data)
+                })
+                .catch((error) => {
+                    console.error('Error refreshing access token:', error);
+                });
+        };
+
+        // Set up a timer to refresh the access token every 10 minutes
+        const intervalId = setInterval(refreshAccessToken, 9 * 60 * 1000); // 10 minutes
+
+        // Clean up the interval when the component unmounts
+        return () => clearInterval(intervalId);
+    }, []);
+
+
+    useEffect(() => {
+        const refreshToken = token.refresh; // Replace with your actual refresh token
+
+        const refreshAccessToken = () => {
+            console.log("hi")
+            const apiRefresh = "http://127.0.0.1:8000/refresh"
+            fetch(apiRefresh, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token.access}`
+                },
+                body: JSON.stringify({
+                    "refresh": refreshToken,
+                }),
+            })
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error('Failed to refresh access token');
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+                    console.log(data)
+                    localStorage.setItem('token', data)
+                })
+                .catch((error) => {
+                    console.error('Error refreshing access token:', error);
+                });
+        };
+
+        // Set up a timer to refresh the access token every 10 minutes
+        const intervalId = setInterval(refreshAccessToken, 9 * 60 * 1000); // 10 minutes
+
+        // Clean up the interval when the component unmounts
+        return () => clearInterval(intervalId);
+    }, []);
+
+
+    const apiUrlDelete = "http://127.0.0.1:8000/delete-items"
 
     const handleRemoveItem = (id) => {
         const userConfirm = window.confirm("On clicking OK, whole item will be permanentely deleted.")
@@ -211,6 +290,9 @@ function CownerHome() {
         setToggleAdd((toggleAdd) => (!toggleAdd))
     }
     console.log(data)
+    const id = useParams()
+    console.log(id)
+
     return (
         <ThemeProvider theme={theme}>
             {isLoaded && gotAccountDetails ? <div style={{ backgroundColor: '#DED8D8', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
@@ -222,12 +304,12 @@ function CownerHome() {
                         <div style={{ display: 'flex', height: '70px', justifyContent: 'center', marginTop: '50px' }}>
                             <img src={logo} alt='website logo' style={{ marginRight: '170px', height: '80px' }} />
                             <div style={{ display: 'flex', boxShadow: '0px 2px 0px darkGrey', paddingBottom: '10px', marginTop: '10px' }}>
-                                <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`https://dacanteen.pythonanywhere.com/cownerHome/${data[0].canteen}`}>Home</Button>
-                                <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`https://dacanteen.pythonanywhere.com/cownerHome/feedbackCanteen/${data[0].canteen}`}>Feedback</Button>
+                                <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`/cownerHome/${id.id}`}>Home</Button>
+                                <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`/cownerHome/feedbackCanteen/${id.id}`}>Feedback</Button>
                                 {/* <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='/home/aboutus'>About Us</Button>
                                 <Button style={{ color: 'black', marginRight: '60px', marginTop: '10px', fontWeight: 'bold' }} href='/home/contact'>Contact</Button> */}
-                                <Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`https://dacanteen.pythonanywhere.com/cownerHome/pendingOrders/${data[0].canteen}`}>Pending Orders</Button>
-                                <Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`https://dacanteen.pythonanywhere.com/cownerHome/allOrders/${data[0].canteen}`}>All orders</Button>
+                                <Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`/cownerHome/pendingOrders/${id.id}`}>Pending Orders</Button>
+                                <Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`/cownerHome/allOrders/${id.id}`}>All orders</Button>
                                 {/* drawer for cart */}
                                 {['left'].map((anchor) => (
                                     <React.Fragment key={anchor}>

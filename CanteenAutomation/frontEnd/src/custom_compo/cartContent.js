@@ -79,7 +79,7 @@ function CartContent(props) {
                     {cartItems}
                 </div>
                 {/* box to show the final summary of the items  */}
-                <div style={{ borderRadius: '30px', border: '2px solid white', width: '460px', marign: '5px', padding: '10px', marginTop: '80px' }}>
+                <div style={{ borderRadius: '30px', border: '2px solid white', width: '460px', marign: '5px', padding: '10px', marginTop: '80px', marginBottom:'50px' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                         <Typography variant="h4" sx={{ margin: '20px', fontWeight: 'bold' }}>Order Summary</Typography>
                     </div>
