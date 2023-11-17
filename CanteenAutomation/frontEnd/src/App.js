@@ -23,21 +23,20 @@ import FeedbackCanteen from './custom_compo/feedbackCanteen.js';
 //creating routes
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path='https://canteenautomation-cc940.web.app/' element={<RootLayout/>}>
+    <Route path='/' element={<RootLayout/>}>
       <Route index element={<SignIn/>}/>
-      <Route path="https://canteenautomation-cc940.web.app/sign_up" element={<SignUp/>}/>
-      <Route path='https://canteenautomation-cc940.web.app/home' element={<HomePage/>}/>
-      <Route path='https://canteenautomation-cc940.web.app/home/feedback' element={<Feedback/>}/>
-      <Route path='https://canteenautomation-cc940.web.app/home/aboutUs' element={<AboutUs/>}/>
-      <Route path='https://canteenautomation-cc940.web.app/home/contact' element={<Contact/>}/>
-      <Route path='https://canteenautomation-cc940.web.app/home/canteens' element={<Canteens/>}/>
-      <Route path='https://canteenautomation-cc940.web.app/home/canteens/:id' element={<Menu/>}/>
-      <Route path='https://dacanteen.pythonanywhere.com/cownerHome/:id' element={<CownerHome/>}/>
-      <Route path='https://dacanteen.pythonanywhere.com/cownerHome/pendingOrders/:id' element={<PendingOrders/>}/>
-      <Route path='https://dacanteen.pythonanywhere.com/cownerHome/allOrders/:id' element={<AllOrders/>}/>
-      <Route path='https://dacanteen.pythonanywhere.com/cownerHome/feedbackCanteen/:id' element={<FeedbackCanteen/>}/>
-      <Route path='https://dacanteen.pythonanywhere.com/*' element={<Error/>}/>
-      <Route path='https://canteenautomation-cc940.web.app/*' element={<Error/>}/>
+      <Route path="/sign_up" element={<SignUp/>}/>
+      <Route path='/home' element={<HomePage/>}/>
+      <Route path='/home/feedback' element={<Feedback/>}/>
+      <Route path='/home/aboutUs' element={<AboutUs/>}/>
+      <Route path='/home/contact' element={<Contact/>}/>
+      <Route path='/home/canteens' element={<Canteens/>}/>
+      <Route path='/home/canteens/:id' element={<Menu/>}/>
+      <Route path='/cownerHome/:id' element={<CownerHome/>}/>
+      <Route path='/cownerHome/pendingOrders/:id' element={<PendingOrders/>}/>
+      <Route path='/cownerHome/allOrders/:id' element={<AllOrders/>}/>
+      <Route path='/cownerHome/feedbackCanteen/:id' element={<FeedbackCanteen/>}/>
+      <Route path='*' element={<Error/>}/>
     </Route>
   )
 )
