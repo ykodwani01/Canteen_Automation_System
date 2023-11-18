@@ -154,7 +154,7 @@ function CownerHome() {
             })
             .then(data => {
                 setData(data)
-                setMenu(data.map((item) => (<OwnMenuCard key={item.id} id={item.id} name={item.name} desc={item.desc} price={item.price} canteen={item.canteen} removeItem={handleRemoveItem} />)))
+                setMenu(data.map((item) => (data.length!==0?<OwnMenuCard key={item.id} id={item.id} name={item.name} desc={item.desc} price={item.price} canteen={item.canteen} removeItem={handleRemoveItem} />:<div></div>)))
                 setIsLoaded(true)
             })
             .catch(error => console.error('Error:', error));
@@ -206,7 +206,7 @@ function CownerHome() {
     }
 
     const handleAdd = () => {
-        const regex = /^[a-zA-Z\s]{1,100}$/;
+        const regex = /^[a-zA-Z ]*$/;
         if (!regex.test(newItem.name)) {
             alert("Name should be less then 100 characters and should not contain any special characters or numbers")
             return
@@ -291,9 +291,9 @@ function CownerHome() {
                             </div>
                         </div>
                         {/* child box of padding box */}
-                        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '70px' }}>
+                        {/* <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '70px' }}>
                             <Typography variant='h2'>{menu[0].canteen}</Typography>
-                        </div>
+                        </div> */}
                         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '30px' }}>
                             <Button variant='contained' sx={{ borderRadius: '30px', marginRight: '20px' }} onClick={handleAddItem}>Add New Items</Button>
                             {/* <Button variant='contained' sx={{ borderRadius: '30px', marginRight: '20px' }}>Save Changes</Button> */}

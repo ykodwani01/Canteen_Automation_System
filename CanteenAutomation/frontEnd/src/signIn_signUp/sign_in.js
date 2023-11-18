@@ -11,7 +11,7 @@ import login_photo from './login_photo.png'
 
 //importing react cmp
 import { NavLink, Navigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 //importing custom cmp
 import theme from '../general_compo/theme.js'
@@ -21,6 +21,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import Loading from '../custom_compo/loading.js';
 
 
 function SignIn() {
@@ -31,6 +32,32 @@ function SignIn() {
   const [password, setPassword] = useState('')
   const [type, setType] = useState("Customer")
   const [isSignupSuccessful, setIsSignupSuccessful] = useState(0);
+  const [canteens, setCanteens] = useState()
+  const [gotCanteenDetails, setGotCanteenDetails] = useState(false)
+
+  const apicanteen = 'http://127.0.0.1:8000/get-canteen-Login-details'
+
+  useEffect(()=>{
+    fetch(apicanteen,{
+      method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+    })
+    .then(response => {
+      if (response.ok) {
+          return response.json();
+      } else {
+          throw new Error('Something went wrong ...');      }
+  })
+  .then(data => {
+      // Handle the response data here
+      console.log(data);
+      setCanteens(data)
+      setGotCanteenDetails(true)
+  })
+  .catch(error => console.error('Error:', error));
+  },[])
 
   const handleChange = (event) => {
     if (event.target.id === "Email") {
@@ -90,13 +117,8 @@ function SignIn() {
         // Store the token in local storage or a cookie for later use.
 
         localStorage.setItem('token', JSON.stringify(data));
-        if (email === "padma_kamal@gmail.com") setIsSignupSuccessful(2)
-        else if (email === "cafe_management_comm@gmail.com") setIsSignupSuccessful(3)
-        else if (email === "k++@gmail.com") setIsSignupSuccessful(4)
-        else if (email === "juicepoint@gmail.com") setIsSignupSuccessful(5)
-        else if (email === "honeyone@gmail.com") setIsSignupSuccessful(6)
-        else if (email === "shinestar@gmail.com") setIsSignupSuccessful(7)
-        else if (type === "Customer") setIsSignupSuccessful(1)
+        if (type === "Customer") setIsSignupSuccessful(1)
+        else if (canteens.filter((item)=>(item.canteen_user_email===email))) setIsSignupSuccessful(canteens.filter((item)=>(item.canteen_user_email===email))[0].canteen_id+1)
         else setIsSignupSuccessful(0)
       })
       .catch(error => console.error('Error:', error));
@@ -111,16 +133,10 @@ function SignIn() {
 
   return (
     <ThemeProvider theme={theme}>
-      {/* background */}
-      <Container className="App" maxWidth='xl' sx={{ backgroundImage: `url(${login_photo})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center', ...background_style_ext }}>
+      {gotCanteenDetails?<Container className="App" maxWidth='xl' sx={{ backgroundImage: `url(${login_photo})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center', ...background_style_ext }}>
         {isSignupSuccessful === 0 && <Navigate to="/" />}
         {isSignupSuccessful === 1 && <Navigate to="/home" />}
-        {isSignupSuccessful === 2 && <Navigate to="/cownerHome/1" />}
-        {isSignupSuccessful === 3 && <Navigate to="/cownerHome/2" />}
-        {isSignupSuccessful === 4 && <Navigate to="/cownerHome/3" />}
-        {isSignupSuccessful === 5 && <Navigate to="/cownerHome/4" />}
-        {isSignupSuccessful === 6 && <Navigate to="/cownerHome/5" />}
-        {isSignupSuccessful === 7 && <Navigate to="/cownerHome/6" />}
+        {isSignupSuccessful !==1 && isSignupSuccessful!==0 && <Navigate to={`/cownerHome/${isSignupSuccessful}`} />}
 
         {/* sign-in box */}
         <Container className='signIn' sx={{ background: "rgba(222,216,216,0.5)", borderRadius: '30px', ...signIn_style_ext }}>
@@ -143,7 +159,9 @@ function SignIn() {
             </Container>
           </NavLink>
         </Container>
-      </Container>
+      </Container>:<Loading/>}
+      {/* background */}
+      
     </ThemeProvider>
   );
 }
