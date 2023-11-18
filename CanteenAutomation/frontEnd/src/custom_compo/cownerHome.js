@@ -207,9 +207,9 @@ function CownerHome() {
     }
 
     const handleAdd = () => {
-        const regex = /^[a-zA-Z]{1,10}$/;
+        const regex = /^[a-zA-Z\s]{1,100}$/;
         if (!regex.test(newItem.name)) {
-            alert("Name should be of 1-10 characters and should not contain any special characters or numbers")
+            alert("Name should be less then 100 characters and should not contain any special characters or numbers")
             return
         }
         if (newItem.price <= 0 || newItem.price > 1000) {
