@@ -131,8 +131,9 @@ class DeleteItems(APIView):
                item_id=request.data.get('item_id')
                delete_object=items.objects.filter(id=item_id).first()
                if delete_object.canteen==canteen_obj:
-                delete_object.delete()
-                item_obj = items.objects.filter(canteen=canteen_obj)
+                delete_object.available=False
+                delete_object.save()
+                item_obj = items.objects.filter(canteen=canteen_obj,available=True)
                 Item_serialized = MenuItemSerializer(item_obj,many=True)
                 return Response(Item_serialized.data,status=status.HTTP_200_OK)    
            return Response({"success":False},status=status.HTTP_200_OK)
@@ -158,7 +159,7 @@ class GetItems(APIView):
 
     def get(self,request):
         canteen_obj = canteen.objects.filter(owner = request.user.profile)[0]
-        item_obj = items.objects.filter(canteen=canteen_obj)
+        item_obj = items.objects.filter(canteen=canteen_obj,available=True)
         Item_serialized = MenuItemSerializer(item_obj,many=True)
         return Response(Item_serialized.data,status=status.HTTP_200_OK)
 
@@ -307,7 +308,7 @@ class ConfirmOrder(APIView):
 class GetMenu(APIView):
 
     def get(self,request,canteen_id):
-            item_obj=items.objects.filter(canteen=canteen_id)
+            item_obj=items.objects.filter(canteen=canteen_id,available=True)
             Item_serialized = MenuItemSerializer(item_obj,many=True)
             return Response(Item_serialized.data,status=status.HTTP_200_OK)
 
@@ -435,3 +436,53 @@ class seefeedback(APIView):
             if i["id"] in fed_orders:
                 final_list.append(i)
         return Response(final_list,status=status.HTTP_200_OK)
+    
+class CustPendingOrders(APIView):
+    def get(self,request):
+        cus_obj_profile=Profile.objects.filter(user=request.user).first()
+        cus_obj=customer.objects.filter(cust=cus_obj_profile).first()
+        order_obj=orders.objects.filter(order_cust=cus_obj,status='Received')
+        order_serialized=OrderSerializer(order_obj,many=True)
+        for i in order_serialized.data:
+            order_id=i["id"]
+            for j in i:
+                if(j=='items'):
+                    for k in i[j]:
+                        item_id=k["id"]
+                        quantity_value=orderquantity.objects.filter(item_id=item_id,order_id=order_id).first()
+                        if quantity_value is not None:
+                            k["quantity"]=quantity_value.quantity
+                        else:
+                            print(order_id)
+            feedback_obj=feedback.objects.filter(order_id=order_id).first()
+            if feedback_obj is not None:
+                i["feedback"]=feedback_obj.review
+        return Response(order_serialized.data,status=status.HTTP_200_OK)
+    
+class CustDeliveredOrders(APIView):
+    def get(self,request):
+        cus_obj_profile=Profile.objects.filter(user=request.user).first()
+        cus_obj=customer.objects.filter(cust=cus_obj_profile).first()
+        order_obj=orders.objects.filter(order_cust=cus_obj,status='Delivered')
+        order_serialized=OrderSerializer(order_obj,many=True)
+        for i in order_serialized.data:
+            order_id=i["id"]
+            for j in i:
+                if(j=='items'):
+                    for k in i[j]:
+                        item_id=k["id"]
+                        quantity_value=orderquantity.objects.filter(item_id=item_id,order_id=order_id).first()
+                        if quantity_value is not None:
+                            k["quantity"]=quantity_value.quantity
+                        else:
+                            print(order_id)
+            feedback_obj=feedback.objects.filter(order_id=order_id).first()
+            if feedback_obj is not None:
+                i["feedback"]=feedback_obj.review
+        return Response(order_serialized.data,status=status.HTTP_200_OK)
+    
+class GetCanteenLoginDetails(APIView):
+    def get(self,request):
+        canteens=canteen.objects.all()
+        canteen_ser=ALLCanteenSerializer(canteens,many=True)
+        return Response(canteen_ser.data,status=status.HTTP_200_OK)
