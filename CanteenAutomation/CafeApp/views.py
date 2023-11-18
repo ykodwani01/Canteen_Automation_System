@@ -199,6 +199,8 @@ class getOrders(APIView):
                             k["quantity"]=quantity_value.quantity
                         else:
                             print(order_id)
+                if(j=='date'):
+                    i[j]=i[j][0:10]+' -- '+i[j][11:16]+' GMT'
         return Response(Item_serialized.data,status=status.HTTP_200_OK)
 
 class getaccountdetails(APIView):
@@ -235,6 +237,8 @@ class getPendingOrders(APIView):
                                 item_id=k["id"]
                                 quantity_value=orderquantity.objects.filter(item_id=item_id,order_id=order_id).first()
                                 k["quantity"]=quantity_value.quantity
+                        if(j=='date'):
+                            i[j]=i[j][0:10]+' -- '+i[j][11:16]+' GMT'
                 return Response(Item_serialized.data,status=status.HTTP_200_OK)
         # except:
         #     pass
@@ -266,7 +270,9 @@ class getcustOrders(APIView):
                             quantity_value=orderquantity.objects.filter(item_id=item_id,order_id=order_id).first()
                             k["quantity"]=quantity_value.quantity
                             total_quantity=total_quantity+quantity_value.quantity
-                i["total_quantity"]=total_quantity
+                    if(j=='date'):
+                        i[j]=i[j][0:10]+' -- '+i[j][11:16]+' GMT'
+                i["total_quantity"]=total_quantity    
             return Response(Item_serialized.data,status=status.HTTP_200_OK)
         except:
             return Response({"success":False})
@@ -339,6 +345,8 @@ class GetFeedback(APIView):
                                 k["quantity"]=quantity_value.quantity
                             else:
                                 print(order_id)
+                    if(j=='date'):
+                        i[j]=i[j][0:10]+' -- '+i[j][11:16]+' GMT'
             fed_orders=[]
             for i in list(feedback.objects.all().values()):
                 fed_orders.append(i["order_id_id"])
@@ -365,6 +373,8 @@ class GetFeedback(APIView):
                             k["quantity"]=quantity_value.quantity
                         else:
                             print(order_id)
+                if(j=='date'):
+                    i[j]=i[j][0:10]+' -- '+i[j][11:16]+' GMT'
         fed_orders=[]
         for i in list(feedback.objects.all().values()):
             fed_orders.append(i["order_id_id"])
@@ -405,6 +415,8 @@ class OrderDelivered(APIView):
                             item_id=k["id"]
                             quantity_value=orderquantity.objects.filter(item_id=item_id,order_id=order_id).first()
                             k["quantity"]=quantity_value.quantity
+                    if(j=='date'):
+                        i[j]=i[j][0:10]+' -- '+i[j][11:16]+' GMT'
             return Response(Item_serialized.data,status=status.HTTP_200_OK)
         
 class seefeedback(APIView):
@@ -425,6 +437,8 @@ class seefeedback(APIView):
                             k["quantity"]=quantity_value.quantity
                         else:
                             print(order_id)
+                if(j=='date'):
+                    i[j]=i[j][0:10]+' -- '+i[j][11:16]+' GMT'
             feedback_obj=feedback.objects.filter(order_id=order_id).first()
             if feedback_obj is not None:
                 i["feedback"]=feedback_obj.review
@@ -454,6 +468,8 @@ class CustPendingOrders(APIView):
                             k["quantity"]=quantity_value.quantity
                         else:
                             print(order_id)
+                if(j=='date'):
+                    i[j]=i[j][0:10]+' -- '+i[j][11:16]+' GMT'
             feedback_obj=feedback.objects.filter(order_id=order_id).first()
             if feedback_obj is not None:
                 i["feedback"]=feedback_obj.review
@@ -476,6 +492,8 @@ class CustDeliveredOrders(APIView):
                             k["quantity"]=quantity_value.quantity
                         else:
                             print(order_id)
+                if(j=='date'):
+                    i[j]=i[j][0:10]+' -- '+i[j][11:16]+' GMT'
             feedback_obj=feedback.objects.filter(order_id=order_id).first()
             if feedback_obj is not None:
                 i["feedback"]=feedback_obj.review
