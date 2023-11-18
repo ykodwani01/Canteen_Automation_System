@@ -65,6 +65,7 @@ function Order(props) {
                     </Grid>
                     {displayOrders}
                     <Typography>Total Amount : {props.totalAmount}</Typography>
+                    <Typography>Date and time : {props.date}</Typography>
                     {props.flag ? <div style={{ display: 'flex', justifyContent: 'end' }}>
                         {/* <Button variant='contained' sx={{ marginTop: '50px', marginLeft: '20px' }}>Prepared</Button> */}
                         <Button id={props.id} onClick={() => (props.completed(props.id))} variant='contained' sx={{ marginTop: '50px', marginLeft: '20px' }}>Completed</Button>

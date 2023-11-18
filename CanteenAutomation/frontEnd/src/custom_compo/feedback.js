@@ -202,7 +202,7 @@ function Feedback() {
 
     useEffect(() => {
         if (feedbacks && data) {
-            setPOrder(data.map((item) => (<PastOrder key={item.id} id={item.id} totalAmount={item.total_amount} name={item.order_canteen_name} items={item.items} feedback={feedbacks} changeFeedBack={handleChangeFeedBack} onButtonClick={handleChildButton} />)))
+            setPOrder(data.map((item) => (<PastOrder key={item.id} id={item.id} totalAmount={item.total_amount} name={item.order_canteen_name} items={item.items} feedback={feedbacks} changeFeedBack={handleChangeFeedBack} onButtonClick={handleChildButton} date={item.date}/>)))
             setIsLoaded(true)
         }
     }, [feedbacks])

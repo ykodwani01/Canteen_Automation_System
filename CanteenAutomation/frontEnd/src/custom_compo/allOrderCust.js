@@ -66,7 +66,7 @@ function PendingOrders() {
             .then(data => {
                 // Handle the response data here
                 console.log(data);
-                setOrder(data.map((item) => (<OrderCust key={item.id} id={item.id} name={item.order_canteen_name} status={item.status} totalAmount={item.total_amount} items={item.items} />)))
+                setOrder(data.map((item) => (<OrderCust key={item.id} id={item.id} name={item.order_canteen_name} status={item.status} totalAmount={item.total_amount} items={item.items} date={item.date}/>)))
                 setIsLoaded(true)
             })
             .catch(error => console.error('Error:', error));
@@ -289,7 +289,7 @@ function PendingOrders() {
                             </div>
                             {/* child box of padding box */}
                             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '70px' }}>
-                                <Typography variant='h2'><u>Pending Orders</u></Typography>
+                                <Typography variant='h2'><u>All Orders</u></Typography>
                             </div>
                             {/* child box of padding box */}
                             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginTop: '20px' }}>

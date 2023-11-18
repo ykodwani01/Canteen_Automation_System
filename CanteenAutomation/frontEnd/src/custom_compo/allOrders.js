@@ -119,7 +119,7 @@ function AllOrders() {
             .then(data => {
                 // Handle the response data here
                 console.log(data);
-                setOrder(data.map((item) => (<Order key={item.id} name={item.order_cust_name} phone={item.order_cust_contact} email={item.order_cust_email} status={item.status} totalAmount={item.total_amount} items={item.items} flag={0} />)))
+                setOrder(data.map((item) => (<Order key={item.id} name={item.order_cust_name} phone={item.order_cust_contact} email={item.order_cust_email} status={item.status} totalAmount={item.total_amount} items={item.items} flag={0} date={item.date}/>)))
                 setIsLoaded(true)
             })
             .catch(error => console.error('Error:', error));

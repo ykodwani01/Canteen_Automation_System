@@ -133,7 +133,7 @@ function Feedback() {
                 console.log(data);
                 setData(data);
                 setporder(data.map((item) => {
-                    return <PastOrderC key={item.id} id={item.id} name={item.order_cust_name} phone={item.order_cust_contact} email={item.order_cust_email} totalAmount={item.total_amount} items={item.items} rating={item.rating} feedback={item.feedback} />
+                    return <PastOrderC key={item.id} id={item.id} name={item.order_cust_name} phone={item.order_cust_contact} email={item.order_cust_email} totalAmount={item.total_amount} items={item.items} rating={item.rating} feedback={item.feedback} date={item.date}/>
                 }))
                 setIsLoaded(true)
             })

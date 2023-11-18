@@ -81,7 +81,7 @@ function SignIn() {
   //submitting data to backend
   const handleButtonClick = () => {
     console.log(email, password)
-    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$%^&+=!])([A-Za-z\d@#$%^&+=!]{8,12})$/;
+    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$%^&+=!])([A-Za-z\d@#$%^&+=!]{8,20})$/;
     const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
     if (
       !emailRegex.test(email)
@@ -91,10 +91,10 @@ function SignIn() {
     }
     if (
       password.length < 8 ||
-      password.length > 12 ||
+      password.length > 20 ||
       !passwordRegex.test(password)
     ) {
-      alert('Password must be between 8 and 12 characters and contain only alphanumeric characters and one special character.');
+      alert('Password must be between 8 and 20 characters and contain only alphanumeric characters and one special character.');
       return
     }
 

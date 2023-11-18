@@ -65,6 +65,7 @@ function OrderCust(props) {
                     </Grid>
                     {displayOrders}
                     <Typography>Total Amount : {props.totalAmount}</Typography>
+                    <Typography>Date and Time : {props.date}</Typography>
                     
                 </div>
                 <div>

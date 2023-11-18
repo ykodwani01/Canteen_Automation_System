@@ -65,6 +65,7 @@ function PastOrderC(props) {
                     </Grid>
                     {displayOrders}
                     <Typography variant='h6' sx={{ marginTop: '50px' }}>Total amount: {props.totalAmount}</Typography>
+                    <Typography>Date and Time : {props.date}</Typography>
                 </div>
                 <div>
                     <div style={{ margin: '15px 0px' }}>

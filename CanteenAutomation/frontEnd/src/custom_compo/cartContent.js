@@ -90,15 +90,15 @@ function CartContent(props) {
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Typography variant="h6">Convenience fee</Typography>
-                        <Typography variant="h6">20</Typography>
+                        <Typography variant="h6">0</Typography>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Typography variant="h6">Tax</Typography>
-                        <Typography variant="h6">20</Typography>
+                        <Typography variant="h6">0</Typography>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Typography variant="h6" sx={{ fontWeight: 'bold' }}>Total</Typography>
-                        <Typography variant="h6" sx={{ fontWeight: 'bold' }}>{props.cartDetails.total_amount + 40}</Typography>
+                        <Typography variant="h6" sx={{ fontWeight: 'bold' }}>{props.cartDetails.total_amount}</Typography>
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                         <Button variant='contained' sx={{ borderRadius: '30px', margin: '20px 0px 5px 0px', width: '300px', padding: '10px' }} endIcon={<EastIcon />} onClick={() => (props.payment(props.cartDetails.id))}>Continue to Payment</Button>
