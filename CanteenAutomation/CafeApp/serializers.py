@@ -26,7 +26,7 @@ class OrderSerializer(serializers.ModelSerializer):
     items = MenuItemSerializer(many=True)
     class Meta:
         model = orders
-        fields = ('id','order_cust_name','order_cust_contact','order_cust_email','order_canteen_name','total_amount','items','status')
+        fields = ('id','order_cust_name','order_cust_contact','order_cust_email','order_canteen_name','total_amount','items','status','date')
 
 class AccountDetailsSerializer(serializers.ModelSerializer):
     class Meta:
