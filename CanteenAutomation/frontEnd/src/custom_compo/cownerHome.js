@@ -6,7 +6,6 @@ import { Typography, TextField } from '@mui/material/';
 import { ThemeProvider } from '@mui/material/';
 import Button from '@mui/material/Button';
 
-
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
@@ -258,7 +257,7 @@ function CownerHome() {
     console.log(id)
 
     return (
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={theme}> 
             {isLoaded && gotAccountDetails ? <div style={{ backgroundColor: '#DED8D8', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
                 {/* first box */}
                 <div style={{ borderRadius: '108px', marginTop: '70px', backgroundColor: '#EBE7E6', border: '2px solid white', width: '1341px', boxShadow: '0px 10px 5px darkgrey', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', paddingBottom: '50px' }}>
