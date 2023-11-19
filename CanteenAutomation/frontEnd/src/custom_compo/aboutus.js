@@ -260,8 +260,8 @@ function AboutUs() {
                         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '60px' }}>
                             <img src={grp_img} alt='grp' style={{ width: '500px', border: 'solid white 2px', borderRadius: '50px' }} />
                         </div>
-                        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '60px' }}>
-                            <Typography> Lorem ipsum dolor sit amet consectetur. Ornare massa nunc nibh tristique. Non ligula tristique ut ut libero sit convallis maecenas. At egestas auctor porta mattis.Lorem ipsum dolor sit amet consectetur. Ornare massa nunc nibh tristique. Non ligula tristique ut ut libero sit convallis maecenas. At egestas auctor porta mattis.
+                        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '60px', paddingBottom: '50px' }}>
+                            <Typography> At Quick Cafe, we're passionate about connecting you with exceptional culinary experiences. What started as a humble vision to revolutionize food delivery has evolved into a platform dedicated to bringing convenience and delight to your table. Our commitment lies in not just delivering meals but curating an assortment of flavors that cater to diverse tastes and preferences. We collaborate with local eateries and renowned chefs, ensuring that every dish meets our high standards of quality, freshness, and taste. Beyond convenience, we strive to foster a sense of community by supporting local businesses and providing a seamless, user-friendly ordering experience. Join us on this gastronomic journey where great food meets convenience, all at your fingertips.
                             </Typography>
                         </div>
                     </div>
