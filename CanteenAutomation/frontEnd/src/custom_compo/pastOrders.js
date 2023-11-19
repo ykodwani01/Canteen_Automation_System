@@ -24,7 +24,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 function PastOrder(props) {
-    const tmp = props.items.filter((item)=>(item.quantity))
+    const tmp = props.items.filter((item) => (item.quantity))
     const displayOrders = tmp.map((item) => (
         <div key={item.id} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
             <Grid container spacing={2}>
@@ -39,8 +39,8 @@ function PastOrder(props) {
                 </Grid>
             </Grid>
         </div>
-        
-        
+
+
     ))
 
     const handleChange = (event) => {

@@ -134,7 +134,7 @@ function Feedback() {
                 console.log(data);
                 setData(data);
                 setporder(data.map((item) => {
-                    return <PastOrderC key={item.id} id={item.id} name={item.order_cust_name} phone={item.order_cust_contact} email={item.order_cust_email} totalAmount={item.total_amount} items={item.items} rating={item.rating} feedback={item.feedback} date={item.date}/>
+                    return <PastOrderC key={item.id} id={item.id} name={item.order_cust_name} phone={item.order_cust_contact} email={item.order_cust_email} totalAmount={item.total_amount} items={item.items} rating={item.rating} feedback={item.feedback} date={item.date} />
                 }))
                 setIsLoaded(true)
             })
@@ -248,14 +248,14 @@ function Feedback() {
                     </div>
                     <div style={{ padding: '50px' }}>
                         <Typography style={{ color: 'white', fontWeight: 'bold', marginBottom: '50px' }}>About</Typography>
-                        <div style={{ marginBottom:"20px" }}><Link href="/home/aboutus" underline="hover" style={{ color: '#DAC6C7' }} >{"About Us"}</Link></div>
-                        <div style={{ marginBottom:"20px" }}><Link href="/home" underline="hover" style={{ color: '#DAC6C7' }} >{"Mission"}</Link></div>
+                        <div style={{ marginBottom: "20px" }}><Link href="/home/aboutus" underline="hover" style={{ color: '#DAC6C7' }} >{"About Us"}</Link></div>
+                        <div style={{ marginBottom: "20px" }}><Link href="/home" underline="hover" style={{ color: '#DAC6C7' }} >{"Mission"}</Link></div>
                     </div>
                     <div style={{ padding: '50px' }}>
                         <Typography style={{ color: 'white', fontWeight: 'bold', marginBottom: '50px' }}>Contact</Typography>
-                        <div style={{ marginBottom:"20px" }}><Link href="https://www.facebook.com/people/Quick-Cafe/61553677053607/" underline="hover" target="_blank" style={{ color: '#DAC6C7' }} >{"Facebook"}</Link></div>
-                        <div style={{ marginBottom:"20px" }}><Link href="https://twitter.com/quickcafe69" underline="hover" target="_blank" style={{ color: '#DAC6C7' }} >{"Twitter"}</Link></div>
-                        <div style={{ marginBottom:"20px" }}><Link href="https://instagram.com/_quick_cafe?igshid=OGQ5ZDc2ODk2ZA==" underline="hover" target="_blank" style={{ color: '#DAC6C7' }} >{"Instagram"}</Link></div>
+                        <div style={{ marginBottom: "20px" }}><Link href="https://www.facebook.com/people/Quick-Cafe/61553677053607/" underline="hover" target="_blank" style={{ color: '#DAC6C7' }} >{"Facebook"}</Link></div>
+                        <div style={{ marginBottom: "20px" }}><Link href="https://twitter.com/quickcafe69" underline="hover" target="_blank" style={{ color: '#DAC6C7' }} >{"Twitter"}</Link></div>
+                        <div style={{ marginBottom: "20px" }}><Link href="https://instagram.com/_quick_cafe?igshid=OGQ5ZDc2ODk2ZA==" underline="hover" target="_blank" style={{ color: '#DAC6C7' }} >{"Instagram"}</Link></div>
                     </div>
                 </footer>
             </div> : <Loading />}

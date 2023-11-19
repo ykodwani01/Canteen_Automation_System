@@ -80,7 +80,7 @@ function CownerHome() {
     }, []);
 
 
-    
+
 
     const apiUrlDelete = "http://127.0.0.1:8000/delete-items"
 
@@ -155,7 +155,7 @@ function CownerHome() {
             })
             .then(data => {
                 setData(data)
-                setMenu(data.map((item) => (data.length!==0?<OwnMenuCard key={item.id} id={item.id} name={item.name} desc={item.desc} price={item.price} canteen={item.canteen} removeItem={handleRemoveItem} />:<div></div>)))
+                setMenu(data.map((item) => (data.length !== 0 ? <OwnMenuCard key={item.id} id={item.id} name={item.name} desc={item.desc} price={item.price} canteen={item.canteen} removeItem={handleRemoveItem} /> : <div></div>)))
                 setIsLoaded(true)
             })
             .catch(error => console.error('Error:', error));
@@ -258,7 +258,7 @@ function CownerHome() {
     console.log(id)
 
     return (
-        <ThemeProvider theme={theme}> 
+        <ThemeProvider theme={theme}>
             {isLoaded && gotAccountDetails ? <div style={{ backgroundColor: '#DED8D8', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
                 {/* first box */}
                 <div style={{ borderRadius: '108px', marginTop: '70px', backgroundColor: '#EBE7E6', border: '2px solid white', width: '1341px', boxShadow: '0px 10px 5px darkgrey', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', paddingBottom: '50px' }}>
@@ -326,14 +326,14 @@ function CownerHome() {
                     </div>
                     <div style={{ padding: '50px' }}>
                         <Typography style={{ color: 'white', fontWeight: 'bold', marginBottom: '50px' }}>About</Typography>
-                        <div style={{ marginBottom:"20px" }}><Link href="/home/aboutus" underline="hover" style={{ color: '#DAC6C7' }} >{"About Us"}</Link></div>
-                        <div style={{ marginBottom:"20px" }}><Link href="/home" underline="hover" style={{ color: '#DAC6C7' }} >{"Mission"}</Link></div>
+                        <div style={{ marginBottom: "20px" }}><Link href="/home/aboutus" underline="hover" style={{ color: '#DAC6C7' }} >{"About Us"}</Link></div>
+                        <div style={{ marginBottom: "20px" }}><Link href="/home" underline="hover" style={{ color: '#DAC6C7' }} >{"Mission"}</Link></div>
                     </div>
                     <div style={{ padding: '50px' }}>
                         <Typography style={{ color: 'white', fontWeight: 'bold', marginBottom: '50px' }}>Contact</Typography>
-                        <div style={{ marginBottom:"20px" }}><Link href="https://www.facebook.com/people/Quick-Cafe/61553677053607/" underline="hover" target="_blank" style={{ color: '#DAC6C7' }} >{"Facebook"}</Link></div>
-                        <div style={{ marginBottom:"20px" }}><Link href="https://twitter.com/quickcafe69" underline="hover" target="_blank" style={{ color: '#DAC6C7' }} >{"Twitter"}</Link></div>
-                        <div style={{ marginBottom:"20px" }}><Link href="https://instagram.com/_quick_cafe?igshid=OGQ5ZDc2ODk2ZA==" underline="hover" target="_blank" style={{ color: '#DAC6C7' }} >{"Instagram"}</Link></div>
+                        <div style={{ marginBottom: "20px" }}><Link href="https://www.facebook.com/people/Quick-Cafe/61553677053607/" underline="hover" target="_blank" style={{ color: '#DAC6C7' }} >{"Facebook"}</Link></div>
+                        <div style={{ marginBottom: "20px" }}><Link href="https://twitter.com/quickcafe69" underline="hover" target="_blank" style={{ color: '#DAC6C7' }} >{"Twitter"}</Link></div>
+                        <div style={{ marginBottom: "20px" }}><Link href="https://instagram.com/_quick_cafe?igshid=OGQ5ZDc2ODk2ZA==" underline="hover" target="_blank" style={{ color: '#DAC6C7' }} >{"Instagram"}</Link></div>
                     </div>
                 </footer>
             </div> : <Loading />

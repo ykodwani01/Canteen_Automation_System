@@ -84,7 +84,7 @@ function PendingOrders() {
             .then(data => {
                 // Handle the response data here
                 console.log(data);
-                setOrder(data.map((item) => (<Order key={item.id} id={item.id} name={item.order_cust_name} phone={item.order_cust_contact} email={item.order_cust_email} status={item.status} totalAmount={item.total_amount} items={item.items} completed={handleCompleted} flag={1} date={item.date}/>)))
+                setOrder(data.map((item) => (<Order key={item.id} id={item.id} name={item.order_cust_name} phone={item.order_cust_contact} email={item.order_cust_email} status={item.status} totalAmount={item.total_amount} items={item.items} completed={handleCompleted} flag={1} date={item.date} />)))
                 setIsLoaded(true)
             })
             .catch(error => console.error('Error:', error));
@@ -219,28 +219,28 @@ function PendingOrders() {
                             <div style={{ display: 'flex', height: '70px', justifyContent: 'center', marginTop: '50px' }}>
                                 <img src={logo} alt='website logo' style={{ marginRight: '150px', height: '80px' }} />
                                 <div style={{ display: 'flex', boxShadow: '0px 2px 0px darkGrey', paddingBottom: '10px', marginTop: '10px' }}>
-                                <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`/cownerHome/${id.id}`}>Home</Button>
-                                <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`/cownerHome/feedbackCanteen/${id.id}`}>Feedback</Button>
-                                {/* <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='/home/aboutus'>About Us</Button>
+                                    <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`/cownerHome/${id.id}`}>Home</Button>
+                                    <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`/cownerHome/feedbackCanteen/${id.id}`}>Feedback</Button>
+                                    {/* <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='/home/aboutus'>About Us</Button>
                                 <Button style={{ color: 'black', marginRight: '60px', marginTop: '10px', fontWeight: 'bold' }} href='/home/contact'>Contact</Button> */}
-                                <Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`/cownerHome/pendingOrders/${id.id}`}>Pending Orders</Button>
-                                <Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`/cownerHome/allOrders/${id.id}`}>All orders</Button>
-                                {/* drawer for cart */}
-                                {['left'].map((anchor) => (
-                                    <React.Fragment key={anchor}>
-                                        <Button variant='contained' style={{ borderRadius: '30px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} onClick={toggleDrawer(anchor, true)}>Account</Button>
-                                        <SwipeableDrawer
-                                            anchor={anchor}
-                                            open={state[anchor]}
-                                            onClose={toggleDrawer(anchor, false)}
-                                            onOpen={toggleDrawer(anchor, true)}
-                                            PaperProps={{ style: { borderTopRightRadius: '30px', backgroundColor: '#DED8D8', padding: '20px', width: '480px' } }}
-                                        >
-                                            {list(anchor)}
-                                        </SwipeableDrawer>
-                                    </React.Fragment>
-                                ))}
-                            </div>
+                                    <Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`/cownerHome/pendingOrders/${id.id}`}>Pending Orders</Button>
+                                    <Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href={`/cownerHome/allOrders/${id.id}`}>All orders</Button>
+                                    {/* drawer for cart */}
+                                    {['left'].map((anchor) => (
+                                        <React.Fragment key={anchor}>
+                                            <Button variant='contained' style={{ borderRadius: '30px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} onClick={toggleDrawer(anchor, true)}>Account</Button>
+                                            <SwipeableDrawer
+                                                anchor={anchor}
+                                                open={state[anchor]}
+                                                onClose={toggleDrawer(anchor, false)}
+                                                onOpen={toggleDrawer(anchor, true)}
+                                                PaperProps={{ style: { borderTopRightRadius: '30px', backgroundColor: '#DED8D8', padding: '20px', width: '480px' } }}
+                                            >
+                                                {list(anchor)}
+                                            </SwipeableDrawer>
+                                        </React.Fragment>
+                                    ))}
+                                </div>
                             </div>
                             {/* child box of padding box */}
                             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '70px' }}>
@@ -264,16 +264,16 @@ function PendingOrders() {
                             <Typography style={{ color: '#DAC6C7', marginBottom: '20px' }}>Registrations</Typography>
                         </div>
                         <div style={{ padding: '50px' }}>
-                        <Typography style={{ color: 'white', fontWeight: 'bold', marginBottom: '50px' }}>About</Typography>
-                        <div style={{ marginBottom:"20px" }}><Link href="/home/aboutus" underline="hover" style={{ color: '#DAC6C7' }} >{"About Us"}</Link></div>
-                        <div style={{ marginBottom:"20px" }}><Link href="/home" underline="hover" style={{ color: '#DAC6C7' }} >{"Mission"}</Link></div>
-                    </div>
-                    <div style={{ padding: '50px' }}>
-                        <Typography style={{ color: 'white', fontWeight: 'bold', marginBottom: '50px' }}>Contact</Typography>
-                        <div style={{ marginBottom:"20px" }}><Link href="https://www.facebook.com/people/Quick-Cafe/61553677053607/" underline="hover" target="_blank" style={{ color: '#DAC6C7' }} >{"Facebook"}</Link></div>
-                        <div style={{ marginBottom:"20px" }}><Link href="https://twitter.com/quickcafe69" underline="hover" target="_blank" style={{ color: '#DAC6C7' }} >{"Twitter"}</Link></div>
-                        <div style={{ marginBottom:"20px" }}><Link href="https://instagram.com/_quick_cafe?igshid=OGQ5ZDc2ODk2ZA==" underline="hover" target="_blank" style={{ color: '#DAC6C7' }} >{"Instagram"}</Link></div>
-                    </div>
+                            <Typography style={{ color: 'white', fontWeight: 'bold', marginBottom: '50px' }}>About</Typography>
+                            <div style={{ marginBottom: "20px" }}><Link href="/home/aboutus" underline="hover" style={{ color: '#DAC6C7' }} >{"About Us"}</Link></div>
+                            <div style={{ marginBottom: "20px" }}><Link href="/home" underline="hover" style={{ color: '#DAC6C7' }} >{"Mission"}</Link></div>
+                        </div>
+                        <div style={{ padding: '50px' }}>
+                            <Typography style={{ color: 'white', fontWeight: 'bold', marginBottom: '50px' }}>Contact</Typography>
+                            <div style={{ marginBottom: "20px" }}><Link href="https://www.facebook.com/people/Quick-Cafe/61553677053607/" underline="hover" target="_blank" style={{ color: '#DAC6C7' }} >{"Facebook"}</Link></div>
+                            <div style={{ marginBottom: "20px" }}><Link href="https://twitter.com/quickcafe69" underline="hover" target="_blank" style={{ color: '#DAC6C7' }} >{"Twitter"}</Link></div>
+                            <div style={{ marginBottom: "20px" }}><Link href="https://instagram.com/_quick_cafe?igshid=OGQ5ZDc2ODk2ZA==" underline="hover" target="_blank" style={{ color: '#DAC6C7' }} >{"Instagram"}</Link></div>
+                        </div>
                     </footer>
                 </div> : <Loading />
             }
