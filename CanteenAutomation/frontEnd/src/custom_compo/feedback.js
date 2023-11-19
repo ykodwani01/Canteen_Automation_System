@@ -301,7 +301,7 @@ function Feedback() {
                     {/* padding box */}
                     <div style={{ width: '1191px' }}>
                         {/* header div / Navigation bar */}
-                        <div style={{ display: 'flex', height: '70px', justifyContent: 'center', marginTop: '70px' }}>
+                        <div style={{ display: 'flex', height: '70px', justifyContent: 'center', marginTop: '50px' }}>
                             <img src={logo} alt='website logo' style={{ marginRight: '70px', height: '80px' }} />
                             <div style={{ display: 'flex', boxShadow: '0px 2px 0px darkGrey', paddingBottom: '10px', marginTop: '10px' }}>
                                 <Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='/home'>Home</Button>
