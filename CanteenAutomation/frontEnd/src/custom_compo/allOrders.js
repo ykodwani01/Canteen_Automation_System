@@ -7,6 +7,7 @@ import { ThemeProvider } from '@mui/material/';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import { Link } from '@mui/material';
 
 //importing custom cmp
 import theme from '../general_compo/theme.js';
@@ -15,7 +16,7 @@ import AccountContent from './accountContent.js';
 import Loading from './loading.js';
 
 //importing router
-import { Navigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 //importing images
 import logo from '../general_compo/logo.png';

@@ -9,6 +9,7 @@ import Button from '@mui/material/Button';
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import { Link } from '@mui/material';
 
 //importing custom cmp
 import theme from '../general_compo/theme.js';

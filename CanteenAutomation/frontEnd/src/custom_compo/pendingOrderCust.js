@@ -6,8 +6,8 @@ import { ThemeProvider } from '@mui/material/';
 import Button from '@mui/material/Button';
 //importing MUI cmp
 import { Typography, createTheme } from '@mui/material/';
-import { green } from '@mui/material/colors';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { Link } from '@mui/material';
 
 import * as React from 'react';
 import Box from '@mui/material/Box';
@@ -18,9 +18,6 @@ import theme from '../general_compo/theme.js';
 import OrderCust from './orderCust.js';
 import AccountContent from './accountContent.js';
 import CartContent from './cartContent.js';
-
-//importing router
-import { useParams } from 'react-router-dom';
 
 //importing images
 import logo from '../general_compo/logo.png';

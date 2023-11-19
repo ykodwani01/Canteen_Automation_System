@@ -12,6 +12,7 @@ import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import { experimentalStyled as styled } from '@mui/material/styles';
+import { Link } from '@mui/material';
 
 //importing images
 import logo from '../general_compo/logo.png'

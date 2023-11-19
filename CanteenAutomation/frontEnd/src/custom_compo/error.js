@@ -7,6 +7,7 @@ import { ThemeProvider } from '@mui/material/';
 import { green } from '@mui/material/colors';
 import Button from '@mui/material/Button';
 import EastIcon from '@mui/icons-material/East';
+import { Link } from '@mui/material';
 
 //importing photos
 import logo from '../general_compo/logo.png'

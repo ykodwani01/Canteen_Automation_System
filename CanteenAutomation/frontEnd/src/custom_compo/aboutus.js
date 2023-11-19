@@ -10,6 +10,7 @@ import Button from '@mui/material/Button';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Box from '@mui/material/Box';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import { Link } from '@mui/material';
 
 //importing react cmp
 import { useEffect, useState } from 'react';
