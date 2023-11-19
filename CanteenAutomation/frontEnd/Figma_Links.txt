@@ -1,0 +1,9 @@
+Login/Sign up Page: https://www.figma.com/file/mllZHUp1s7zwojiLxctJUW/Login?type=design&node-id=0%3A1&mode=design&t=1zpcPbUP4mYDyVgm-1
+Home Page: https://www.figma.com/file/zfkLPOPhrEXcgSOAWrllJu/Home-Page?type=design&node-id=0%3A1&mode=design&t=CYY3aCRVaxZRomlR-1
+My Profile: https://www.figma.com/file/bdYIA3NEREEDtYV58ayKOk/Profile-Page?type=design&node-id=0%3A1&mode=design&t=bv6NklEsPsPXDCa0-1
+Menu Page: https://www.figma.com/file/MTDkNAeYRHgkHF2UkHofHa/Menu-Page?type=design&node-id=0%3A1&mode=design&t=F0IkLBm3IdglqR2z-1
+Cart: https://www.figma.com/file/YDvPw3nFLEjl9PoDqfrVFe/Cart?type=design&node-id=0%3A1&mode=design&t=CUlARAshUdx6mNua-1
+Pending Orders Page: https://www.figma.com/file/SvmAZxfEqAAngUXUZDouC3/Pending-Orders?type=design&node-id=0%3A1&mode=design&t=6dOKGofekBUSj5Y9-1
+Edit Menu Page for CanteenOwner: https://www.figma.com/file/3E0il8gdocEjOqkt2UU4kJ/Canteen-Add%2FRemove-Page?type=design&node-id=0%3A1&mode=design&t=DOqfpb3uxYxdu2Y4-1
+Feedback Page: https://www.figma.com/file/m60g7TsIPIXlxIx9Ik9bUC/Feedback-Page?type=design&node-id=0%3A1&mode=design&t=qiUqCeT9eDqtaakL-1
+About Us Page: https://www.figma.com/file/SE2nFSqGlaQjfY9tHIIOSF/About-Page?type=design&node-id=0%3A1&mode=design&t=JD20H9lTxBv1VPIc-1
