@@ -38,7 +38,7 @@ function CartContent(props) {
                     <div key={item.name} style={{ display: 'flex', justifyContent: 'space-between', }}>
                         <Grid container spacing={2}>
                             <Grid item xs={4}>
-                                <Item sx={{ margin: '15px' }}><Typography variant="h6">{item.name}</Typography></Item>
+                                <Item sx={{ margin: '15px', paddingRight: '130px' }}><Typography variant="h6">{item.name}</Typography></Item>
                             </Grid>
                             <Grid item xs={4}>
                                 <Item sx={{ margin: '15px' }}><Typography variant="h6">{item.quantity}</Typography></Item>

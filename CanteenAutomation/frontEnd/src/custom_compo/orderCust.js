@@ -4,7 +4,6 @@ import '../App.css';
 //importing MUI cmp
 import { Typography } from '@mui/material/';
 import { ThemeProvider } from '@mui/material/';
-import Button from '@mui/material/Button';
 
 //importing custom cmp
 import theme from "../general_compo/theme.js";
@@ -29,7 +28,7 @@ function OrderCust(props) {
             return (<div key={item.id} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
                 <Grid container spacing={2}>
                     <Grid item xs={4}>
-                        <Item><Typography>{item.name}</Typography></Item>
+                        <Item style={{ paddingRight: "92px" }}><Typography>{item.name}</Typography></Item>
                     </Grid>
                     <Grid item xs={4}>
                         <Item><Typography>{item.quantity}</Typography></Item>
@@ -69,7 +68,7 @@ function OrderCust(props) {
 
                 </div>
                 <div>
-                    <Typography variant='h3' sx={{ marginBottom: '20px' }}>Customer Details</Typography>
+                    <Typography variant='h3' sx={{ marginBottom: '20px' }}>Canteen Details</Typography>
                     <Typography>Name: {props.name}</Typography>
                 </div>
             </div>
