@@ -279,14 +279,14 @@ function AboutUs() {
                     </div>
                     <div style={{ padding: '50px' }}>
                         <Typography style={{ color: 'white', fontWeight: 'bold', marginBottom: '50px' }}>About</Typography>
-                        <Typography style={{ color: '#DAC6C7', marginBottom: '20px' }}>About us</Typography>
-                        <Typography style={{ color: '#DAC6C7', marginBottom: '20px' }}>Mission</Typography>
+                        <div style={{ marginBottom:"20px" }}><Link href="/home/aboutus" underline="hover" style={{ color: '#DAC6C7' }} >{"About Us"}</Link></div>
+                        <div style={{ marginBottom:"20px" }}><Link href="/home" underline="hover" style={{ color: '#DAC6C7' }} >{"Mission"}</Link></div>
                     </div>
                     <div style={{ padding: '50px' }}>
                         <Typography style={{ color: 'white', fontWeight: 'bold', marginBottom: '50px' }}>Contact</Typography>
-                        <Typography style={{ color: '#DAC6C7', marginBottom: '20px' }}>Facebook</Typography>
-                        <Typography style={{ color: '#DAC6C7', marginBottom: '20px' }}>Twitter</Typography>
-                        <Typography style={{ color: '#DAC6C7', marginBottom: '20px' }}>Instagram</Typography>
+                        <div style={{ marginBottom:"20px" }}><Link href="https://www.facebook.com/people/Quick-Cafe/61553677053607/" underline="hover" target="_blank" style={{ color: '#DAC6C7' }} >{"Facebook"}</Link></div>
+                        <div style={{ marginBottom:"20px" }}><Link href="https://twitter.com/quickcafe69" underline="hover" target="_blank" style={{ color: '#DAC6C7' }} >{"Twitter"}</Link></div>
+                        <div style={{ marginBottom:"20px" }}><Link href="https://instagram.com/_quick_cafe?igshid=OGQ5ZDc2ODk2ZA==" underline="hover" target="_blank" style={{ color: '#DAC6C7' }} >{"Instagram"}</Link></div>
                     </div>
                 </footer>
             </div> : <Loading />}
