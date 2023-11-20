@@ -209,6 +209,10 @@ class getaccountdetails(APIView):
     def get(self,request):        
         customer_obj_profile = Profile.objects.filter(user = request.user)[0]
         customer_obj=customer.objects.filter(cust=customer_obj_profile).first()
+        if customer_obj is None:
+            type="Canteen"
+        else:
+            type="Customer"
         Cust_serialized=AccountDetailsSerializer(customer_obj_profile)
         final_obj={}
         for i in Cust_serialized.data:
@@ -216,6 +220,7 @@ class getaccountdetails(APIView):
             final_obj[i]=Cust_serialized[i].value
         k=orders.objects.filter(order_cust=customer_obj).count()
         final_obj["total_orders"]=k
+        final_obj["type"]=type
         return Response(final_obj,status=status.HTTP_200_OK)
 
 class getPendingOrders(APIView):
