@@ -56,3 +56,9 @@ class ALLCanteenSerializer(serializers.ModelSerializer):
     class Meta:
         model=canteen
         fields = ('canteen_user_email','canteen_id')
+
+class NewItemSerializer(serializers.ModelSerializer):
+    canteen=serializers.CharField(source='canteen.owner.name')
+    class Meta:
+        model = items
+        fields = '__all__'

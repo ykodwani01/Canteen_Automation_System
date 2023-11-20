@@ -315,7 +315,8 @@ class GetMenu(APIView):
 
     def get(self,request,canteen_id):
             item_obj=items.objects.filter(canteen=canteen_id,available=True)
-            Item_serialized = MenuItemSerializer(item_obj,many=True)
+            Item_serialized = NewItemSerializer(item_obj,many=True)
+            canteen_obj=canteen.objects.filter(canteen_id=canteen_id).first()
             return Response(Item_serialized.data,status=status.HTTP_200_OK)
 
 
