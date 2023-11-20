@@ -21,6 +21,7 @@ import AllOrders from './custom_compo/allOrders';
 import FeedbackCanteen from './custom_compo/feedbackCanteen.js';
 import PendingOrderCust from './custom_compo/pendingOrderCust.js';
 import AllOrderCust from './custom_compo/allOrderCust.js';
+import Unauthorised from './custom_compo/unauthorisedpage.js'
 
 //creating routes
 const router = createBrowserRouter(
@@ -40,6 +41,7 @@ const router = createBrowserRouter(
       <Route path='/cownerHome/pendingOrders/:id' element={<PendingOrders/>}/>
       <Route path='/cownerHome/allOrders/:id' element={<AllOrders/>}/>
       <Route path='/cownerHome/feedbackCanteen/:id' element={<FeedbackCanteen/>}/>
+      <Route path='/unauth' element={<Unauthorised/>}/>
       <Route path='*' element={<Error/>}/>
     </Route>
   )
