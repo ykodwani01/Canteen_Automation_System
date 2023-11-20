@@ -60,7 +60,6 @@ function Canteens() {
     const token = JSON.parse(localStorage.getItem('token'))
 
     const apiUrlCanteen = "http://127.0.0.1:8000/get-menu"
-
     const handleCanteenClicked = (event) => {
 
         fetch(apiUrlCanteen, {
@@ -166,10 +165,15 @@ function Canteens() {
                 }
             })
             .then(data => {
-                // Handle the response data here
-                console.log(data);
-                setAccountDetails(data)
-                setGotAccountDetails(true)
+                if(data.type=="Canteen")
+                {
+                    window.location.href = "/unauth"
+                }
+                else{
+                    console.log(data);
+                    setAccountDetails(data)
+                    setGotAccountDetails(true)
+                }
             })
             .catch(error => console.error('Error:', error));
     }, [])

@@ -34,7 +34,7 @@ const router = createBrowserRouter(
       <Route path='/home/aboutUs' element={<AboutUs/>}/>
       <Route path='/home/contact' element={<Contact/>}/>
       <Route path='/home/canteens' element={<Canteens/>}/>
-      <Route path='/home/canteens/:id' element={<Menu/>}/>
+      <Route path='/home/canteens/:id' element={<Menu/>}/> {/* Left */}
       <Route path='/home/pendingOrders' element={<PendingOrderCust/>}/>
       <Route path='/home/allOrders' element={<AllOrderCust/>}/>
       <Route path='/cownerHome/:id' element={<CownerHome/>}/>

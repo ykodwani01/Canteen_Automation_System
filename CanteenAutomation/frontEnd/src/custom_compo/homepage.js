@@ -66,10 +66,15 @@ function HomePage() {
                 }
             })
             .then(data => {
-                // Handle the response data here
-                console.log(data);
-                setAccountDetails(data)
-                setGotAccountDetails(true)
+                if(data.type=="Canteen")
+                {
+                    window.location.href = "/unauth"
+                }
+                else{
+                    console.log(data);
+                    setAccountDetails(data)
+                    setGotAccountDetails(true)
+                }
             })
             .catch(error => console.error('Error:', error));
     }, [])
