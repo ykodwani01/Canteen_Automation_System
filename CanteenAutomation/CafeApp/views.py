@@ -82,6 +82,13 @@ class UserRegistration(APIView):
         user = User.objects.get(username=username)
         user.email = username
         user.save()
+        send_mail(
+                "Account Created",
+                f"Hii {request.data.get('username')}. Your account is created",
+                "django.reset.system@gmail.com",
+                [f"{user.email}"],
+                fail_silently=False,
+            )
         if request.data.get("type")=="Canteen":
             Profile.objects.create(user = user,type='Canteen',name=request.data.get("name"),contact_number = request.data.get("contact_number"))
             canteen.objects.create(owner = user.profile)
