@@ -367,6 +367,9 @@ function Menu() {
                         </div>
                         {/* child box of padding box */}
                         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginTop: '100px' }}>
+                            <div style={{ display: "flex", flexDirection: "row", marginBottom: "10px" }}>
+                                <Typography variant='h5' style={{ paddingRight: "410px", textDecoration: "underline" }}>Item Name</Typography> <Typography variant='h5' style={{ paddingRight: "295px", textDecoration: "underline" }}>Price</Typography> <Typography variant='h5' style={{ textDecoration: "underline" }} >Quantity</Typography>
+                            </div>
                             {menu}
                             <Button variant="contained" sx={{ borderRadius: "30px", marginTop: '20px' }} onClick={handleUpdateCart}>Update Cart</Button>
                         </div>
