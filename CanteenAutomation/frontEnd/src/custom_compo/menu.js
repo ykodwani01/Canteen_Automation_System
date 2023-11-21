@@ -3,7 +3,7 @@ import '../App.css';
 
 //importing MUI cmp
 
-import { Typography, createTheme } from '@mui/material/';
+import { Typography, createTheme, TextField } from '@mui/material/';
 import { ThemeProvider } from '@mui/material/';
 import { green } from '@mui/material/colors';
 import Button from '@mui/material/Button';
@@ -47,6 +47,7 @@ function Menu() {
     const [cartDetails, setCartDetails] = useState()
     const [gotCartDetails, setGotCartDetails] = useState(false)
     const [isLoaded, setIsLoaded] = useState(false)
+    const [searchQuery, setSearchQuery] = useState('')
 
     const apiUrlAcount = "http://127.0.0.1:8000/get-account-details"
 
@@ -314,6 +315,22 @@ function Menu() {
         }
     }
 
+    const handleSearch = (event) =>{
+        setSearchQuery(event.target.value)
+    }
+
+    useEffect(() => {
+        if (data) {
+            if (searchQuery === '') {
+                setMenu(data.map((item) => (<MenuCard key={item.id} id={item.id} name={item.name} price={item.price} addItem={handleAddItem} subItem={handleSubItem} cartItems={cartItems} />)))
+            }
+            else {
+                setMenu(data.filter((item) => (item.name.toLowerCase().includes(searchQuery.toLowerCase()))).map((item) => (<MenuCard key={item.id} id={item.id} name={item.name} price={item.price} addItem={handleAddItem} subItem={handleSubItem} cartItems={cartItems} />)))
+            }
+        }
+    }
+    , [searchQuery])
+
     return (
         <ThemeProvider theme={theme}>
             {/* background */}
@@ -367,6 +384,7 @@ function Menu() {
                         </div>
                         {/* child box of padding box */}
                         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginTop: '100px' }}>
+                        <TextField id="search" label="Search" value={searchQuery} onChange={handleSearch} variant="outlined" sx={{ background: "rgba(250,249,246,0.1)", borderRadius: "5px", marginBottom: '50px', marginTop: '5px' , width:'80%'}} />
                             <div style={{ display: "flex", flexDirection: "row", marginBottom: "10px" }}>
                                 <Typography variant='h5' style={{ paddingRight: "410px", textDecoration: "underline" }}>Item Name</Typography> <Typography variant='h5' style={{ paddingRight: "295px", textDecoration: "underline" }}>Price</Typography> <Typography variant='h5' style={{ textDecoration: "underline" }} >Quantity</Typography>
                             </div>

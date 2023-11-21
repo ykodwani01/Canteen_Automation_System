@@ -36,6 +36,7 @@ function CownerHome() {
     const [gotAccountDetails, setGotAccountDetails] = useState(false)
     const [newItem, setNewItem] = useState({ "name": "", "price": 0 })
     const [toggleAdd, setToggleAdd] = useState(false)
+    const [searchQuery, setSearchQuery] = useState('')
 
     const [color, setColor] = useState(false)
     const token = JSON.parse(localStorage.getItem('token'))
@@ -264,6 +265,16 @@ function CownerHome() {
     const id = useParams()
     console.log(id)
 
+    const handleSearch = (event) => {
+        setSearchQuery(event.target.value)
+        if (event.target.value === '') {
+            setMenu(data.map((item) => (data.length !== 0 ? <OwnMenuCard key={item.id} id={item.id} name={item.name} desc={item.desc} price={item.price} canteen={item.canteen} removeItem={handleRemoveItem} /> : <div></div>)))
+        }
+        else {
+            setMenu(data.filter((item) => (item.name.toLowerCase().includes(event.target.value.toLowerCase()))).map((item) => (data.length !== 0 ? <OwnMenuCard key={item.id} id={item.id} name={item.name} desc={item.desc} price={item.price} canteen={item.canteen} removeItem={handleRemoveItem} /> : <div></div>)))
+        }
+    }
+
     return (
         <ThemeProvider theme={theme}>
             {isLoaded && gotAccountDetails ? <div style={{ backgroundColor: '#DED8D8', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
@@ -302,7 +313,10 @@ function CownerHome() {
                         {/* <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '70px' }}>
                             <Typography variant='h2'>{menu[0].canteen}</Typography>
                         </div> */}
-                        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '30px' }}>
+                        <div style={{display:'flex', justifyContent:'center', alignItems:'center', marginTop:'60px'}}>
+                            <TextField id="search" label="Search" value={searchQuery} onChange={handleSearch} variant="outlined" sx={{ background: "rgba(250,249,246,0.1)", borderRadius: "5px", marginBottom: '50px', marginTop: '5px' , width:'80%'}} />
+                        </div>
+                        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
                             <Button variant='contained' sx={{ borderRadius: '30px', marginRight: '20px' }} onClick={handleAddItem}>Add New Items</Button>
                             {/* <Button variant='contained' sx={{ borderRadius: '30px', marginRight: '20px' }}>Save Changes</Button> */}
                         </div>
