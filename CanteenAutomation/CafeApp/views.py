@@ -78,8 +78,10 @@ class UserRegistration(APIView):
             }, status=status.HTTP_406_NOT_ACCEPTABLE)
 
         serialize_user_data.save()
-
-        user = User.objects.get(username=request.data.get('username'))
+        username = request.data.get('username')
+        user = User.objects.get(username=username)
+        user.email = username
+        user.save()
         if request.data.get("type")=="Canteen":
             Profile.objects.create(user = user,type='Canteen',name=request.data.get("name"),contact_number = request.data.get("contact_number"))
             canteen.objects.create(owner = user.profile)
