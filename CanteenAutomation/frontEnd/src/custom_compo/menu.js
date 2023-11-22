@@ -384,6 +384,7 @@ function Menu() {
                         </div>
                         {/* child box of padding box */}
                         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginTop: '100px' }}>
+                        <Typography variant="h4" style={{ textDecoration:"underline", marginBottom:"70px" }}> { data.length!==0 ? data[0].canteen : '' } </Typography>
                         <TextField id="search" label="Search" value={searchQuery} onChange={handleSearch} variant="outlined" sx={{ background: "rgba(250,249,246,0.1)", borderRadius: "5px", marginBottom: '50px', marginTop: '5px' , width:'80%'}} />
                             <div style={{ display: "flex", flexDirection: "row", marginBottom: "10px" }}>
                                 <Typography variant='h5' style={{ paddingRight: "410px", textDecoration: "underline" }}>Item Name</Typography> <Typography variant='h5' style={{ paddingRight: "295px", textDecoration: "underline" }}>Price</Typography> <Typography variant='h5' style={{ textDecoration: "underline" }} >Quantity</Typography>
