@@ -17,11 +17,8 @@ import { useEffect, useState } from 'react';
 import theme from '../general_compo/theme.js'
 import useReSize from './mediaQuery';
 
-import InputAdornment from '@mui/material/InputAdornment';
-import IconButton from '@mui/material/IconButton';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import Loading from '../custom_compo/loading.js';
+import Checkbox from '@mui/material/Checkbox';
 
 
 function SignIn() {
@@ -37,27 +34,28 @@ function SignIn() {
 
   const apicanteen = 'http://127.0.0.1:8000/get-canteen-Login-details'
 
-  useEffect(()=>{
-    fetch(apicanteen,{
+  useEffect(() => {
+    fetch(apicanteen, {
       method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            }
+      headers: {
+        'Content-Type': 'application/json',
+      }
     })
-    .then(response => {
-      if (response.ok) {
+      .then(response => {
+        if (response.ok) {
           return response.json();
-      } else {
-          throw new Error('Something went wrong ...');      }
-  })
-  .then(data => {
-      // Handle the response data here
-      console.log(data);
-      setCanteens(data)
-      setGotCanteenDetails(true)
-  })
-  .catch(error => console.error('Error:', error));
-  },[])
+        } else {
+          throw new Error('Something went wrong ...');
+        }
+      })
+      .then(data => {
+        // Handle the response data here
+        console.log(data);
+        setCanteens(data)
+        setGotCanteenDetails(true)
+      })
+      .catch(error => console.error('Error:', error));
+  }, [])
 
   const handleChange = (event) => {
     if (event.target.id === "Email") {
@@ -118,39 +116,38 @@ function SignIn() {
 
         localStorage.setItem('token', JSON.stringify(data));
         if (type === "Customer") setIsSignupSuccessful(1)
-        else if (canteens.filter((item)=>(item.canteen_user_email===email))) setIsSignupSuccessful(canteens.filter((item)=>(item.canteen_user_email===email))[0].canteen_id+1)
+        else if (canteens.filter((item) => (item.canteen_user_email === email))) setIsSignupSuccessful(canteens.filter((item) => (item.canteen_user_email === email))[0].canteen_id + 1)
         else setIsSignupSuccessful(0)
       })
       .catch(error => console.error('Error:', error));
   }
 
   const [showPassword, setShowPassword] = useState(false);
+  const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
-  const handleTogglePassword = () => {
-    setShowPassword((prevShowPassword) => !prevShowPassword);
-  };
+  const handleShowPassword = () => {
+    setShowPassword((showPassword) => !showPassword);
+  }
 
 
   return (
     <ThemeProvider theme={theme}>
-      {gotCanteenDetails?<Container className="App" maxWidth='xl' sx={{ backgroundImage: `url(${login_photo})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center', ...background_style_ext }}>
+      {gotCanteenDetails ? <Container className="App" maxWidth='xl' sx={{ backgroundImage: `url(${login_photo})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center', ...background_style_ext }}>
         {isSignupSuccessful === 0 && <Navigate to="/" />}
         {isSignupSuccessful === 1 && <Navigate to="/home" />}
-        {isSignupSuccessful !==1 && isSignupSuccessful!==0 && <Navigate to={`/cownerHome/${isSignupSuccessful}`} />}
+        {isSignupSuccessful !== 1 && isSignupSuccessful !== 0 && <Navigate to={`/cownerHome/${isSignupSuccessful}`} />}
 
         {/* sign-in box */}
         <Container className='signIn' sx={{ background: "rgba(222,216,216,0.5)", borderRadius: '30px', ...signIn_style_ext }}>
           <Typography sx={{ fontWeight: 'bolder', fontSize: '31px', marginTop: '31px' }}>Sign In</Typography>
           <TextField id="Email" label="Email" value={email} onChange={handleChange} variant="outlined" sx={{ background: "rgba(250,249,246,0.1)", borderRadius: "5px", marginBottom: '30px', marginTop: '35px' }} />
-          <TextField id="Password" label="Password" value={password} onChange={handleChange} type={showPassword ? 'text' : 'password'} variant="outlined" sx={{ background: "rgba(250,249,246,0.1)", borderRadius: "5px", marginBottom: '10px', width:'195px' }} InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton onClick={handleTogglePassword} edge="end">
-                  {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
-                </IconButton>
-              </InputAdornment>
-            ),
-          }} />
+          <div>
+            <TextField id="Password" label="Password" value={password} onChange={handleChange} type={showPassword ? 'text' : 'password'} variant="outlined" sx={{ background: "rgba(250,249,246,0.1)", borderRadius: "5px", marginBottom: '10px' }} />
+            <div style={{ display: 'flex', alignItems: 'center', marginLeft: "20px" }}>
+              <Checkbox {...label} onChange={handleShowPassword} />
+              <Typography>Show Password</Typography>
+            </div>
+          </div>
           <Typography sx={{ marginLeft: '-80px' }}>Forgot Password?</Typography>
           <Button variant="contained" onClick={handleButtonClick} sx={{ fontWeight: "bolder", width: '220px', height: '50px', fontSize: '20px', textTransform: 'none', marginBottom: '30px', marginTop: '50px' }} disableElevation>Login</Button>
           <NavLink to='/sign_up' style={{ textDecoration: 'none', color: 'black' }}>
@@ -159,9 +156,9 @@ function SignIn() {
             </Container>
           </NavLink>
         </Container>
-      </Container>:<Loading/>}
+      </Container> : <Loading />}
       {/* background */}
-      
+
     </ThemeProvider>
   );
 }
