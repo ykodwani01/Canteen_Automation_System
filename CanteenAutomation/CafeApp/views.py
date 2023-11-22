@@ -414,7 +414,7 @@ class OrderDelivered(APIView):
             name = order_obj.order_cust.cust.name
             send_mail(
                 "Your Order Is Prepared",
-                f"Hii {name}. Your order is prepared",
+                f"Hii {name}. Your order ID {order_obj.id} is prepared.",
                 "django.reset.system@gmail.com",
                 [f"{order_obj.order_cust.cust.user.email}"],
                 fail_silently=False,
