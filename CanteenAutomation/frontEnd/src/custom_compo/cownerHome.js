@@ -47,7 +47,7 @@ function CownerHome() {
 
         const refreshAccessToken = () => {
             console.log("hi")
-            const apiRefresh = "http://127.0.0.1:8000/refresh"
+            const apiRefresh = "https://dacanteen.pythonanywhere.com/refresh"
             fetch(apiRefresh, {
                 method: 'POST',
                 headers: {
@@ -83,7 +83,7 @@ function CownerHome() {
 
 
 
-    const apiUrlDelete = "http://127.0.0.1:8000/delete-items"
+    const apiUrlDelete = "https://dacanteen.pythonanywhere.com/delete-items"
 
     const handleRemoveItem = (id) => {
         const userConfirm = window.confirm("On clicking OK, whole item will be permanentely deleted.")
@@ -111,7 +111,7 @@ function CownerHome() {
         }
     }
 
-    const apiUrlAccount = "http://127.0.0.1:8000/get-account-details"
+    const apiUrlAccount = "https://dacanteen.pythonanywhere.com/get-account-details"
 
     useEffect(() => {
         fetch(apiUrlAccount, {
@@ -125,7 +125,7 @@ function CownerHome() {
                 if (response.ok) {
                     return response.json();
                 } else {
-                    window.location.href = "/"
+                    window.location.href = "https://canteenautomation-cc940.web.app/"
                 }
             })
             .then(data => {
@@ -143,7 +143,7 @@ function CownerHome() {
     }, [])
 
 
-    const apiUrl = "http://127.0.0.1:8000/get-items"
+    const apiUrl = "https://dacanteen.pythonanywhere.com/get-items"
 
 
     useEffect(() => {
@@ -210,7 +210,7 @@ function CownerHome() {
         const userConfirm = window.confirm("Do you want to Sign Out?")
         if (userConfirm) {
             localStorage.removeItem('token')
-            window.location.href = "/"
+            window.location.href = "https://canteenautomation-cc940.web.app/"
         }
     }
 
@@ -226,7 +226,7 @@ function CownerHome() {
         }
         const userConfirm = window.confirm("Are you sure you want to add this item?")
         if (userConfirm) {
-            const apiUrl = "http://127.0.0.1:8000/get-items"
+            const apiUrl = "https://dacanteen.pythonanywhere.com/get-items"
             fetch(apiUrl, {
                 method: 'POST',
                 headers: {

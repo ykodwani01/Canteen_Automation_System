@@ -41,7 +41,7 @@ function AboutUs() {
     const [cartDetails, setCartDetails] = useState()
     const [gotCartDetails, setGotCartDetails] = useState(false)
 
-    const apiUrlAcount = "http://127.0.0.1:8000/get-account-details"
+    const apiUrlAcount = "https://dacanteen.pythonanywhere.com/get-account-details"
 
     const token = JSON.parse(localStorage.getItem('token'))
 
@@ -96,7 +96,7 @@ function AboutUs() {
                 if (response.ok) {
                     return response.json();
                 } else {
-                    window.location.href = "/"
+                    window.location.href = "https://canteenautomation-cc940.web.app/"
                 }
             })
             .then(data => {
@@ -113,7 +113,7 @@ function AboutUs() {
             .catch(error => console.error('Error:', error));
     }, [])
 
-    const apiUrlCart = "http://127.0.0.1:8000/get-cust-orders"
+    const apiUrlCart = "https://dacanteen.pythonanywhere.com/get-cust-orders"
 
     useEffect(() => {
         fetch(apiUrlCart, {
@@ -180,7 +180,7 @@ function AboutUs() {
         const userConfirm = window.confirm("Do you want to Sign Out?")
         if (userConfirm) {
             localStorage.removeItem('token')
-            window.location.href = "/"
+            window.location.href = "https://canteenautomation-cc940.web.app/"
         }
     }
 

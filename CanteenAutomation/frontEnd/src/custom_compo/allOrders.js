@@ -34,7 +34,7 @@ function AllOrders() {
     const [accountDetails, setAccountDetails] = useState()
     const [gotAccountDetails, setGotAccountDetails] = useState(false)
 
-    const apiUrlAccount = "http://127.0.0.1:8000/get-account-details"
+    const apiUrlAccount = "https://dacanteen.pythonanywhere.com/get-account-details"
     const token = JSON.parse(localStorage.getItem('token'))
 
     useEffect(() => {
@@ -42,7 +42,7 @@ function AllOrders() {
 
         const refreshAccessToken = () => {
             console.log("hi")
-            const apiRefresh = "http://127.0.0.1:8000/refresh"
+            const apiRefresh = "https://dacanteen.pythonanywhere.com/refresh"
             fetch(apiRefresh, {
                 method: 'POST',
                 headers: {
@@ -87,7 +87,7 @@ function AllOrders() {
                 if (response.ok) {
                     return response.json();
                 } else {
-                    window.location.href = "/"
+                    window.location.href = "https://canteenautomation-cc940.web.app/"
                 }
             })
             .then(data => {
@@ -105,7 +105,7 @@ function AllOrders() {
     }, [])
 
 
-    const apiUrl = "http://127.0.0.1:8000/get-orders"
+    const apiUrl = "https://dacanteen.pythonanywhere.com/get-orders"
 
     useEffect(() => {
         fetch(apiUrl, {
@@ -173,7 +173,7 @@ function AllOrders() {
         const userConfirm = window.confirm("Do you want to Sign Out?")
         if (userConfirm) {
             localStorage.removeItem('token')
-            window.location.href = "/"
+            window.location.href = "https://canteenautomation-cc940.web.app/"
         }
     }
 

@@ -56,10 +56,10 @@ function Canteens() {
     const [cartDetails, setCartDetails] = useState()
     const [gotCartDetails, setGotCartDetails] = useState(false)
 
-    const apiUrl = "http://127.0.0.1:8000/get-all-canteens"
+    const apiUrl = "https://dacanteen.pythonanywhere.com/get-all-canteens"
     const token = JSON.parse(localStorage.getItem('token'))
 
-    const apiUrlCanteen = "http://127.0.0.1:8000/get-menu"
+    const apiUrlCanteen = "https://dacanteen.pythonanywhere.com/get-menu"
     const handleCanteenClicked = (event) => {
 
         fetch(apiUrlCanteen, {
@@ -147,7 +147,7 @@ function Canteens() {
             .catch(error => console.error('Error:', error));
     }, [])
 
-    const apiUrlAcount = "http://127.0.0.1:8000/get-account-details"
+    const apiUrlAcount = "https://dacanteen.pythonanywhere.com/get-account-details"
 
     useEffect(() => {
         fetch(apiUrlAcount, {
@@ -161,7 +161,7 @@ function Canteens() {
                 if (response.ok) {
                     return response.json();
                 } else {
-                    window.location.href = "/"
+                    window.location.href = "https://canteenautomation-cc940.web.app/"
                 }
             })
             .then(data => {
@@ -178,7 +178,7 @@ function Canteens() {
             .catch(error => console.error('Error:', error));
     }, [])
 
-    const apiUrlCart = "http://127.0.0.1:8000/get-cust-orders"
+    const apiUrlCart = "https://dacanteen.pythonanywhere.com/get-cust-orders"
 
     useEffect(() => {
         fetch(apiUrlCart, {
@@ -245,12 +245,12 @@ function Canteens() {
         const userConfirm = window.confirm("Do you want to Sign Out?")
         if (userConfirm) {
             localStorage.removeItem('token')
-            window.location.href = "/"
+            window.location.href = "https://canteenautomation-cc940.web.app/"
         }
     }
 
     const handlePayment = (order_id) => {
-        const apiPayment = "http://127.0.0.1:8000/confirm-order"
+        const apiPayment = "https://dacanteen.pythonanywhere.com/confirm-order"
         fetch(apiPayment, {
             method: 'POST',
             headers: {

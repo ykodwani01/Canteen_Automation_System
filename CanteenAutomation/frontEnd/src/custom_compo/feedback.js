@@ -47,7 +47,7 @@ function Feedback() {
     const [porder, setPOrder] = useState()
     const [isLoaded, setIsLoaded] = useState(false)
 
-    const apiUrlAcount = "http://127.0.0.1:8000/get-account-details"
+    const apiUrlAcount = "https://dacanteen.pythonanywhere.com/get-account-details"
 
     const token = JSON.parse(localStorage.getItem('token'))
 
@@ -59,7 +59,7 @@ function Feedback() {
         }
         const userConfirm = window.confirm("Are you sure you want to submit!")
         if (userConfirm) {
-            const apiFeedback = "http://127.0.0.1:8000/get-feedback"
+            const apiFeedback = "https://dacanteen.pythonanywhere.com/get-feedback"
             fetch(apiFeedback, {
                 method: 'POST',
                 headers: {
@@ -154,7 +154,7 @@ function Feedback() {
     }, []);
 
 
-    const apiUrlCart = "http://127.0.0.1:8000/get-cust-orders"
+    const apiUrlCart = "https://dacanteen.pythonanywhere.com/get-cust-orders"
 
     useEffect(() => {
         fetch(apiUrlCart, {
@@ -180,7 +180,7 @@ function Feedback() {
             .catch(error => console.error('Error:', error));
     }, [])
 
-    const apiUrlPOrder = "http://127.0.0.1:8000/get-feedback"
+    const apiUrlPOrder = "https://dacanteen.pythonanywhere.com/get-feedback"
 
     useEffect(() => {
         fetch(apiUrlPOrder, {
@@ -271,7 +271,7 @@ function Feedback() {
     }
 
     const handlePayment = (order_id) => {
-        const apiPayment = "http://127.0.0.1:8000/confirm-order"
+        const apiPayment = "https://dacanteen.pythonanywhere.com/confirm-order"
         fetch(apiPayment, {
             method: 'POST',
             headers: {

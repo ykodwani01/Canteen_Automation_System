@@ -36,7 +36,7 @@ function PendingOrders() {
     const [accountDetails, setAccountDetails] = useState()
     const [gotAccountDetails, setGotAccountDetails] = useState(false)
 
-    const apiUrlAccount = "http://127.0.0.1:8000/get-account-details"
+    const apiUrlAccount = "https://dacanteen.pythonanywhere.com/get-account-details"
     const token = JSON.parse(localStorage.getItem('token'))
 
     useEffect(() => {
@@ -51,7 +51,7 @@ function PendingOrders() {
                 if (response.ok) {
                     return response.json();
                 } else {
-                    window.location.href = "http://localhost:3000/"
+                    window.location.href = "https://canteenautomation-cc940.web.app/"
                 }
             })
             .then(data => {
@@ -69,7 +69,7 @@ function PendingOrders() {
     }, [])
 
 
-    const apiUrl = "http://127.0.0.1:8000/get-pending-orders"
+    const apiUrl = "https://dacanteen.pythonanywhere.com/get-pending-orders"
 
     useEffect(() => {
         fetch(apiUrl, {
@@ -100,7 +100,7 @@ function PendingOrders() {
 
         const refreshAccessToken = () => {
             console.log("hi")
-            const apiRefresh = "http://127.0.0.1:8000/refresh"
+            const apiRefresh = "https://dacanteen.pythonanywhere.com/refresh"
             fetch(apiRefresh, {
                 method: 'POST',
                 headers: {
@@ -174,14 +174,14 @@ function PendingOrders() {
         const userConfirm = window.confirm("Do you want to Sign Out?")
         if (userConfirm) {
             localStorage.removeItem('token')
-            window.location.href = "http://localhost:3000/"
+            window.location.href = "https://canteenautomation-cc940.web.app/"
         }
     }
 
     const handleCompleted = (id) => {
         const userConfirm = window.confirm("Click OK to confirm!")
         if (userConfirm) {
-            const apiCompleted = "http://127.0.0.1:8000/order-delivered"
+            const apiCompleted = "https://dacanteen.pythonanywhere.com/order-delivered"
             fetch(apiCompleted, {
                 method: 'POST',
                 headers: {

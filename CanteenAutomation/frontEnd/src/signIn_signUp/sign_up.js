@@ -56,7 +56,7 @@ function SignUp() {
     }
   };
 
-  const apiUrl = 'http://localhost:8000/register';
+  const apiUrl = 'https://dacanteen.pythonanywhere.com/register';
 
   //submitting data to backend
   const handleButtonClick = () => {

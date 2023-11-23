@@ -43,7 +43,7 @@ function Feedback() {
 
     const [isLoaded, setIsLoaded] = useState(false)
 
-    const apiUrlAcount = "http://127.0.0.1:8000/get-account-details"
+    const apiUrlAcount = "https://dacanteen.pythonanywhere.com/get-account-details"
 
     const token = JSON.parse(localStorage.getItem('token'))
 
@@ -52,7 +52,7 @@ function Feedback() {
 
         const refreshAccessToken = () => {
             console.log("hi")
-            const apiRefresh = "http://127.0.0.1:8000/refresh"
+            const apiRefresh = "https://dacanteen.pythonanywhere.com/refresh"
             fetch(apiRefresh, {
                 method: 'POST',
                 headers: {
@@ -117,7 +117,7 @@ function Feedback() {
     }, [])
 
 
-    const apiUrlPOrder = "http://127.0.0.1:8000/see-feedback"
+    const apiUrlPOrder = "https://dacanteen.pythonanywhere.com/see-feedback"
 
     useEffect(() => {
         fetch(apiUrlPOrder, {

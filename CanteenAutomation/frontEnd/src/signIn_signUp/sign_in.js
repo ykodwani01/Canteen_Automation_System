@@ -32,7 +32,7 @@ function SignIn() {
   const [canteens, setCanteens] = useState()
   const [gotCanteenDetails, setGotCanteenDetails] = useState(false)
 
-  const apicanteen = 'http://127.0.0.1:8000/get-canteen-Login-details'
+  const apicanteen = 'https://dacanteen.pythonanywhere.com/get-canteen-Login-details'
 
   useEffect(() => {
     fetch(apicanteen, {
@@ -74,7 +74,7 @@ function SignIn() {
   }
 
 
-  const apiUrl = 'http://localhost:8000/login';
+  const apiUrl = 'https://dacanteen.pythonanywhere.com/login';
 
   //submitting data to backend
   const handleButtonClick = () => {

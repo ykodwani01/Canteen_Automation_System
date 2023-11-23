@@ -47,7 +47,7 @@ function HomePage() {
     const [cartDetails, setCartDetails] = useState()
     const [gotCartDetails, setGotCartDetails] = useState(false)
 
-    const apiUrl = "http://127.0.0.1:8000/get-account-details"
+    const apiUrl = "https://dacanteen.pythonanywhere.com/get-account-details"
     const token = JSON.parse(localStorage.getItem('token'))
 
     useEffect(() => {
@@ -79,7 +79,7 @@ function HomePage() {
             .catch(error => console.error('Error:', error));
     }, [])
 
-    const apiUrlCart = "http://127.0.0.1:8000/get-cust-orders"
+    const apiUrlCart = "https://dacanteen.pythonanywhere.com/get-cust-orders"
 
     useEffect(() => {
         fetch(apiUrlCart, {
@@ -110,7 +110,7 @@ function HomePage() {
 
         const refreshAccessToken = () => {
             console.log("hi")
-            const apiRefresh = "http://127.0.0.1:8000/refresh"
+            const apiRefresh = "https://dacanteen.pythonanywhere.com/refresh"
             fetch(apiRefresh, {
                 method: 'POST',
                 headers: {
@@ -192,7 +192,7 @@ function HomePage() {
 
 
     const handlePayment = (order_id) => {
-        const apiPayment = "http://127.0.0.1:8000/confirm-order"
+        const apiPayment = "https://dacanteen.pythonanywhere.com/confirm-order"
         fetch(apiPayment, {
             method: 'POST',
             headers: {

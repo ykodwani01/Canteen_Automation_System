@@ -39,11 +39,11 @@ function PendingOrders() {
     const [cartDetails, setCartDetails] = useState()
     const [gotCartDetails, setGotCartDetails] = useState(false)
 
-    const apiUrlAccount = "http://127.0.0.1:8000/get-account-details"
+    const apiUrlAccount = "https://dacanteen.pythonanywhere.com/get-account-details"
     const token = JSON.parse(localStorage.getItem('token'))
 
 
-    const apiUrl = "http://127.0.0.1:8000/cust-pending-orders"
+    const apiUrl = "https://dacanteen.pythonanywhere.com/cust-pending-orders"
 
     useEffect(() => {
         fetch(apiUrl, {
@@ -98,7 +98,7 @@ function PendingOrders() {
             .catch(error => console.error('Error:', error));
     }, [])
 
-    const apiUrlCart = "http://127.0.0.1:8000/get-cust-orders"
+    const apiUrlCart = "https://dacanteen.pythonanywhere.com/get-cust-orders"
 
     useEffect(() => {
         fetch(apiUrlCart, {
@@ -129,7 +129,7 @@ function PendingOrders() {
 
         const refreshAccessToken = () => {
             console.log("hi")
-            const apiRefresh = "http://127.0.0.1:8000/refresh"
+            const apiRefresh = "https://dacanteen.pythonanywhere.com/refresh"
             fetch(apiRefresh, {
                 method: 'POST',
                 headers: {
@@ -211,7 +211,7 @@ function PendingOrders() {
 
 
     const handlePayment = (order_id) => {
-        const apiPayment = "http://127.0.0.1:8000/confirm-order"
+        const apiPayment = "https://dacanteen.pythonanywhere.com/confirm-order"
         fetch(apiPayment, {
             method: 'POST',
             headers: {
