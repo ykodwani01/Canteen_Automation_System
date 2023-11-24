@@ -73,7 +73,6 @@ function SignIn() {
     }
   }
 
-
   const apiUrl = 'https://dacanteen.pythonanywhere.com/login';
 
   //submitting data to backend
@@ -113,7 +112,6 @@ function SignIn() {
       })
       .then(data => {
         // Store the token in local storage or a cookie for later use.
-
         localStorage.setItem('token', JSON.stringify(data));
         if (type === "Customer") setIsSignupSuccessful(1)
         else if (canteens.filter((item) => (item.canteen_user_email === email))) setIsSignupSuccessful(canteens.filter((item) => (item.canteen_user_email === email))[0].canteen_id + 1)
@@ -127,38 +125,70 @@ function SignIn() {
 
   const handleShowPassword = () => {
     setShowPassword((showPassword) => !showPassword);
-  }
+  };
 
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      handleButtonClick();
+    }
+  };
 
   return (
     <ThemeProvider theme={theme}>
-      {gotCanteenDetails ? <Container className="App" maxWidth='xl' sx={{ backgroundImage: `url(${login_photo})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center', ...background_style_ext }}>
-        {isSignupSuccessful === 0 && <Navigate to="/" />}
-        {isSignupSuccessful === 1 && <Navigate to="/home" />}
-        {isSignupSuccessful !== 1 && isSignupSuccessful !== 0 && <Navigate to={`/cownerHome/${isSignupSuccessful}`} />}
+      {gotCanteenDetails ? (
+        <Container className="App" maxWidth="xl" sx={{ backgroundImage: `url(${login_photo})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center', ...background_style_ext }}>
+          {isSignupSuccessful === 0 && <Navigate to="/" />}
+          {isSignupSuccessful === 1 && <Navigate to="/home" />}
+          {isSignupSuccessful !== 1 && isSignupSuccessful !== 0 && <Navigate to={`/cownerHome/${isSignupSuccessful}`} />}
 
-        {/* sign-in box */}
-        <Container className='signIn' sx={{ background: "rgba(222,216,216,0.5)", borderRadius: '30px', ...signIn_style_ext }}>
-          <Typography sx={{ fontWeight: 'bolder', fontSize: '31px', marginTop: '31px' }}>Sign In</Typography>
-          <TextField id="Email" label="Email" value={email} onChange={handleChange} variant="outlined" sx={{ background: "rgba(250,249,246,0.1)", borderRadius: "5px", marginBottom: '30px', marginTop: '35px' }} />
-          <div>
-            <TextField id="Password" label="Password" value={password} onChange={handleChange} type={showPassword ? 'text' : 'password'} variant="outlined" sx={{ background: "rgba(250,249,246,0.1)", borderRadius: "5px", marginBottom: '10px' }} />
-            <div style={{ display: 'flex', alignItems: 'center', marginLeft: "20px" }}>
-              <Checkbox {...label} onChange={handleShowPassword} />
-              <Typography>Show Password</Typography>
+          {/* sign-in box */}
+          <Container className="signIn" sx={{ background: "rgba(222,216,216,0.5)", borderRadius: '30px', ...signIn_style_ext }}>
+            <Typography sx={{ fontWeight: 'bolder', fontSize: '31px', marginTop: '31px' }}>Sign In</Typography>
+            <TextField
+              id="Email"
+              label="Email"
+              value={email}
+              onChange={handleChange}
+              variant="outlined"
+              sx={{ background: "rgba(250,249,246,0.1)", borderRadius: "5px", marginBottom: '30px', marginTop: '35px' }}
+              onKeyPress={handleKeyPress}
+            />
+            <div>
+              <TextField
+                id="Password"
+                label="Password"
+                value={password}
+                onChange={handleChange}
+                type={showPassword ? 'text' : 'password'}
+                variant="outlined"
+                sx={{ background: "rgba(250,249,246,0.1)", borderRadius: "5px", marginBottom: '10px' }}
+                onKeyPress={handleKeyPress}
+              />
+              <div style={{ display: 'flex', alignItems: 'center', marginLeft: "20px" }}>
+                <Checkbox {...label} onChange={handleShowPassword} />
+                <Typography>Show Password</Typography>
+              </div>
             </div>
-          </div>
-          <Typography sx={{ marginLeft: '-80px' }}>Forgot Password?</Typography>
-          <Button variant="contained" onClick={handleButtonClick} sx={{ fontWeight: "bolder", width: '220px', height: '50px', fontSize: '20px', textTransform: 'none', marginBottom: '30px', marginTop: '50px' }} disableElevation>Login</Button>
-          <NavLink to='/sign_up' style={{ textDecoration: 'none', color: 'black' }}>
-            <Container sx={{ display: 'flex', justifyContent: 'center', marginBottom: '30px' }}>
-              <Typography>Don't have an account?</Typography><Typography color='primary' >Sign up</Typography>
-            </Container>
-          </NavLink>
+            <Typography sx={{ marginLeft: '-80px' }}>Forgot Password?</Typography>
+            <Button
+              variant="contained"
+              onClick={handleButtonClick}
+              sx={{ fontWeight: "bolder", width: '220px', height: '50px', fontSize: '20px', textTransform: 'none', marginBottom: '30px', marginTop: '50px' }}
+              disableElevation
+            >
+              Login
+            </Button>
+            <NavLink to='/sign_up' style={{ textDecoration: 'none', color: 'black' }}>
+              <Container sx={{ display: 'flex', justifyContent: 'center', marginBottom: '30px' }}>
+                <Typography>Don't have an account?</Typography><Typography color='primary' >Sign up</Typography>
+              </Container>
+            </NavLink>
+          </Container>
         </Container>
-      </Container> : <Loading />}
+      ) : (
+        <Loading />
+      )}
       {/* background */}
-
     </ThemeProvider>
   );
 }
