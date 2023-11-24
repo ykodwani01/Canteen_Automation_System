@@ -169,7 +169,11 @@ function SignIn() {
                 <Typography>Show Password</Typography>
               </div>
             </div>
-            <Typography sx={{ marginLeft: '-80px' }}>Forgot Password?</Typography>
+            <Typography sx={{ marginLeft: '-80px' }}>
+              <a href='http://dacanteen.pythonanywhere.com/reset_password' style={{ textDecoration: 'none', color: 'inherit' }}>
+                Forgot Password?
+              </a>
+            </Typography>
             <Button
               variant="contained"
               onClick={handleButtonClick}
