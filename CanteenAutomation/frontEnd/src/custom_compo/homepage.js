@@ -7,7 +7,7 @@ import { ThemeProvider } from '@mui/material/';
 import { green } from '@mui/material/colors';
 import Button from '@mui/material/Button';
 import { Link } from '@mui/material';
-import { Link as LINK} from 'react-router-dom'
+import { Link as LINK} from 'react-router-dom';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 import * as React from 'react';
