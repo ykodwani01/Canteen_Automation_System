@@ -56,6 +56,12 @@ function SignUp() {
     }
   };
 
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      handleButtonClick();
+    }
+  };
+
   const apiUrl = 'https://dacanteen.pythonanywhere.com/register';
 
   //submitting data to backend
@@ -138,18 +144,18 @@ function SignUp() {
         {/* sign-up box */}
         <Container className='signIn' sx={{ background: "rgba(222,216,216,0.5)", borderRadius: '30px', ...signIn_style_ext }}>
           <Typography sx={{ fontWeight: 'bolder', fontSize: '31px', marginTop: '31px' }}>Sign Up</Typography>
-          <TextField id="Email" label="Email" value={email} onChange={handleChange} variant="outlined" sx={{ background: "rgba(250,249,246,0.1)", borderRadius: "5px", marginBottom: '30px', marginTop: '23px' }} />
-          <TextField id="Name" label="Name" value={name} onChange={handleChange} variant="outlined" sx={{ background: "rgba(250,249,246,0.1)", borderRadius: "5px", marginBottom: '30px' }} />
-          <TextField id="ContactNo" label="ContactNo" value={contactNo} onChange={handleChange} variant="outlined" sx={{ background: "rgba(250,249,246,0.1)", borderRadius: "5px", marginBottom: '30px' }} />
+          <TextField id="Email" label="Email" value={email} onKeyPress={handleKeyPress} onChange={handleChange} variant="outlined" sx={{ background: "rgba(250,249,246,0.1)", borderRadius: "5px", marginBottom: '30px', marginTop: '23px' }} />
+          <TextField id="Name" label="Name" value={name} onKeyPress={handleKeyPress} onChange={handleChange} variant="outlined" sx={{ background: "rgba(250,249,246,0.1)", borderRadius: "5px", marginBottom: '30px' }} />
+          <TextField id="ContactNo" label="ContactNo" value={contactNo} onKeyPress={handleKeyPress} onChange={handleChange} variant="outlined" sx={{ background: "rgba(250,249,246,0.1)", borderRadius: "5px", marginBottom: '30px' }} />
           <div style={{ marginBottom: "10px" }}>
-            <TextField id="Password" label="New Password" value={password} onChange={handleChange} type={showPassword1 ? 'text' : 'password'} variant="outlined" sx={{ background: "rgba(250,249,246,0.1)", borderRadius: "5px", marginBottom: '10px' }} />
+            <TextField id="Password" label="New Password" value={password} onKeyPress={handleKeyPress} onChange={handleChange} type={showPassword1 ? 'text' : 'password'} variant="outlined" sx={{ background: "rgba(250,249,246,0.1)", borderRadius: "5px", marginBottom: '10px' }} />
             <div style={{ display: 'flex', alignItems: 'center', marginLeft: "20px" }}>
               <Checkbox {...label} onChange={handleShowPassword1} />
               <Typography>Show Password</Typography>
             </div>
           </div>
           <div>
-            <TextField id="Confirm Password" label="Confirm Password" value={confirmPassword} onChange={handleChange} type={showPassword2 ? 'text' : 'password'} variant="outlined" sx={{ background: "rgba(250,249,246,0.1)", borderRadius: "5px", marginBottom: '10px' }} />
+            <TextField id="Confirm Password" label="Confirm Password" value={confirmPassword} onKeyPress={handleKeyPress} onChange={handleChange} type={showPassword2 ? 'text' : 'password'} variant="outlined" sx={{ background: "rgba(250,249,246,0.1)", borderRadius: "5px", marginBottom: '10px' }} />
             <div style={{ display: 'flex', alignItems: 'center', marginLeft: "20px" }}>
               <Checkbox {...label} onChange={handleShowPassword2} />
               <Typography>Show Password</Typography>
