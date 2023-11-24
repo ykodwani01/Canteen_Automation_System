@@ -27,9 +27,9 @@ function PastOrder(props) {
     const tmp = props.items.filter((item) => (item.quantity))
     const displayOrders = tmp.map((item) => (
         <div key={item.id} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
-            <Grid container spacing={2}>
+            <Grid container spacing={5}>
                 <Grid item xs={4}>
-                    <Item><Typography>{item.name}</Typography></Item>
+                    <Item style={{ paddingRight: "100px"}} ><Typography>{item.name}</Typography></Item>
                 </Grid>
                 <Grid item xs={4}>
                     <Item><Typography>{item.quantity}</Typography></Item>
