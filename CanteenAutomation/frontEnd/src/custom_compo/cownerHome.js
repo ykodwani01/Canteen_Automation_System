@@ -217,6 +217,11 @@ function CownerHome() {
 
     const handleAdd = () => {
         const regex = /^[a-zA-Z ]*$/;
+        if(newItem.name.length==0)
+        {
+            alert("Please Enter Valid Name");
+            return 
+        }
         if (!regex.test(newItem.name)) {
             alert("Name should be less then 100 characters and should not contain any special characters or numbers")
             return
