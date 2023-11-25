@@ -5,6 +5,8 @@ import '../App.css';
 import { TextField, Typography, Container } from '@mui/material/';
 import { ThemeProvider } from '@mui/material/';
 import Button from '@mui/material/Button';
+import { Link } from '@mui/material';
+import { Link as LINK} from 'react-router-dom';
 
 //importing photos
 import login_photo from './login_photo.png'
@@ -169,11 +171,9 @@ function SignIn() {
                 <Typography>Show Password</Typography>
               </div>
             </div>
-            <Typography sx={{ marginLeft: '-80px' }}>
-              <a href='http://dacanteen.pythonanywhere.com/reset_password' style={{ textDecoration: 'none', color: 'inherit' }}>
-                Forgot Password?
-              </a>
-            </Typography>
+            <div style={{ display:"flex", justifyContent:"left", paddingLeft:"35px" }} >
+              <Link href="http://dacanteen.pythonanywhere.com/reset_password" underline="hover" sx={{ fontSize:"17px" }} >{"Forgot Password"}</Link>
+            </div>
             <Button
               variant="contained"
               onClick={handleButtonClick}
