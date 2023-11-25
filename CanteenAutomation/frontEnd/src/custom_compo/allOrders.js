@@ -88,7 +88,7 @@ function AllOrders() {
                 if (response.ok) {
                     return response.json();
                 } else {
-                    window.location.href = "https://canteenautomation-cc940.web.app/"
+                    window.location.href = "localhost:3000/"
                 }
             })
             .then(data => {

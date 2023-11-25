@@ -66,7 +66,7 @@ function SignUp() {
 
   //submitting data to backend
   const handleButtonClick = () => {
-    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$%^&+=!])([A-Za-z\d@#$%^&+=!]{8,20})$/;
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*()-_=+{};:'",.<>?/\\|`~])(?=.*\d)[A-Za-z\d!@#$%^&*()-_=+{};:'",.<>?/\\|`~]{8,20}$/;
     const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
     const phoneRegex = /^(\+91|0)?[6789]\d{9}$/;
     if (
@@ -85,6 +85,10 @@ function SignUp() {
     }
     if (password !== confirmPassword) {
       alert("Passwords don't match")
+      return
+    }
+    if(name.length == 0){
+      alert('Enter Valid Name!!')
       return
     }
     if (name.length > 20) {
@@ -115,7 +119,6 @@ function SignUp() {
         const token = data.token;
         // Store the token in local storage or a cookie for later use.
         localStorage.setItem('token', token);
-
         setIsSignupSuccessful(true);
       })
       .catch(error => console.error('Error:', error));
