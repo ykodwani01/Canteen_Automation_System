@@ -1,5 +1,7 @@
 //importing css
 import '../App.css';
+import { useHistory } from 'react-router-dom';
+
 
 //importing MUI cmp
 import { Typography, createTheme } from '@mui/material/';
@@ -24,6 +26,12 @@ const theme = createTheme({
 })
 
 function Error() {
+
+    const handleRedirect = () => {
+        // Redirect the user to the previous page
+        history.goBack();
+      };
+
     return (
         <ThemeProvider theme={theme}>
             {/* background */}
@@ -49,7 +57,7 @@ function Error() {
                             <div style={{ width: '400px' }}>
                             
                                 <Typography variant='h4'>If you believe this is a mistake, please contact the site administrator for assistance. Otherwise, head back to the last page and enjoy exploring the approved sections of our website!!!</Typography>
-                                <Button variant='contained' endIcon={<EastIcon />} style={{ borderRadius: '30px', marginTop: '10px', height: '50px' }} href="/">Return to Home</Button>
+                                <Button variant='contained' endIcon={<EastIcon />} style={{ borderRadius: '30px', marginTop: '10px', height: '50px' }} onClick={handleRedirect}>Return Back</Button>
                             </div>
                             <div style={{ marginLeft: '70px' }}>
                                 <img src={error_500} alt='error_404' style={{ height: '300px' }} />
