@@ -1,6 +1,6 @@
 //importing css
 import '../App.css';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 //importing MUI cmp
@@ -27,9 +27,11 @@ const theme = createTheme({
 
 function Error() {
 
+    const navigate = useNavigate()
+
     const handleRedirect = () => {
         // Redirect the user to the previous page
-        history.goBack();
+        navigate(-2);
       };
 
     return (
