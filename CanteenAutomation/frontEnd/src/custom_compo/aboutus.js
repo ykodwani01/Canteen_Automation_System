@@ -280,8 +280,8 @@ function AboutUs() {
                     </div>
                     <div style={{ padding: '50px' }}>
                         <Typography style={{ color: 'white', fontWeight: 'bold', marginBottom: '50px' }}>Quick links</Typography>
-                        <Typography style={{ color: '#DAC6C7', marginBottom: '20px' }}>Browse Foodtime</Typography>
-                        <Typography style={{ color: '#DAC6C7', marginBottom: '20px' }}>Registrations</Typography>
+                        <div style={{ marginBottom: "20px" }}><Link component={LINK} to="/home/canteens" underline="hover" style={{ color: '#DAC6C7' }} >{"Browse Food"}</Link></div>
+                        <div style={{ marginBottom: "20px" }}><Link component={LINK} to="/home/aboutus" underline="hover" style={{ color: '#DAC6C7' }} >{"Registrations"}</Link></div>
                     </div>
                     <div style={{ padding: '50px' }}>
                         <Typography style={{ color: 'white', fontWeight: 'bold', marginBottom: '50px' }}>About</Typography>

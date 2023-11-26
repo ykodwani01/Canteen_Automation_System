@@ -7,7 +7,7 @@ import { ThemeProvider } from '@mui/material/';
 import { green } from '@mui/material/colors';
 import Button from '@mui/material/Button';
 import { Link } from '@mui/material';
-import { Link as LINK} from 'react-router-dom';
+import { Link as LINK } from 'react-router-dom';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 import * as React from 'react';
@@ -67,11 +67,10 @@ function HomePage() {
                 }
             })
             .then(data => {
-                if(data.type=="Canteen")
-                {
+                if (data.type == "Canteen") {
                     window.location.href = "/unauth"
                 }
-                else{
+                else {
                     console.log(data);
                     setAccountDetails(data)
                     setGotAccountDetails(true)
@@ -188,9 +187,6 @@ function HomePage() {
             window.location.href = "/"
         }
     }
-
-
-
 
     const handlePayment = (order_id) => {
         const apiPayment = "https://dacanteen.pythonanywhere.com/confirm-order"
@@ -314,8 +310,8 @@ function HomePage() {
                     </div>
                     <div style={{ padding: '50px' }}>
                         <Typography style={{ color: 'white', fontWeight: 'bold', marginBottom: '50px' }}>Quick links</Typography>
-                        <Typography style={{ color: '#DAC6C7', marginBottom: '20px' }}>Browse Foodtime</Typography>
-                        <Typography style={{ color: '#DAC6C7', marginBottom: '20px' }}>Registrations</Typography>
+                        <div style={{ marginBottom: "20px" }}><Link component={LINK} to="/home/canteens" underline="hover" style={{ color: '#DAC6C7' }} >{"Browse Food"}</Link></div>
+                        <div style={{ marginBottom: "20px" }}><Link component={LINK} to="/home/aboutus" underline="hover" style={{ color: '#DAC6C7' }} >{"Registrations"}</Link></div>
                     </div>
                     <div style={{ padding: '50px' }}>
                         <Typography style={{ color: 'white', fontWeight: 'bold', marginBottom: '50px' }}>About</Typography>

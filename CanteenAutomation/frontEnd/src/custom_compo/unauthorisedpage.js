@@ -14,7 +14,6 @@ import { Link } from '@mui/material';
 //importing photos
 import logo from '../general_compo/logo.png'
 import cafe from "../general_compo/cafe.png";
-import error_404 from "../error_compo/error_404.png";
 import error_500 from "../error_compo/error_500.jpeg";
 
 //defining theme

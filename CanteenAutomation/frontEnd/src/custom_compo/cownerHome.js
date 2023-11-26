@@ -6,7 +6,7 @@ import { Typography, TextField } from '@mui/material/';
 import { ThemeProvider } from '@mui/material/';
 import Button from '@mui/material/Button';
 import { Link } from '@mui/material';
-import {Link as LINK} from 'react-router-dom'; 
+import { Link as LINK } from 'react-router-dom';
 
 import * as React from 'react';
 import Box from '@mui/material/Box';
@@ -130,11 +130,10 @@ function CownerHome() {
                 }
             })
             .then(data => {
-                if(data.type=="Customer")
-                {
+                if (data.type == "Customer") {
                     window.location.href = "/unauth"
                 }
-                else{
+                else {
                     console.log(data);
                     setAccountDetails(data)
                     setGotAccountDetails(true)
@@ -312,8 +311,8 @@ function CownerHome() {
                         {/* <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '70px' }}>
                             <Typography variant='h2'>{menu[0].canteen}</Typography>
                         </div> */}
-                        <div style={{display:'flex', justifyContent:'center', alignItems:'center', marginTop:'60px'}}>
-                            <TextField id="search" label="Search" value={searchQuery} onChange={handleSearch} variant="outlined" sx={{ background: "rgba(250,249,246,0.1)", borderRadius: "5px", marginBottom: '50px', marginTop: '5px' , width:'80%'}} />
+                        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '60px' }}>
+                            <TextField id="search" label="Search" value={searchQuery} onChange={handleSearch} variant="outlined" sx={{ background: "rgba(250,249,246,0.1)", borderRadius: "5px", marginBottom: '50px', marginTop: '5px', width: '80%' }} />
                         </div>
                         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
                             <Button variant='contained' sx={{ borderRadius: '30px', marginRight: '20px' }} onClick={handleAddItem}>Add New Items</Button>
@@ -338,16 +337,6 @@ function CownerHome() {
                     <div style={{ width: '500px', padding: '50px' }}>
                         <img src={cafe} alt='cafe' style={{ width: '200px' }} />
                         <Typography style={{ color: '#DAC6C7' }}>At Quick Cafe our core beliefs drive everything we do. We believe in the power of innovation to revolutionize the way people experience food and dining. We're passionate about harnessing technology to make dining experiences more convenient, efficient, and enjoyable for everyone.</Typography>
-                    </div>
-                    <div style={{ padding: '50px' }}>
-                        <Typography style={{ color: 'white', fontWeight: 'bold', marginBottom: '50px' }}>Quick links</Typography>
-                        <Typography style={{ color: '#DAC6C7', marginBottom: '20px' }}>Browse Foodtime</Typography>
-                        <Typography style={{ color: '#DAC6C7', marginBottom: '20px' }}>Registrations</Typography>
-                    </div>
-                    <div style={{ padding: '50px' }}>
-                        <Typography style={{ color: 'white', fontWeight: 'bold', marginBottom: '50px' }}>About</Typography>
-                        <div style={{ marginBottom: "20px" }}><Link href="/home/aboutus" underline="hover" style={{ color: '#DAC6C7' }} >{"About Us"}</Link></div>
-                        <div style={{ marginBottom: "20px" }}><Link href="/home" underline="hover" style={{ color: '#DAC6C7' }} >{"Mission"}</Link></div>
                     </div>
                     <div style={{ padding: '50px' }}>
                         <Typography style={{ color: 'white', fontWeight: 'bold', marginBottom: '50px' }}>Contact</Typography>
