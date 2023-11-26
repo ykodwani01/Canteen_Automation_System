@@ -227,3 +227,104 @@ public class NavbarTest {
   }
 }
 ```
+Home Page:
+```
+public class HomepageTest {
+  private WebDriver driver;
+  private Map<String, Object> vars;
+  JavascriptExecutor js;
+  @Before
+  public void setUp() {
+    driver = new ChromeDriver();
+    js = (JavascriptExecutor) driver;
+    vars = new HashMap<String, Object>();
+  }
+  @After
+  public void tearDown() {
+    driver.quit();
+  }
+  @Test
+  public void homepage() {
+    driver.get("https://canteenautomation-cc940.web.app/home");
+    driver.manage().window().setSize(new Dimension(1382, 744));
+    driver.findElement(By.cssSelector("#root > div > div > div:nth-child(1) > div")).click();
+    driver.findElement(By.cssSelector("div:nth-child(1) > div:nth-child(1) > div > img")).click();
+    driver.findElement(By.cssSelector(".MuiButton-text:nth-child(1)")).click();
+    driver.findElement(By.cssSelector("#one > .MuiTypography-h4")).click();
+    driver.findElement(By.id("two")).click();
+    driver.findElement(By.id("three")).click();
+    driver.findElement(By.cssSelector("#three > .MuiTypography-h4")).click();
+    driver.findElement(By.cssSelector(".css-1padm8r")).click();
+    driver.findElement(By.cssSelector("div:nth-child(2) > div > img")).click();
+  }
+}
+```
+Footer:
+public class FooterTest {
+  private WebDriver driver;
+  private Map<String, Object> vars;
+  JavascriptExecutor js;
+  @Before
+  public void setUp() {
+    driver = new ChromeDriver();
+    js = (JavascriptExecutor) driver;
+    vars = new HashMap<String, Object>();
+  }
+  @After
+  public void tearDown() {
+    driver.quit();
+  }
+  public String waitForWindow(int timeout) {
+    try {
+      Thread.sleep(timeout);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+    Set<String> whNow = driver.getWindowHandles();
+    Set<String> whThen = (Set<String>) vars.get("window_handles");
+    if (whNow.size() > whThen.size()) {
+      whNow.removeAll(whThen);
+    }
+    return whNow.iterator().next();
+  }
+  @Test
+  public void footer() {
+    driver.get("https://canteenautomation-cc940.web.app/");
+    driver.manage().window().setSize(new Dimension(1382, 744));
+    driver.findElement(By.id("Email")).sendKeys("padma_kamal@gmail.com");
+    driver.findElement(By.id("Password")).sendKeys("1234567@a");
+    {
+      WebElement element = driver.findElement(By.cssSelector(".MuiButton-root"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).perform();
+    }
+    driver.findElement(By.cssSelector(".MuiButton-root")).click();
+    {
+      WebElement element = driver.findElement(By.tagName("body"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element, 0, 0).perform();
+    }
+    vars.put("window_handles", driver.getWindowHandles());
+    driver.findElement(By.linkText("Facebook")).click();
+    vars.put("win8039", waitForWindow(2000));
+    vars.put("root", driver.getWindowHandle());
+    driver.switchTo().window(vars.get("win8039").toString());
+    js.executeScript("window.scrollTo(0,0)");
+    driver.close();
+    driver.switchTo().window(vars.get("root").toString());
+    vars.put("window_handles", driver.getWindowHandles());
+    driver.findElement(By.linkText("Twitter")).click();
+    vars.put("win8357", waitForWindow(2000));
+    driver.switchTo().window(vars.get("win8357").toString());
+    driver.close();
+    driver.switchTo().window(vars.get("root").toString());
+    vars.put("window_handles", driver.getWindowHandles());
+    driver.findElement(By.linkText("Instagram")).click();
+    vars.put("win5186", waitForWindow(2000));
+    driver.switchTo().window(vars.get("win5186").toString());
+    driver.close();
+    driver.switchTo().window(vars.get("root").toString());
+    driver.findElement(By.linkText("About Us")).click();
+    driver.findElement(By.linkText("Mission")).click();
+  }
+}
