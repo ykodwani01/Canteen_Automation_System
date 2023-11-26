@@ -260,6 +260,7 @@ public class HomepageTest {
 }
 ```
 Footer:
+```
 public class FooterTest {
   private WebDriver driver;
   private Map<String, Object> vars;
@@ -328,3 +329,96 @@ public class FooterTest {
     driver.findElement(By.linkText("Mission")).click();
   }
 }
+```
+Order_Placing:
+```
+public class OrderNowTest {
+  private WebDriver driver;
+  private Map<String, Object> vars;
+  JavascriptExecutor js;
+  @Before
+  public void setUp() {
+    driver = new ChromeDriver();
+    js = (JavascriptExecutor) driver;
+    vars = new HashMap<String, Object>();
+  }
+  @After
+  public void tearDown() {
+    driver.quit();
+  }
+  @Test
+  public void orderNow() {
+    driver.get("https://canteenautomation-cc940.web.app/");
+    driver.manage().window().setSize(new Dimension(1366, 728));
+    driver.findElement(By.id("Email")).sendKeys("202101473@daiict.ac.in");
+    driver.findElement(By.id("Password")).sendKeys("1234567@a");
+    {
+      WebElement element = driver.findElement(By.cssSelector(".MuiButton-root"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).perform();
+    }
+    driver.findElement(By.cssSelector(".MuiButton-root")).click();
+    {
+      WebElement element = driver.findElement(By.cssSelector(".MuiButton-contained:nth-child(3)"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).perform();
+    }
+    driver.findElement(By.cssSelector(".MuiButton-contained:nth-child(3)")).click();
+    {
+      WebElement element = driver.findElement(By.tagName("body"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element, 0, 0).perform();
+    }
+    {
+      WebElement element = driver.findElement(By.cssSelector(".MuiButton-text:nth-child(1)"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).perform();
+    }
+    {
+      WebElement element = driver.findElement(By.tagName("body"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element, 0, 0).perform();
+    }
+    {
+      WebElement element = driver.findElement(By.xpath("(//a[contains(text(),\'Order\')])[3]"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).perform();
+    }
+    driver.findElement(By.xpath("(//a[contains(text(),\'Order\')])[3]")).click();
+    driver.findElement(By.id("search")).click();
+    {
+      WebElement element = driver.findElement(By.xpath("(//button[@id=\'1\']/h5)[2]"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).perform();
+    }
+    driver.findElement(By.id("search")).sendKeys("ROTI");
+    driver.findElement(By.xpath("(//button[@id=\'1\']/h5)[2]")).click();
+    {
+      WebElement element = driver.findElement(By.tagName("body"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element, 0, 0).perform();
+    }
+    driver.findElement(By.cssSelector(".css-1doe6z2")).click();
+    assertThat(driver.switchTo().alert().getText(), is("By updating your cart, your past cart will be cleared. Do you want to procced?"));
+    driver.switchTo().alert().accept();
+    assertThat(driver.switchTo().alert().getText(), is("Your cart is updated"));
+    driver.findElement(By.cssSelector(".MuiButton-startIcon > .MuiSvgIcon-root")).click();
+    {
+      WebElement element = driver.findElement(By.cssSelector(".MuiDrawer-paperAnchorRight"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).clickAndHold().perform();
+    }
+    {
+      WebElement element = driver.findElement(By.cssSelector(".MuiDrawer-paperAnchorRight"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).perform();
+    }
+    {
+      WebElement element = driver.findElement(By.cssSelector(".MuiDrawer-paperAnchorRight"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).release().perform();
+    }
+    driver.findElement(By.cssSelector(".css-noywnv")).click();
+  }
+}
+```
