@@ -175,3 +175,55 @@ public class SignUpTest {
   }
 }
 ```
+Navbar:
+```
+public class NavbarTest {
+  private WebDriver driver;
+  private Map<String, Object> vars;
+  JavascriptExecutor js;
+  @Before
+  public void setUp() {
+    driver = new ChromeDriver();
+    js = (JavascriptExecutor) driver;
+    vars = new HashMap<String, Object>();
+  }
+  @After
+  public void tearDown() {
+    driver.quit();
+  }
+  @Test
+  public void navbar() {
+    driver.get("https://canteenautomation-cc940.web.app/");
+    driver.manage().window().setSize(new Dimension(1382, 744));
+    driver.findElement(By.id("Email")).sendKeys("padma_kamal@gmail.com");
+    driver.findElement(By.id("Password")).sendKeys("1234567@a");
+    driver.findElement(By.cssSelector(".MuiButton-root")).click();
+    driver.findElement(By.cssSelector(".MuiButton-text:nth-child(1)")).click();
+    driver.findElement(By.cssSelector(".MuiButtonBase-root:nth-child(2)")).click();
+    {
+      WebElement element = driver.findElement(By.cssSelector(".MuiButtonBase-root:nth-child(2)"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).perform();
+    }
+    {
+      WebElement element = driver.findElement(By.tagName("body"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element, 0, 0).perform();
+    }
+    {
+      WebElement element = driver.findElement(By.cssSelector(".css-nw7qa6:nth-child(3)"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).perform();
+    }
+    driver.findElement(By.cssSelector(".css-nw7qa6:nth-child(3)")).click();
+    {
+      WebElement element = driver.findElement(By.tagName("body"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element, 0, 0).perform();
+    }
+    driver.findElement(By.cssSelector(".MuiButtonBase-root:nth-child(4)")).click();
+    driver.findElement(By.cssSelector(".MuiButtonBase-root:nth-child(5)")).click();
+    driver.findElement(By.cssSelector(".MuiBackdrop-root")).click();
+  }
+}
+```
