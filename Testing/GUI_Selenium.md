@@ -98,3 +98,80 @@ public class SignINTest {
   }
 }
 ```
+Sign_Up Page:
+```
+public class SignUpTest {
+  private WebDriver driver;
+  private Map<String, Object> vars;
+  JavascriptExecutor js;
+  @Before
+  public void setUp() {
+    driver = new ChromeDriver();
+    js = (JavascriptExecutor) driver;
+    vars = new HashMap<String, Object>();
+  }
+  @After
+  public void tearDown() {
+    driver.quit();
+  }
+  @Test
+  public void signUp() {
+    driver.get("https://canteenautomation-cc940.web.app/");
+    driver.manage().window().setSize(new Dimension(691, 372));
+    driver.findElement(By.cssSelector(".MuiContainer-maxWidthXl")).click();
+    driver.findElement(By.cssSelector(".css-1padm8r")).click();
+    driver.findElement(By.id("Email")).click();
+    driver.findElement(By.id("Email")).sendKeys("202101473@daiict.ac.in");
+    driver.findElement(By.id("Name")).click();
+    driver.findElement(By.id("Name")).sendKeys("shrey");
+    driver.findElement(By.id("Password")).click();
+    driver.findElement(By.id("Email")).click();
+    driver.findElement(By.id("Email")).sendKeys("202101493@daiict.ac.in");
+    driver.findElement(By.id("ContactNo")).click();
+    driver.findElement(By.cssSelector(".MuiContainer-maxWidthXl")).click();
+    driver.findElement(By.id("ContactNo")).click();
+    driver.findElement(By.id("ContactNo")).sendKeys("1234567890");
+    driver.findElement(By.id("Password")).click();
+    {
+      WebElement element = driver.findElement(By.cssSelector("div:nth-child(5) .PrivateSwitchBase-input"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).perform();
+    }
+    driver.findElement(By.id("Password")).sendKeys("abcdfg@123");
+    driver.findElement(By.cssSelector("div:nth-child(5) .PrivateSwitchBase-input")).click();
+    driver.findElement(By.cssSelector(".Mui-checked > .PrivateSwitchBase-input")).click();
+    driver.findElement(By.cssSelector("div:nth-child(5) .PrivateSwitchBase-input")).click();
+    {
+      WebElement element = driver.findElement(By.tagName("body"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element, 0, 0).perform();
+    }
+    driver.findElement(By.id("Confirm Password")).click();
+    {
+      WebElement element = driver.findElement(By.cssSelector("div:nth-child(6) .PrivateSwitchBase-input"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).perform();
+    }
+    driver.findElement(By.id("Confirm Password")).sendKeys("abcdfg@123");
+    driver.findElement(By.cssSelector("div:nth-child(6) .PrivateSwitchBase-input")).click();
+    driver.findElement(By.cssSelector("div:nth-child(6) .PrivateSwitchBase-input")).click();
+    driver.findElement(By.cssSelector("div:nth-child(6) .PrivateSwitchBase-input")).click();
+    {
+      WebElement element = driver.findElement(By.tagName("body"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element, 0, 0).perform();
+    }
+    driver.findElement(By.cssSelector(".MuiButton-root")).click();
+    assertThat(driver.switchTo().alert().getText(), is("Invalid phone number. Please enter a valid Indian phone number."));
+    driver.findElement(By.id("ContactNo")).click();
+    {
+      WebElement element = driver.findElement(By.cssSelector(".MuiButton-root"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).perform();
+    }
+    driver.findElement(By.id("ContactNo")).sendKeys("7573836939");
+    driver.findElement(By.cssSelector(".MuiButton-root")).click();
+    js.executeScript("window.scrollTo(0,0)");
+  }
+}
+```
