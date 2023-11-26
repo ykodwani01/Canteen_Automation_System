@@ -97,7 +97,7 @@ function AboutUs() {
                 if (response.ok) {
                     return response.json();
                 } else {
-                    window.location.href = "https://canteenautomation-cc940.web.app/"
+                    window.location.href = "localhost:3000/"
                 }
             })
             .then(data => {
@@ -180,7 +180,7 @@ function AboutUs() {
         const userConfirm = window.confirm("Do you want to Sign Out?")
         if (userConfirm) {
             localStorage.removeItem('token')
-            window.location.href = "https://canteenautomation-cc940.web.app/"
+            window.location.href = "localhost:3000/"
         }
     }
 

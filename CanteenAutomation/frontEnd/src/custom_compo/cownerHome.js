@@ -126,7 +126,7 @@ function CownerHome() {
                 if (response.ok) {
                     return response.json();
                 } else {
-                    window.location.href = "https://canteenautomation-cc940.web.app/"
+                    window.location.href = "localhost:3000/"
                 }
             })
             .then(data => {
@@ -210,12 +210,17 @@ function CownerHome() {
         const userConfirm = window.confirm("Do you want to Sign Out?")
         if (userConfirm) {
             localStorage.removeItem('token')
-            window.location.href = "https://canteenautomation-cc940.web.app/"
+            window.location.href = "localhost:3000/"
         }
     }
 
     const handleAdd = () => {
         const regex = /^[a-zA-Z ]*$/;
+        if(newItem.name.length==0)
+        {
+            alert("Please Enter Valid Name");
+            return 
+        }
         if (!regex.test(newItem.name)) {
             alert("Name should be less then 100 characters and should not contain any special characters or numbers")
             return
