@@ -422,3 +422,64 @@ public class OrderNowTest {
   }
 }
 ```
+Pending Order:
+```
+public class PendingordersTest {
+  private WebDriver driver;
+  private Map<String, Object> vars;
+  JavascriptExecutor js;
+  @Before
+  public void setUp() {
+    driver = new ChromeDriver();
+    js = (JavascriptExecutor) driver;
+    vars = new HashMap<String, Object>();
+  }
+  @After
+  public void tearDown() {
+    driver.quit();
+  }
+  @Test
+  public void pendingorders() {
+    driver.get("https://canteenautomation-cc940.web.app/");
+    {
+      WebElement element = driver.findElement(By.cssSelector(".MuiButton-root"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).perform();
+    }
+    driver.findElement(By.cssSelector(".MuiButton-root")).click();
+    {
+      WebElement element = driver.findElement(By.tagName("body"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element, 0, 0).perform();
+    }
+    {
+      WebElement element = driver.findElement(By.cssSelector(".MuiButton-text:nth-child(3)"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).perform();
+    }
+    driver.findElement(By.cssSelector(".MuiButton-text:nth-child(3)")).click();
+    {
+      WebElement element = driver.findElement(By.tagName("body"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element, 0, 0).perform();
+    }
+    {
+      WebElement element = driver.findElement(By.cssSelector(".MuiButtonBase-root:nth-child(3)"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).perform();
+    }
+    {
+      WebElement element = driver.findElement(By.tagName("body"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element, 0, 0).perform();
+    }
+    driver.findElement(By.cssSelector("u")).click();
+    driver.findElement(By.cssSelector("u")).click();
+    driver.findElement(By.cssSelector("div:nth-child(1) > div > div:nth-child(1) > div > div:nth-child(1) > div:nth-child(1)")).click();
+    driver.findElement(By.cssSelector("div:nth-child(1) > div > .css-936v5x > .MuiGrid-root:nth-child(2)")).click();
+    driver.findElement(By.cssSelector("div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(3) > div:nth-child(1)")).click();
+    driver.findElement(By.cssSelector("div:nth-child(1) > div > div:nth-child(1) > div:nth-child(3) > div:nth-child(1) > div:nth-child(2)")).click();
+    driver.manage().window().setSize(new Dimension(691, 372));
+  }
+}
+```
