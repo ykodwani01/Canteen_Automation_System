@@ -28,7 +28,7 @@ class Profile(models.Model):
 class canteen(models.Model):
     owner = models.OneToOneField(Profile,null=True,on_delete=models.CASCADE)
     canteen_id = models.AutoField(primary_key=True)
-
+    is_verified=models.BooleanField(default=False)
     def __str__(self):
         return self.owner.name
 

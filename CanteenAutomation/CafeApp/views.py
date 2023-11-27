@@ -262,7 +262,7 @@ class getallcanteens(APIView):
     permission_classes = [IsAuthenticated]
     authentication_classes = [JWTAuthentication]
     def get(self, request):
-        canteen_obj=canteen.objects.all()
+        canteen_obj=canteen.objects.filter(is_verified=True)
         Canteen_serialized = CanteenSerializer(canteen_obj,many=True)
         return Response(Canteen_serialized.data,status=status.HTTP_200_OK)
     
@@ -326,12 +326,14 @@ class ConfirmOrder(APIView):
         return Response({"order_id":orderid},status=status.HTTP_200_OK)
     
 class GetMenu(APIView):
-
     def get(self,request,canteen_id):
             item_obj=items.objects.filter(canteen=canteen_id,available=True)
             Item_serialized = NewItemSerializer(item_obj,many=True)
-            canteen_obj=canteen.objects.filter(canteen_id=canteen_id).first()
-            return Response(Item_serialized.data,status=status.HTTP_200_OK)
+            canteen_obj=canteen.objects.filter(canteen_id=canteen_id,is_verified=True).first()
+            if(canteen_obj is not None):
+                return Response(Item_serialized.data,status=status.HTTP_200_OK)
+            else:
+                return Response({"success":False})
 
 
 
