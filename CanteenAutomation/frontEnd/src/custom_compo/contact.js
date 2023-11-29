@@ -265,33 +265,33 @@ function Contact() {
                         </div>
 
                         <div style={{ display: 'flex', justifyContent: 'left', marginTop: '60px', marginLeft: '200px' }}>
-                            <Typography variant='h6'> Dhruvilsinh Thakor </Typography> <Typography variant='h6' style={{ marginLeft: '50px' }}> 202101462 </Typography>
+                            <Typography variant='h6'> Dhruvilsinh Thakor </Typography> <Typography variant='h6' style={{ marginLeft: '61px' }}> 202101462 </Typography>
                             <Typography variant='h6' style={{ marginLeft: '150px' }}> Vrajkumar Patel </Typography> <Typography variant='h6' style={{ marginLeft: '50px' }}> 202101060 </Typography>
                         </div>
 
                         <div style={{ display: 'flex', justifyContent: 'left', marginTop: '30px', marginLeft: '200px' }}>
                             <Typography variant='h6'> Vandan Bhuva </Typography> <Typography variant='h6' style={{ marginLeft: '100px' }}> 202101404 </Typography>
-                            <Typography variant='h6' style={{ marginLeft: '140px' }}> Yash Kodwani </Typography> <Typography variant='h6' style={{ marginLeft: '65px' }}> 202101418 </Typography>
+                            <Typography variant='h6' style={{ marginLeft: '150px' }}> Yash Kodwani </Typography> <Typography variant='h6' style={{ marginLeft: '65px' }}> 202101418 </Typography>
                         </div>
 
                         <div style={{ display: 'flex', justifyContent: 'left', marginTop: '30px', marginLeft: '200px' }}>
-                            <Typography variant='h6'> Dweej Pandya </Typography> <Typography variant='h6' style={{ marginLeft: '100px' }}> 202101432 </Typography>
-                            <Typography variant='h6' style={{ marginLeft: '143px' }}> Krishna Choksi </Typography> <Typography variant='h6' style={{ marginLeft: '56px' }}> 202101459 </Typography>
+                            <Typography variant='h6'> Dweej Pandya </Typography> <Typography variant='h6' style={{ marginLeft: '103px' }}> 202101432 </Typography>
+                            <Typography variant='h6' style={{ marginLeft: '151px' }}> Krishna Choksi </Typography> <Typography variant='h6' style={{ marginLeft: '56px' }}> 202101459 </Typography>
                         </div>
 
                         <div style={{ display: 'flex', justifyContent: 'left', marginTop: '30px', marginLeft: '200px' }}>
-                            <Typography variant='h6'> Kalhar Patel </Typography> <Typography variant='h6' style={{ marginLeft: '120px' }}> 202101009 </Typography>
-                            <Typography variant='h6' style={{ marginLeft: '140px' }}> Umang Trivedi </Typography> <Typography variant='h6' style={{ marginLeft: '60px' }}> 202101471 </Typography>
+                            <Typography variant='h6'> Kalhar Patel </Typography> <Typography variant='h6' style={{ marginLeft: '122px' }}> 202101009 </Typography>
+                            <Typography variant='h6' style={{ marginLeft: '150px' }}> Umang Trivedi </Typography> <Typography variant='h6' style={{ marginLeft: '60px' }}> 202101471 </Typography>
                         </div>
 
                         <div style={{ display: 'flex', justifyContent: 'left', marginTop: '30px', marginLeft: '200px' }}>
-                            <Typography variant='h6'> Mihir Gohel </Typography> <Typography variant='h6' style={{ marginLeft: '127px' }}> 202101473 </Typography>
-                            <Typography variant='h6' style={{ marginLeft: '140px' }}> Shrut Kalathiya </Typography> <Typography variant='h6' style={{ marginLeft: '53px' }}> 202101479 </Typography>
+                            <Typography variant='h6'> Mihir Gohel </Typography> <Typography variant='h6' style={{ marginLeft: '129px' }}> 202101473 </Typography>
+                            <Typography variant='h6' style={{ marginLeft: '148px' }}> Shrut Kalathiya </Typography> <Typography variant='h6' style={{ marginLeft: '53px' }}> 202101479 </Typography>
                         </div>
 
                         <div style={{ display: 'flex', justifyContent: 'left', marginTop: '30px', marginLeft: '200px' }}>
-                            <Typography variant='h6'> Shrey Khakhariya </Typography> <Typography variant='h6' style={{ marginLeft: '70px' }}> 202101493 </Typography>
-                            <Typography variant='h6' style={{ marginLeft: '145px' }}> Jay Dobariya </Typography> <Typography variant='h6' style={{ marginLeft: '70px' }}> 202101521 </Typography>
+                            <Typography variant='h6'> Shrey Khakharia </Typography> <Typography variant='h6' style={{ marginLeft: '87px' }}> 202101493 </Typography>
+                            <Typography variant='h6' style={{ marginLeft: '145px' }}> Jay Dobariya </Typography> <Typography variant='h6' style={{ marginLeft: '75px' }}> 202101521 </Typography>
                         </div>
 
                     </div>
