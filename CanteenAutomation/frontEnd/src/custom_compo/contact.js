@@ -28,6 +28,20 @@ import CartContent from './cartContent.js';
 import AccountContent from './accountContent.js';
 import Loading from './loading.js';
 
+import { styled } from '@mui/material/styles';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
+
+const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#FAF9F6',
+    // ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.primary,
+    border: 'none',
+    boxShadow: 'none'
+}));
+
 //defining theme
 const theme = createTheme({
     palette: {
@@ -213,9 +227,9 @@ function Contact() {
             {/* background */}
             {gotAccountDetails && gotCartDetails ? <div style={{ backgroundColor: '#DED8D8', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
                 {/* first box */}
-                <div style={{ borderRadius: '108px', marginTop: '70px', backgroundColor: '#EBE7E6', border: '2px solid white', width: '1341px', height: '732px', boxShadow: '0px 10px 5px darkgrey', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ borderRadius: '108px', marginTop: '70px', backgroundColor: '#EBE7E6', border: '2px solid white', width: '1341px', boxShadow: '0px 10px 5px darkgrey', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                     {/* padding box */}
-                    <div style={{ width: '1191px', height: '2032px' }}>
+                    <div style={{ width: '1191px', padding:'30px'}}>
                         {/* header div / Navigation bar */}
                         <div style={{ display: 'flex', height: '70px', justifyContent: 'center', marginTop: '70px' }}>
                             <img src={logo} alt='website logo' style={{ marginRight: '70px', height: '80px' }} />
@@ -260,39 +274,119 @@ function Contact() {
                             </div>
                         </div>
                         {/* child box of padding box */}
-                        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '60px' }}>
-                            <Typography variant='h4' style={{ color: '#C31E2C' }}> Members </Typography>
-                        </div>
+                        <div style={{ display: 'flex', justifyContent: 'center',flexDirection:'column',alignItems:'center', marginTop: '60px' }}>
+                            <Typography variant='h4' style={{ color: '#C31E2C', marginBottom:'50px' }}> Members </Typography>
+                            <div style={{width:'600px', display:'flex', justifyContent:'center', alignItems:'center', flexDirection:'column'}}>
+                            <Grid container spacing={2} sx={{ marginBottom: '20px', padding: '10px', border: 'none', boxShadow: 'none' }}>
+                            <Grid item xs={6}>
+                                <Item sx={{ backgroundColor: '#DED8D8' }}><Typography variant="h6" sx={{ fontWeight: 'bold' }}>Dhruvilsinh Thakor</Typography></Item>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Item sx={{ backgroundColor: '#DED8D8' }}><Typography variant="h6" sx={{ fontWeight: 'bold' }}>202101462</Typography></Item>
+                            </Grid>
+                        </Grid>
 
-                        <div style={{ display: 'flex', justifyContent: 'left', marginTop: '60px', marginLeft: '200px' }}>
-                            <Typography variant='h6'> Dhruvilsinh Thakor </Typography> <Typography variant='h6' style={{ marginLeft: '50px' }}> 202101462 </Typography>
-                            <Typography variant='h6' style={{ marginLeft: '150px' }}> Vrajkumar Patel </Typography> <Typography variant='h6' style={{ marginLeft: '50px' }}> 202101060 </Typography>
-                        </div>
+                        <Grid container spacing={2} sx={{ marginBottom: '20px', padding: '10px', border: 'none', boxShadow: 'none' }}>
+                            <Grid item xs={6}>
+                                <Item sx={{ backgroundColor: '#DED8D8' }}><Typography variant="h6" sx={{ fontWeight: 'bold' }}>Vrajkumar Patel</Typography></Item>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Item sx={{ backgroundColor: '#DED8D8' }}><Typography variant="h6" sx={{ fontWeight: 'bold' }}>202101060</Typography></Item>
+                            </Grid>
+                        </Grid>
 
-                        <div style={{ display: 'flex', justifyContent: 'left', marginTop: '30px', marginLeft: '200px' }}>
-                            <Typography variant='h6'> Vandan Bhuva </Typography> <Typography variant='h6' style={{ marginLeft: '100px' }}> 202101404 </Typography>
-                            <Typography variant='h6' style={{ marginLeft: '150px' }}> Yash Kodwani </Typography> <Typography variant='h6' style={{ marginLeft: '65px' }}> 202101418 </Typography>
-                        </div>
+                        <Grid container spacing={2} sx={{ marginBottom: '20px', padding: '10px', border: 'none', boxShadow: 'none' }}>
+                            <Grid item xs={6}>
+                                <Item sx={{ backgroundColor: '#DED8D8' }}><Typography variant="h6" sx={{ fontWeight: 'bold' }}>Vandan Bhuva</Typography></Item>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Item sx={{ backgroundColor: '#DED8D8' }}><Typography variant="h6" sx={{ fontWeight: 'bold' }}>202101404</Typography></Item>
+                            </Grid>
+                        </Grid>             
 
-                        <div style={{ display: 'flex', justifyContent: 'left', marginTop: '30px', marginLeft: '200px' }}>
-                            <Typography variant='h6'> Dweej Pandya </Typography> <Typography variant='h6' style={{ marginLeft: '100px' }}> 202101432 </Typography>
-                            <Typography variant='h6' style={{ marginLeft: '150px' }}> Krishna Choksi </Typography> <Typography variant='h6' style={{ marginLeft: '56px' }}> 202101459 </Typography>
-                        </div>
+                        <Grid container spacing={2} sx={{ marginBottom: '20px', padding: '10px', border: 'none', boxShadow: 'none' }}>
+                            <Grid item xs={6}>
+                                <Item sx={{ backgroundColor: '#DED8D8' }}><Typography variant="h6" sx={{ fontWeight: 'bold' }}>Yash Kodwani</Typography></Item>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Item sx={{ backgroundColor: '#DED8D8' }}><Typography variant="h6" sx={{ fontWeight: 'bold' }}>202101418</Typography></Item>
+                            </Grid>
+                        </Grid>
+                        
+                        <Grid container spacing={2} sx={{ marginBottom: '20px', padding: '10px', border: 'none', boxShadow: 'none' }}>
+                            <Grid item xs={6}>
+                                <Item sx={{ backgroundColor: '#DED8D8' }}><Typography variant="h6" sx={{ fontWeight: 'bold' }}>Dweej Pandya</Typography></Item>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Item sx={{ backgroundColor: '#DED8D8' }}><Typography variant="h6" sx={{ fontWeight: 'bold' }}>202101432</Typography></Item>
+                            </Grid>
+                        </Grid>
 
-                        <div style={{ display: 'flex', justifyContent: 'left', marginTop: '30px', marginLeft: '200px' }}>
-                            <Typography variant='h6'> Kalhar Patel </Typography> <Typography variant='h6' style={{ marginLeft: '120px' }}> 202101009 </Typography>
-                            <Typography variant='h6' style={{ marginLeft: '150px' }}> Umang Trivedi </Typography> <Typography variant='h6' style={{ marginLeft: '60px' }}> 202101471 </Typography>
-                        </div>
+                        <Grid container spacing={2} sx={{ marginBottom: '20px', padding: '10px', border: 'none', boxShadow: 'none' }}>
+                            <Grid item xs={6}>
+                                <Item sx={{ backgroundColor: '#DED8D8' }}><Typography variant="h6" sx={{ fontWeight: 'bold' }}>Krishna Choksi</Typography></Item>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Item sx={{ backgroundColor: '#DED8D8' }}><Typography variant="h6" sx={{ fontWeight: 'bold' }}>202101459</Typography></Item>
+                            </Grid>
+                        </Grid>
 
-                        <div style={{ display: 'flex', justifyContent: 'left', marginTop: '30px', marginLeft: '200px' }}>
-                            <Typography variant='h6'> Mihir Gohel </Typography> <Typography variant='h6' style={{ marginLeft: '127px' }}> 202101473 </Typography>
-                            <Typography variant='h6' style={{ marginLeft: '150px' }}> Shrut Kalathiya </Typography> <Typography variant='h6' style={{ marginLeft: '53px' }}> 202101479 </Typography>
-                        </div>
+                        <Grid container spacing={2} sx={{ marginBottom: '20px', padding: '10px', border: 'none', boxShadow: 'none' }}>
+                            <Grid item xs={6}>
+                                <Item sx={{ backgroundColor: '#DED8D8' }}><Typography variant="h6" sx={{ fontWeight: 'bold' }}>Kalhar Patel</Typography></Item>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Item sx={{ backgroundColor: '#DED8D8' }}><Typography variant="h6" sx={{ fontWeight: 'bold' }}>202101009</Typography></Item>
+                            </Grid>
+                        </Grid>
 
-                        <div style={{ display: 'flex', justifyContent: 'left', marginTop: '30px', marginLeft: '200px' }}>
-                            <Typography variant='h6'> Shrey Khakhariya </Typography> <Typography variant='h6' style={{ marginLeft: '70px' }}> 202101493 </Typography>
-                            <Typography variant='h6' style={{ marginLeft: '150px' }}> Jay Dobariya </Typography> <Typography variant='h6' style={{ marginLeft: '70px' }}> 202101521 </Typography>
+                        <Grid container spacing={2} sx={{ marginBottom: '20px', padding: '10px', border: 'none', boxShadow: 'none' }}>
+                            <Grid item xs={6}>
+                                <Item sx={{ backgroundColor: '#DED8D8' }}><Typography variant="h6" sx={{ fontWeight: 'bold' }}>Umang Trivedi</Typography></Item>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Item sx={{ backgroundColor: '#DED8D8' }}><Typography variant="h6" sx={{ fontWeight: 'bold' }}>202101471</Typography></Item>
+                            </Grid>
+                        </Grid>
+
+                        <Grid container spacing={2} sx={{ marginBottom: '20px', padding: '10px', border: 'none', boxShadow: 'none' }}>
+                            <Grid item xs={6}>
+                                <Item sx={{ backgroundColor: '#DED8D8' }}><Typography variant="h6" sx={{ fontWeight: 'bold' }}>Mihir Gohel</Typography></Item>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Item sx={{ backgroundColor: '#DED8D8' }}><Typography variant="h6" sx={{ fontWeight: 'bold' }}>202101473</Typography></Item>
+                            </Grid>
+                        </Grid>
+
+                        <Grid container spacing={2} sx={{ marginBottom: '20px', padding: '10px', border: 'none', boxShadow: 'none' }}>
+                            <Grid item xs={6}>
+                                <Item sx={{ backgroundColor: '#DED8D8' }}><Typography variant="h6" sx={{ fontWeight: 'bold' }}>Shrut Kalathiya</Typography></Item>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Item sx={{ backgroundColor: '#DED8D8' }}><Typography variant="h6" sx={{ fontWeight: 'bold' }}>202101479</Typography></Item>
+                            </Grid>
+                        </Grid>
+
+                        <Grid container spacing={2} sx={{ marginBottom: '20px', padding: '10px', border: 'none', boxShadow: 'none' }}>
+                            <Grid item xs={6}>
+                                <Item sx={{ backgroundColor: '#DED8D8' }}><Typography variant="h6" sx={{ fontWeight: 'bold' }}>Shrey Khakhariya</Typography></Item>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Item sx={{ backgroundColor: '#DED8D8' }}><Typography variant="h6" sx={{ fontWeight: 'bold' }}>202101493</Typography></Item>
+                            </Grid>
+                        </Grid>
+
+                        <Grid container spacing={2} sx={{ marginBottom: '20px', padding: '10px', border: 'none', boxShadow: 'none' }}>
+                            <Grid item xs={6}>
+                                <Item sx={{ backgroundColor: '#DED8D8' }}><Typography variant="h6" sx={{ fontWeight: 'bold' }}>Jay Dobariya</Typography></Item>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Item sx={{ backgroundColor: '#DED8D8' }}><Typography variant="h6" sx={{ fontWeight: 'bold' }}>202101521</Typography></Item>
+                            </Grid>
+                        </Grid>
                         </div>
+                        </div>
+                        
 
                     </div>
                 </div>

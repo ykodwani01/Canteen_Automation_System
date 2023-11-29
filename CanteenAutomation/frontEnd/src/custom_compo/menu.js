@@ -126,7 +126,12 @@ function Menu() {
 
     useEffect(() => {
         if (data && cartItems) {
-            setMenu(data.map((item) => (<MenuCard key={item.id} id={item.id} name={item.name} price={item.price} addItem={handleAddItem} subItem={handleSubItem} cartItems={cartItems} />)))
+            if(searchQuery){
+                setMenu(data.filter((item) => (item.name.toLowerCase().includes(searchQuery.toLowerCase()))).map((item) => (<MenuCard key={item.id} id={item.id} name={item.name} price={item.price} addItem={handleAddItem} subItem={handleSubItem} cartItems={cartItems} />)))
+            }
+            else{
+                setMenu(data.map((item) => (<MenuCard key={item.id} id={item.id} name={item.name} price={item.price} addItem={handleAddItem} subItem={handleSubItem} cartItems={cartItems} />)))
+            }
             setIsLoaded(true)
         }
     }, [cartItems, data]);
@@ -322,7 +327,7 @@ function Menu() {
 
     useEffect(() => {
         if (data) {
-            if (searchQuery === '') {
+            if (!searchQuery) {
                 setMenu(data.map((item) => (<MenuCard key={item.id} id={item.id} name={item.name} price={item.price} addItem={handleAddItem} subItem={handleSubItem} cartItems={cartItems} />)))
             }
             else {
