@@ -36,15 +36,15 @@ function CartContent(props) {
             if (item.quantity !== 0) {
                 return (
                     <div key={item.name} style={{ display: 'flex', justifyContent: 'space-between', }}>
-                        <Grid container spacing={2}>
+                        <Grid container spacing={0.3}>
                             <Grid item xs={4}>
-                                <Item sx={{ margin: '12px' }}><Typography variant="h6" sx={{fontWeight: 'bold' }}>{item.name}</Typography></Item>
+                                <Item sx={{ margin: '15px' }}><Typography variant="h6" >{item.name}</Typography></Item>
                             </Grid>
                             <Grid item xs={4}>
-                                <Item sx={{ margin: '12px' }}><Typography variant="h6" sx={{fontWeight: 'bold' }}>{item.quantity}</Typography></Item>
+                                <Item sx={{ margin: '15px' }}><Typography variant="h6" >{item.quantity}</Typography></Item>
                             </Grid>
                             <Grid item xs={4}>
-                                <Item sx={{ margin: '12px' }}><Typography variant="h6" sx={{fontWeight: 'bold' }}>{item.price}</Typography></Item>
+                                <Item sx={{ margin: '15px' }}><Typography variant="h6" >{item.price}</Typography></Item>
                             </Grid>
                         </Grid>
                     </div>
@@ -65,7 +65,7 @@ function CartContent(props) {
                 </div>
                 {/* box to show items that customer wants to purchase */}
                 <div style={{ border: '2px solid white', borderRadius: '30px', width: '460px', margin: '5px', marginTop: '40px', padding: '5px', marginLeft: '-4px' }}>
-                    <Grid container spacing={2} sx={{ marginBottom: '20px', padding: '10px', border: 'none', boxShadow: 'none' }}>
+                    <Grid container spacing={0.3} sx={{ marginBottom: '20px', border: 'none', boxShadow: 'none' }}>
                         <Grid item xs={4}>
                             <Item sx={{ backgroundColor: '#DED8D8' }}><Typography variant="h6" sx={{ fontWeight: 'bold' }}>Name</Typography></Item>
                         </Grid>

@@ -27,9 +27,9 @@ function Order(props) {
     const displayOrders = props.items.map((item) => {
         if (item.quantity !== 0) {
             return (<div key={item.id} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
-                <Grid container spacing={5}>
+                <Grid container spacing={0.3}>
                     <Grid item xs={4}>
-                        <Item style={{ paddingRight: "99px"}} ><Typography>{item.name}</Typography></Item>
+                        <Item><Typography>{item.name}</Typography></Item>
                     </Grid>
                     <Grid item xs={4}>
                         <Item><Typography>{item.quantity}</Typography></Item>
@@ -52,7 +52,7 @@ function Order(props) {
             <div style={{ display: 'flex', justifyContent: 'space-around', padding: '40px', backgroundColor: '#E9DCDC', borderRadius: '30px', margin: '20px', width: '1100px' }}>
                 <div>
                     <Typography variant='h3' sx={{ marginBottom: '20px' }}>Order Details</Typography>
-                    <Grid container spacing={2} sx={{ marginBottom: '20px' }}>
+                    <Grid container spacing={0.3} sx={{ marginBottom: '20px', border: 'none', boxShadow: 'none' }}>
                         <Grid item xs={4}>
                             <Item><Typography sx={{ fontWeight: 'bold' }}>Name</Typography></Item>
                         </Grid>
