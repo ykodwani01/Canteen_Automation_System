@@ -483,3 +483,114 @@ public class PendingordersTest {
   }
 }
 ```
+Account Slider:
+```
+public class AccountSliderTest {
+  private WebDriver driver;
+  private Map<String, Object> vars;
+  JavascriptExecutor js;
+  @Before
+  public void setUp() {
+    driver = new ChromeDriver();
+    js = (JavascriptExecutor) driver;
+    vars = new HashMap<String, Object>();
+  }
+  @After
+  public void tearDown() {
+    driver.quit();
+  }
+  @Test
+  public void accountSlider() {
+    driver.get("https://canteenautomation-cc940.web.app/");
+    driver.manage().window().setSize(new Dimension(691, 372));
+    driver.findElement(By.id("Email")).sendKeys("202101473@daiict.ac.in");
+    driver.findElement(By.id("Password")).sendKeys("1234567@a");
+    {
+      WebElement element = driver.findElement(By.cssSelector(".MuiButton-root"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).perform();
+    }
+    driver.findElement(By.cssSelector(".MuiButton-root")).click();
+    {
+      WebElement element = driver.findElement(By.cssSelector(".MuiButtonBase-root:nth-child(7)"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).perform();
+    }
+    driver.findElement(By.cssSelector(".MuiButtonBase-root:nth-child(7)")).click();
+    {
+      WebElement element = driver.findElement(By.tagName("body"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element, 0, 0).perform();
+    }
+    driver.findElement(By.cssSelector(".MuiBox-root div:nth-child(3)")).click();
+    driver.findElement(By.cssSelector(".MuiBox-root div:nth-child(3)")).click();
+    driver.findElement(By.cssSelector(".MuiTypography-h5:nth-child(1)")).click();
+    driver.findElement(By.cssSelector(".css-1qnimer")).click();
+    {
+      WebElement element = driver.findElement(By.cssSelector(".css-1fzhm7v"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).perform();
+    }
+    driver.findElement(By.cssSelector(".css-1fzhm7v")).click();
+    {
+      WebElement element = driver.findElement(By.tagName("body"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element, 0, 0).perform();
+    }
+    assertThat(driver.switchTo().alert().getText(), is("Do you want to Sign Out?"));
+    driver.switchTo().alert().accept();
+    driver.findElement(By.id("Email")).sendKeys("202101473@daiict.ac.in");
+    driver.findElement(By.id("Password")).sendKeys("1234567@a");
+  }
+}
+```
+Order History:
+```
+public class AllordersOrderhistoryTest {
+  private WebDriver driver;
+  private Map<String, Object> vars;
+  JavascriptExecutor js;
+  @Before
+  public void setUp() {
+    driver = new ChromeDriver();
+    js = (JavascriptExecutor) driver;
+    vars = new HashMap<String, Object>();
+  }
+  @After
+  public void tearDown() {
+    driver.quit();
+  }
+  @Test
+  public void allordersOrderhistory() {
+    driver.get("https://canteenautomation-cc940.web.app/");
+    driver.manage().window().setSize(new Dimension(691, 372));
+    driver.findElement(By.id("Email")).sendKeys("202101473@daiict.ac.in");
+    driver.findElement(By.id("Password")).sendKeys("1234567@a");
+    {
+      WebElement element = driver.findElement(By.cssSelector(".MuiButton-root"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).perform();
+    }
+    driver.findElement(By.cssSelector(".MuiButton-root")).click();
+    {
+      WebElement element = driver.findElement(By.tagName("body"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element, 0, 0).perform();
+    }
+    {
+      WebElement element = driver.findElement(By.cssSelector(".MuiButtonBase-root:nth-child(4)"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).perform();
+    }
+    driver.findElement(By.cssSelector(".MuiButtonBase-root:nth-child(4)")).click();
+    {
+      WebElement element = driver.findElement(By.tagName("body"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element, 0, 0).perform();
+    }
+    driver.findElement(By.cssSelector("div:nth-child(3) > div:nth-child(3) > div:nth-child(2)")).click();
+    driver.findElement(By.cssSelector("div > div:nth-child(3) > div:nth-child(3)")).click();
+    driver.findElement(By.cssSelector("div > div:nth-child(3) > div:nth-child(3)")).click();
+  }
+}
+```
