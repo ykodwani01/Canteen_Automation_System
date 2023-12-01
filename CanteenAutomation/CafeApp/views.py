@@ -159,8 +159,11 @@ class GetItems(APIView):
                name = request.data.get("name")
                desc = request.data.get("desc")
                price = request.data.get("price")
-               items.objects.create(canteen=canteen_obj,price=price,name=name,desc=desc)
-               return Response({"success":True},status=status.HTTP_200_OK)
+               item_obj=items.objects.filter(name=name,price=price,canteen=canteen_obj).first()
+               if(item_obj is None):
+                items.objects.create(canteen=canteen_obj,price=price,name=name,desc=desc)
+                return Response({"success":True},status=status.HTTP_200_OK)
+               return Response({"success":False},status=status.HTTP_200_OK)
         # except:
         #     pass
         #     return Response({"pass":False},status=status.HTTP_200_OK)
