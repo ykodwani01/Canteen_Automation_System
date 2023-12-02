@@ -1057,3 +1057,62 @@ public class CanteenOrderHistoryTest {
     driver.findElement(By.cssSelector("a:nth-child(2) > .MuiButtonBase-root")).click();
   }
 }
+```
+Canteen Pending Order:
+```
+public class CanteenPendingOrdersTest {
+  private WebDriver driver;
+  private Map<String, Object> vars;
+  JavascriptExecutor js;
+  @Before
+  public void setUp() {
+    driver = new ChromeDriver();
+    js = (JavascriptExecutor) driver;
+    vars = new HashMap<String, Object>();
+  }
+  @After
+  public void tearDown() {
+    driver.quit();
+  }
+  @Test
+  public void canteenPendingOrders() {
+    driver.get("https://canteenautomation-cc940.web.app/");
+    driver.manage().window().setSize(new Dimension(1382, 744));
+    driver.findElement(By.id("Email")).sendKeys("padma_kamal@gmail.com");
+    driver.findElement(By.id("Password")).sendKeys("1234567@a");
+    driver.findElement(By.cssSelector(".MuiButton-root")).click();
+    driver.findElement(By.cssSelector("a:nth-child(3) > .MuiButtonBase-root")).click();
+    {
+      WebElement element = driver.findElement(By.cssSelector("a:nth-child(3) > .MuiButtonBase-root"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).perform();
+    }
+    {
+      WebElement element = driver.findElement(By.tagName("body"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element, 0, 0).perform();
+    }
+    driver.findElement(By.cssSelector("div:nth-child(1) > div > div:nth-child(1) > div:nth-child(3) > div:nth-child(1) > div:nth-child(2)")).click();
+    driver.findElement(By.cssSelector("div:nth-child(1) > div > .MuiTypography-body1:nth-child(2)")).click();
+    {
+      WebElement element = driver.findElement(By.id("70"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).perform();
+    }
+    driver.findElement(By.id("70")).click();
+    {
+      WebElement element = driver.findElement(By.tagName("body"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element, 0, 0).perform();
+    }
+    assertThat(driver.switchTo().alert().getText(), is("Click OK to confirm!"));
+    driver.switchTo().alert().dismiss();
+    driver.findElement(By.id("70")).click();
+    assertThat(driver.switchTo().alert().getText(), is("Click OK to confirm!"));
+    driver.switchTo().alert().accept();
+    driver.findElement(By.id("74")).click();
+    assertThat(driver.switchTo().alert().getText(), is("Click OK to confirm!"));
+    driver.switchTo().alert().accept();
+  }
+}
+```
