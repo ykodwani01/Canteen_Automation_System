@@ -1116,3 +1116,52 @@ public class CanteenPendingOrdersTest {
   }
 }
 ```
+Canteen  Account Slider:
+```
+public class CanteenAccountsliderTest {
+  private WebDriver driver;
+  private Map<String, Object> vars;
+  JavascriptExecutor js;
+  @Before
+  public void setUp() {
+    driver = new ChromeDriver();
+    js = (JavascriptExecutor) driver;
+    vars = new HashMap<String, Object>();
+  }
+  @After
+  public void tearDown() {
+    driver.quit();
+  }
+  @Test
+  public void canteenAccountslider() {
+    driver.get("https://canteenautomation-cc940.web.app/");
+    driver.manage().window().setSize(new Dimension(691, 372));
+    driver.findElement(By.id("Email")).sendKeys("padma_kamal@gmail.com");
+    driver.findElement(By.id("Password")).sendKeys("1234567@a");
+    driver.findElement(By.cssSelector(".MuiButton-root")).click();
+    driver.findElement(By.cssSelector(".MuiButton-root")).click();
+    {
+      WebElement element = driver.findElement(By.cssSelector(".MuiButton-root"));
+      Actions builder = new Actions(driver);
+      builder.doubleClick(element).perform();
+    }
+    driver.findElement(By.cssSelector(".MuiButtonBase-root:nth-child(5)")).click();
+    {
+      WebElement element = driver.findElement(By.cssSelector(".css-1fzhm7v"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).perform();
+    }
+    driver.findElement(By.cssSelector(".css-1fzhm7v")).click();
+    {
+      WebElement element = driver.findElement(By.tagName("body"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element, 0, 0).perform();
+    }
+    assertThat(driver.switchTo().alert().getText(), is("Do you want to Sign Out?"));
+    driver.switchTo().alert().accept();
+    driver.findElement(By.id("Email")).sendKeys("padma_kamal@gmail.com");
+    driver.findElement(By.id("Password")).sendKeys("1234567@a");
+    driver.findElement(By.cssSelector(".MuiContainer-maxWidthXl")).click();
+  }
+}
+```
