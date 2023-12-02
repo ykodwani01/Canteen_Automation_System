@@ -2,10 +2,8 @@
 import '../App.css';
 
 //importing MUI cmp
-
-import { Typography, createTheme } from '@mui/material/';
+import { Typography, TextField } from '@mui/material/';
 import { ThemeProvider } from '@mui/material/';
-import { green } from '@mui/material/colors';
 import Button from '@mui/material/Button';
 import { Link } from '@mui/material';
 import { Link as LINK } from 'react-router-dom';
@@ -13,40 +11,36 @@ import { Link as LINK } from 'react-router-dom';
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
-
-//importing photos
-import logo from '../general_compo/logo.png'
-import cafe from "../general_compo/cafe.png"
-
-//importing react cmp
-import { useEffect, useState } from 'react';
+import { BarChart } from '@mui/x-charts/BarChart';
 
 
 //importing custom cmp
-import PastOrderC from './pastOrdersC.js';
+import theme from '../general_compo/theme.js';
+import OwnMenuCard from './ownMenuCard';
 import AccountContent from './accountContent.js';
 import Loading from './loading.js';
+
+//importing images
+import logo from '../general_compo/logo.png';
+import cafe from "../general_compo/cafe.png";
+
+//importing react cmp
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-//defining theme
-const theme = createTheme({
-    palette: {
-        primary: { main: "#C31E2C" },
-        secondary: green
-    }
-})
 
-function Feedback() {
+function Stats() {
+
+
+    //if (altered_menu_data.length===0)return <Navigate to='/error' replace={true}/>
+    const [isLoaded, setIsLoaded] = useState(false)
+    const [menu, setMenu] = useState()
+    const [data, setData] = useState()
     const [accountDetails, setAccountDetails] = useState()
     const [gotAccountDetails, setGotAccountDetails] = useState(false)
-    const [data, setData] = useState()
-    const [porder, setporder] = useState()
-
-    const [isLoaded, setIsLoaded] = useState(false)
-
-    const apiUrlAcount = "https://dacanteen.pythonanywhere.com/get-account-details"
 
     const token = JSON.parse(localStorage.getItem('token'))
+
 
     useEffect(() => {
         const refreshToken = token.refresh; // Replace with your actual refresh token
@@ -88,8 +82,13 @@ function Feedback() {
 
 
 
+
+
+
+    const apiUrlAccount = "https://dacanteen.pythonanywhere.com/get-account-details"
+
     useEffect(() => {
-        fetch(apiUrlAcount, {
+        fetch(apiUrlAccount, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -100,7 +99,7 @@ function Feedback() {
                 if (response.ok) {
                     return response.json();
                 } else {
-                    window.location.href = "/"
+                    window.location.href = "localhost:3000/"
                 }
             })
             .then(data => {
@@ -117,10 +116,11 @@ function Feedback() {
     }, [])
 
 
-    const apiUrlPOrder = "https://dacanteen.pythonanywhere.com/see-feedback"
+    const apiUrl = "https://dacanteen.pythonanywhere.com/get-statistics"
+
 
     useEffect(() => {
-        fetch(apiUrlPOrder, {
+        fetch(apiUrl, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -135,12 +135,10 @@ function Feedback() {
                 }
             })
             .then(data => {
-                // Handle the response data here
-                console.log(data);
-                setData(data);
-                setporder(data.map((item) => {
-                    return <PastOrderC key={item.id} id={item.id} name={item.order_cust_name} phone={item.order_cust_contact} email={item.order_cust_email} totalAmount={item.total_amount} items={item.items} rating={item.rating} feedback={item.feedback} date={item.date} />
-                }))
+                console.log('h')
+                // console.log(Object.entries(data).map((item) => ([item[0], item[1].count])))
+                setData(Object.entries(data).map((item) => ([item[0], item[1].count])))
+                // setMenu(data.map((item) => (data.length !== 0 ? <div>{}</div> : <div></div>)))
                 setIsLoaded(true)
             })
             .catch(error => console.error('Error:', error));
@@ -149,7 +147,6 @@ function Feedback() {
 
     //state for drawer
     const [state, setState] = React.useState({
-        right: false,
         left: false
     });
 
@@ -180,7 +177,7 @@ function Feedback() {
             sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
             role="presentation"
         >
-            {anchor === "right" ? <div></div> : <AccountContent drawerButton={drawerButton} anchor={anchor} accountDetails={accountDetails} signOut={handleSignOut} />}
+            {<AccountContent drawerButton={drawerButton} anchor={anchor} accountDetails={accountDetails} signOut={handleSignOut} />}
         </Box>
     );
 
@@ -193,18 +190,19 @@ function Feedback() {
     }
 
     const id = useParams()
+    console.log(id)
+
 
     return (
         <ThemeProvider theme={theme}>
-            {/* background */}
-            {gotAccountDetails && isLoaded ? <div style={{ backgroundColor: '#DED8D8', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+            {isLoaded && gotAccountDetails ? <div style={{ backgroundColor: '#DED8D8', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
                 {/* first box */}
-                <div style={{ borderRadius: '108px', padding: '30px 0px', marginTop: '70px', backgroundColor: '#EBE7E6', border: '2px solid white', width: '1341px', boxShadow: '0px 10px 5px darkgrey', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ borderRadius: '108px', marginTop: '70px', backgroundColor: '#EBE7E6', border: '2px solid white', width: '1341px', boxShadow: '0px 10px 5px darkgrey', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', paddingBottom: '50px' }}>
                     {/* padding box */}
                     <div style={{ width: '1191px' }}>
                         {/* header div / Navigation bar */}
-                        <div style={{ display: 'flex', height: '70px', justifyContent: 'center', marginTop: '50px' }}>
-                            <img src={logo} alt='website logo' style={{ marginRight: '250px', height: '80px' }} />
+                        <div style={{ display: 'flex', height: '70px', justifyContent: 'center', marginTop: '75px' }}>
+                            <img src={logo} alt='website logo' style={{ marginRight: '170px', height: '80px' }} />
                             <div style={{ display: 'flex', boxShadow: '0px 2px 0px darkGrey', paddingBottom: '10px', marginTop: '10px' }}>
                                 <LINK to={`/cownerHome/${id.id}`}><Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >Home</Button></LINK>
                                 <LINK to={`/cownerHome/stats/${id.id}`}><Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >Stats</Button></LINK>
@@ -229,14 +227,27 @@ function Feedback() {
                             </div>
                         </div>
                         {/* child box of padding box */}
-                        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '60px' }}>
-                            <Typography variant='h4' style={{ color: 'black', textDecoration: 'underline' }}> Your Orders </Typography>
+                        {/* <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '70px' }}>
+                            <Typography variant='h2'>{menu[0].canteen}</Typography>
+                        </div> */}
+                        <div>
+                            <BarChart
+                                xAxis={[
+                                    {
+                                        id: 'barCategories',
+                                        data: data.map((item)=>(item[0])),
+                                        scaleType: 'band',
+                                    },
+                                ]}
+                                series={[
+                                    {
+                                        data: data.map((item)=>(item[1])),
+                                    },
+                                ]}
+                                width={1200}
+                                height={700}
+                            />
                         </div>
-
-                        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginTop: '20px' }}>
-                            {porder}
-                        </div>
-
                     </div>
                 </div>
                 {/* footer */}
@@ -252,9 +263,12 @@ function Feedback() {
                         <div style={{ marginBottom: "20px" }}><Link href="https://instagram.com/_quick_cafe?igshid=OGQ5ZDc2ODk2ZA==" underline="hover" target="_blank" style={{ color: '#DAC6C7' }} >{"Instagram"}</Link></div>
                     </div>
                 </footer>
-            </div> : <Loading />}
-        </ThemeProvider>
+            </div> : <Loading />
+            }
+            {/* background */}
+
+        </ThemeProvider >
     )
 }
 
-export default Feedback;
+export default Stats;
