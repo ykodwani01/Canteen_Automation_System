@@ -22,6 +22,7 @@ from .models import *
 from django.db.models import Q
 # from .forms import *
 import json
+import ast
 from django.contrib.sites.shortcuts import get_current_site
 
 from rest_framework.views import APIView
@@ -348,7 +349,8 @@ class createorder(APIView):
         customer_obj=customer.objects.filter(cust=customer_profile_obj).first()
         canteen_id=request.data.get('canteen_id')
         canteen_obj=canteen.objects.filter(canteen_id=canteen_id).first()
-        data =request.data.get("order")
+        data =request.data.getlist("order")
+        data = [ast.literal_eval(item) for item in data]
         orderid=request.data.get("order_id")
         if(orderid == -1):
             order_obj = orders.objects.create(order_cust=customer_obj,order_canteen=canteen_obj,status="AddedToCart",total_amount=request.data.get("total_amount"))
@@ -420,7 +422,7 @@ class GetFeedback(APIView):
             for i in order_serialized.data:
                 if i["id"] not in fed_orders:
                     final_list.append(i)
-            print(fed_orders)
+            # print(fed_orders)
             return Response(final_list,status=status.HTTP_200_OK)
         return Response({"success":False})
     def get(self,request):
@@ -448,7 +450,7 @@ class GetFeedback(APIView):
         for i in order_serialized.data:
             if i["id"] not in fed_orders:
                 final_list.append(i)
-        print(fed_orders)
+        # print(fed_orders)
         return Response(final_list,status=status.HTTP_200_OK)
 
 from django.core.mail import send_mail
@@ -471,6 +473,8 @@ class OrderDelivered(APIView):
                 fail_silently=False,
             )
         if canteen_obj is not None:
+            order_obj.status = 'Received'
+            order_obj.save()
             order_obj = orders.objects.filter(order_canteen=canteen_obj, status__in=['Received'])
             Item_serialized = OrderSerializer(order_obj,many=True)
             for i in Item_serialized.data:
@@ -483,6 +487,8 @@ class OrderDelivered(APIView):
                             k["quantity"]=quantity_value.quantity
                     if(j=='date'):
                         i[j]=i[j][0:10]+' -- '+i[j][11:16]+' GMT'
+                    if(j=='status'):
+                        i[j]='Delivered'
             return Response(Item_serialized.data,status=status.HTTP_200_OK)
         
 class seefeedback(APIView):
