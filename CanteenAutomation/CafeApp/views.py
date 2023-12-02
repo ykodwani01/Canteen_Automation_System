@@ -278,7 +278,8 @@ class getaccountdetails(APIView):
             print(Cust_serialized[i])
             final_obj[i]=Cust_serialized[i].value
         k=orders.objects.filter(order_cust=customer_obj).count()
-        final_obj["total_orders"]=k
+        if type=="Customer":
+            final_obj["total_orders"]=k
         final_obj["type"]=type
         return Response(final_obj,status=status.HTTP_200_OK)
 
