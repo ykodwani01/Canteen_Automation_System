@@ -570,3 +570,24 @@ class GetCanteenLoginDetails(APIView):
         canteens=canteen.objects.all()
         canteen_ser=ALLCanteenSerializer(canteens,many=True)
         return Response(canteen_ser.data,status=status.HTTP_200_OK)
+
+class GetStatistics(APIView):
+    def get(self,request):
+        try:
+            profile_obj = Profile.objects.filter(user=request.user).first()
+            canteen_obj = canteen.objects.filter(owner=profile_obj).first()
+            data = {}
+            available_items = []
+            for i in items.objects.all():
+                if(i.canteen==canteen_obj):
+                    available_items.append(i.name)
+            for i in available_items:
+                data[i] = {'count' : 0}
+            for itr in orderquantity.objects.all():
+                if itr.item_id.name in data:
+                    data[itr.item_id.name]['count'] = data[itr.item_id.name]['count'] + itr.quantity
+                else:
+                    data[itr.item_id.name] = {'count': 0 } 
+            return Response(data,status=status.HTTP_200_OK)
+        except:
+            return Response({"success":False})
