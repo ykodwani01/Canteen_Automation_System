@@ -191,7 +191,7 @@ function Menu() {
     }, [cartItems])
 
 
-    const handlePayment = () => {
+    const handlePayment = (order_id) => {
         const apiPayment = "https://dacanteen.pythonanywhere.com/confirm-order"
         fetch(apiPayment, {
             method: 'POST',
@@ -200,7 +200,7 @@ function Menu() {
                 'Authorization': `Bearer ${token.access}`
             },
             body: JSON.stringify({
-                "order_id": cartItems.order_id
+                "order_id": order_id
             }),
         })
             .then(response => {
