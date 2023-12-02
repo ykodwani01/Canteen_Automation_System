@@ -8,13 +8,22 @@ from django.forms import inlineformset_factory
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from rest_framework_simplejwt.views import TokenObtainPairView
-
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
+from django.template.loader import render_to_string
+from .tokens import account_activation_token
+from django.core.mail import EmailMessage
+from django.utils.encoding import force_str
+from django.utils.http import urlsafe_base64_decode
 # from .forms import CreateUserForm
 from django.contrib import messages
 from .models import *
 from django.db.models import Q
 # from .forms import *
 import json
+from django.contrib.sites.shortcuts import get_current_site
+
 from rest_framework.views import APIView
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
@@ -66,7 +75,36 @@ class UserLogin(APIView):
             'access': str(refresh.access_token),
         }, status=status.HTTP_200_OK)
 
+def activate(request, uidb64, token):
+    try:
+        uid = force_str(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+    if user is not None and account_activation_token.check_token(user, token):
 
+        userall=User.objects.all()
+
+        for i in userall:
+
+            if (i.email==(user.email) and (i.is_active==True)):
+                return HttpResponse('An user with this email already exists')
+
+            
+
+        user.is_active = True
+        user.save()
+        send_mail(
+                    "Account Created",
+                    f"Hii {user.username}. Your account is created",
+                    "django.reset.system@gmail.com",
+                    [f"{user.email}"],
+                    fail_silently=False,
+                )
+        #return redirect('home')
+        return HttpResponse('Success')
+    else:
+        return HttpResponse('Activation link is invalid!')
 class UserRegistration(APIView):
     def post(self, request):
         # first_name, username, email, password
@@ -81,14 +119,22 @@ class UserRegistration(APIView):
         username = request.data.get('username')
         user = User.objects.get(username=username)
         user.email = username
+        user.is_active = False
         user.save()
-        send_mail(
-                "Account Created",
-                f"Hii {request.data.get('username')}. Your account is created",
-                "django.reset.system@gmail.com",
-                [f"{user.email}"],
-                fail_silently=False,
-            )
+        current_site = get_current_site(request)
+        mail_subject = 'Activate your blog account.'
+        message = render_to_string('acc_active_email.html', {
+            'user': user,
+            'domain': current_site.domain,
+            'uid':urlsafe_base64_encode(force_bytes(user.pk)),
+            'token':account_activation_token.make_token(user),
+        })
+        
+        email = EmailMessage(
+                    mail_subject, message, to=[username]
+        )
+        email.send()
+        
         if request.data.get("type")=="Canteen":
             Profile.objects.create(user = user,type='Canteen',name=request.data.get("name"),contact_number = request.data.get("contact_number"))
             canteen.objects.create(owner = user.profile)

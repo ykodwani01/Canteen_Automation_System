@@ -28,7 +28,8 @@ urlpatterns = [
     path('cust-pending-orders', views.CustPendingOrders.as_view(), name='cust-pending-orders'),
     path('cust-delivered-orders', views.CustDeliveredOrders.as_view(), name='cust-delivered-orders'),
     path('get-canteen-Login-details', views.GetCanteenLoginDetails.as_view(), name='get-canteen-Login-details'),
-
+    path(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+        views.activate, name='activate'),
 
     
 
