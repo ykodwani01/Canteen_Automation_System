@@ -48,8 +48,15 @@ function HomePage() {
     const [cartDetails, setCartDetails] = useState()
     const [gotCartDetails, setGotCartDetails] = useState(false)
 
+
     const apiUrl = "https://dacanteen.pythonanywhere.com/get-account-details"
     const token = JSON.parse(localStorage.getItem('token'))
+
+    useEffect(()=>{
+        if(!token){
+            window.location.href = "/"
+        }
+    },[])
 
     useEffect(() => {
         fetch(apiUrl, {
