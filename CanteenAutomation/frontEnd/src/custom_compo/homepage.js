@@ -137,7 +137,7 @@ function HomePage() {
         };
 
         // Set up a timer to refresh the access token every 10 minutes
-        const intervalId = setInterval(refreshAccessToken, 9 * 60 * 1000); // 10 minutes
+        const intervalId = setInterval(refreshAccessToken, 50 * 60 * 1000); // 10 minutes
 
         // Clean up the interval when the component unmounts
         return () => clearInterval(intervalId);
