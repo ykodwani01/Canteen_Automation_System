@@ -32,8 +32,7 @@ function AccountContent(props) {
                     <Typography variant="h5">{props.accountDetails.total_orders ? props.accountDetails.total_orders : ''}</Typography>
                 </div>
                 {/* box to show the final summary of the items  */}
-                <div style={{border: '2px solid white', borderRadius: '30px',width: '415px', marign: '5px', padding: '20px', marginTop: '80px' }}>
-                    <Typography variant="h5">Edit Profile</Typography>
+                <div style={{width: '415px', marign: '5px', padding: '20px', marginTop: '80px' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                         <Button variant='contained' sx={{ borderRadius: '30px', margin: '40px 0px 5px 0px', width: '350px', padding: '10px' }} endIcon={<EastIcon />} onClick={() => (props.signOut())}>Sign Out</Button>
                     </div>
