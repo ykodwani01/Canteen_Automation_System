@@ -590,11 +590,10 @@ class GetStatistics(APIView):
                     available_items.append(i.name)
             for i in available_items:
                 data[i] = {'count' : 0}
+            print(data)
             for itr in orderquantity.objects.all():
-                if itr.item_id.name in data:
+                if itr.item_id.name in data and orders.objects.filter(id = itr.order_id.id).first().order_canteen==canteen_obj:
                     data[itr.item_id.name]['count'] = data[itr.item_id.name]['count'] + itr.quantity
-                else:
-                    data[itr.item_id.name] = {'count': 0 } 
             return Response(data,status=status.HTTP_200_OK)
         except:
             return Response({"success":False})
