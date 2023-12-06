@@ -125,12 +125,12 @@ function CownerHome() {
                 if (response.ok) {
                     return response.json();
                 } else {
-                    // window.location.href = "https://canteenautomation-cc940.web.app/"
+                    // window.location.href = "/"
                 }
             })
             .then(data => {
                 if (data.type == "Customer") {
-                    window.location.href = "https://canteenautomation-cc940.web.app/unauth"
+                    window.location.href = "/unauth"
                 }
                 else {
                     console.log(data);
@@ -209,7 +209,7 @@ function CownerHome() {
         const userConfirm = window.confirm("Do you want to Sign Out?")
         if (userConfirm) {
             localStorage.removeItem('token')
-            window.location.href = "https://canteenautomation-cc940.web.app/"
+            window.location.href = "/"
         }
     }
 
@@ -288,11 +288,11 @@ function CownerHome() {
                         <div style={{ display: 'flex', height: '70px', justifyContent: 'center', marginTop: '75px' }}>
                             <img src={logo} alt='website logo' style={{ marginRight: '170px', height: '80px' }} />
                             <div style={{ display: 'flex', boxShadow: '0px 2px 0px darkGrey', paddingBottom: '10px', marginTop: '10px' }}>
-                                <LINK to={`https://canteenautomation-cc940.web.app/cownerHome/${id.id}`}><Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >Home</Button></LINK>
-                                <LINK to={`https://canteenautomation-cc940.web.app/cownerHome/stats/${id.id}`}><Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >Stats</Button></LINK>
-                                <LINK to={`https://canteenautomation-cc940.web.app/cownerHome/feedbackCanteen/${id.id}`}><Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >Feedback</Button></LINK>
-                                <LINK to={`https://canteenautomation-cc940.web.app/cownerHome/pendingOrders/${id.id}`}><Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >Pending Orders</Button></LINK>
-                                <LINK to={`https://canteenautomation-cc940.web.app/cownerHome/allOrders/${id.id}`}><Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >All orders</Button></LINK>
+                                <LINK to={`/cownerHome/${id.id}`}><Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >Home</Button></LINK>
+                                <LINK to={`/cownerHome/stats/${id.id}`}><Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >Stats</Button></LINK>
+                                <LINK to={`/cownerHome/feedbackCanteen/${id.id}`}><Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >Feedback</Button></LINK>
+                                <LINK to={`/cownerHome/pendingOrders/${id.id}`}><Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >Pending Orders</Button></LINK>
+                                <LINK to={`/cownerHome/allOrders/${id.id}`}><Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >All orders</Button></LINK>
                                 {/* drawer for cart */}
                                 {['left'].map((anchor) => (
                                     <React.Fragment key={anchor}>
