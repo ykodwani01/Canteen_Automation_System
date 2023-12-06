@@ -89,7 +89,6 @@ function Canteens() {
         const refreshToken = token.refresh; // Replace with your actual refresh token
 
         const refreshAccessToken = () => {
-            console.log("hi")
             const apiRefresh = "https://dacanteen.pythonanywhere.com/refresh"
             fetch(apiRefresh, {
                 method: 'POST',
@@ -162,12 +161,12 @@ function Canteens() {
                 if (response.ok) {
                     return response.json();
                 } else {
-                    window.location.href = "https://localhost:3000/"
+                    // window.location.href = "https://dacanteen.pythonanywhere.com/"
                 }
             })
             .then(data => {
                 if (data.type == "Canteen") {
-                    window.location.href = "/unauth"
+                    window.location.href = "https://dacanteen.pythonanywhere.com/unauth"
                 }
                 else {
                     console.log(data);
@@ -245,7 +244,7 @@ function Canteens() {
         const userConfirm = window.confirm("Do you want to Sign Out?")
         if (userConfirm) {
             localStorage.removeItem('token')
-            window.location.href = "https://localhost:3000/"
+            window.location.href = "https://dacanteen.pythonanywhere.com/"
         }
     }
 
@@ -287,12 +286,12 @@ function Canteens() {
                         <div style={{ display: 'flex', height: '70px', justifyContent: 'center', marginTop: '20px' }}>
                             <img src={logo} alt='website logo' style={{ marginRight: '70px', height: '80px' }} />
                             <div style={{ display: 'flex', boxShadow: '0px 2px 0px darkGrey', paddingBottom: '10px', marginTop: '10px' }}>
-                                <LINK to="/home" ><Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >Home</Button></LINK>
-                                <LINK to="/home/feedback" ><Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >Feedback</Button></LINK>
-                                <LINK to="/home/pendingOrders" ><Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='/home/pendingOrders'>Pending Orders</Button></LINK>
-                                <LINK to="/home/allOrders" ><Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='/home/allOrders'>All Orders</Button></LINK>
-                                <LINK to="/home/aboutus" ><Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} href='/home/aboutus'>About Us</Button></LINK>
-                                <LINK to="/home/contact" ><Button style={{ color: 'black', marginRight: '60px', marginTop: '10px', fontWeight: 'bold' }} href='/home/contact'>Contact</Button></LINK>
+                                <LINK to="https://dacanteen.pythonanywhere.com/home" ><Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >Home</Button></LINK>
+                                <LINK to="https://dacanteen.pythonanywhere.com/home/feedback" ><Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >Feedback</Button></LINK>
+                                <LINK to="https://dacanteen.pythonanywhere.com/home/pendingOrders" ><Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }}>Pending Orders</Button></LINK>
+                                <LINK to="https://dacanteen.pythonanywhere.com/home/allOrders" ><Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >All Orders</Button></LINK>
+                                <LINK to="https://dacanteen.pythonanywhere.com/home/aboutus" ><Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >About Us</Button></LINK>
+                                <LINK to="https://dacanteen.pythonanywhere.com/home/contact" ><Button style={{ color: 'black', marginRight: '60px', marginTop: '10px', fontWeight: 'bold' }} >Contact</Button></LINK>
 
                                 {/* drawer for cart */}
                                 {['left'].map((anchor) => (
@@ -346,13 +345,13 @@ function Canteens() {
                     </div>
                     <div style={{ padding: '50px' }}>
                         <Typography style={{ color: 'white', fontWeight: 'bold', marginBottom: '50px' }}>Quick links</Typography>
-                        <div style={{ marginBottom: "20px" }}><Link component={LINK} to="/home/canteens" underline="hover" style={{ color: '#DAC6C7' }} >{"Browse Food"}</Link></div>
-                        <div style={{ marginBottom: "20px" }}><Link component={LINK} to="/home/aboutus" underline="hover" style={{ color: '#DAC6C7' }} >{"Registrations"}</Link></div>
+                        <div style={{ marginBottom: "20px" }}><Link component={LINK} to="https://dacanteen.pythonanywhere.com/home/canteens" underline="hover" style={{ color: '#DAC6C7' }} >{"Browse Food"}</Link></div>
+                        <div style={{ marginBottom: "20px" }}><Link component={LINK} to="https://dacanteen.pythonanywhere.com/home/aboutus" underline="hover" style={{ color: '#DAC6C7' }} >{"Registrations"}</Link></div>
                     </div>
                     <div style={{ padding: '50px' }}>
                         <Typography style={{ color: 'white', fontWeight: 'bold', marginBottom: '50px' }}>About</Typography>
-                        <div style={{ marginBottom: "20px" }}><Link href="/home/aboutus" underline="hover" style={{ color: '#DAC6C7' }} >{"About Us"}</Link></div>
-                        <div style={{ marginBottom: "20px" }}><Link href="/home" underline="hover" style={{ color: '#DAC6C7' }} >{"Mission"}</Link></div>
+                        <div style={{ marginBottom: "20px" }}><Link href="https://dacanteen.pythonanywhere.com/home/aboutus" underline="hover" style={{ color: '#DAC6C7' }} >{"About Us"}</Link></div>
+                        <div style={{ marginBottom: "20px" }}><Link href="https://dacanteen.pythonanywhere.com/home" underline="hover" style={{ color: '#DAC6C7' }} >{"Mission"}</Link></div>
                     </div>
                     <div style={{ padding: '50px' }}>
                         <Typography style={{ color: 'white', fontWeight: 'bold', marginBottom: '50px' }}>Contact</Typography>

@@ -46,7 +46,6 @@ function Stats() {
         const refreshToken = token.refresh; // Replace with your actual refresh token
 
         const refreshAccessToken = () => {
-            console.log("hi")
             const apiRefresh = "https://dacanteen.pythonanywhere.com/refresh"
             fetch(apiRefresh, {
                 method: 'POST',
@@ -99,12 +98,12 @@ function Stats() {
                 if (response.ok) {
                     return response.json();
                 } else {
-                    window.location.href = "localhost:3000/"
+                    // window.location.href = "https://dacanteen.pythonanywhere.com/"
                 }
             })
             .then(data => {
                 if (data.type == "Customer") {
-                    window.location.href = "/unauth"
+                    window.location.href = "https://dacanteen.pythonanywhere.com/unauth"
                 }
                 else {
                     console.log(data);
@@ -185,7 +184,7 @@ function Stats() {
         const userConfirm = window.confirm("Do you want to Sign Out?")
         if (userConfirm) {
             localStorage.removeItem('token')
-            window.location.href = "/"
+            window.location.href = "https://dacanteen.pythonanywhere.com/"
         }
     }
 
@@ -204,11 +203,11 @@ function Stats() {
                         <div style={{ display: 'flex', height: '70px', justifyContent: 'center', marginTop: '75px' }}>
                             <img src={logo} alt='website logo' style={{ marginRight: '170px', height: '80px' }} />
                             <div style={{ display: 'flex', boxShadow: '0px 2px 0px darkGrey', paddingBottom: '10px', marginTop: '10px' }}>
-                                <LINK to={`/cownerHome/${id.id}`}><Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >Home</Button></LINK>
-                                <LINK to={`/cownerHome/stats/${id.id}`}><Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >Stats</Button></LINK>
-                                <LINK to={`/cownerHome/feedbackCanteen/${id.id}`}><Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >Feedback</Button></LINK>
-                                <LINK to={`/cownerHome/pendingOrders/${id.id}`}><Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >Pending Orders</Button></LINK>
-                                <LINK to={`/cownerHome/allOrders/${id.id}`}><Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >All orders</Button></LINK>
+                                <LINK to={`https://dacanteen.pythonanywhere.com/cownerHome/${id.id}`}><Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >Home</Button></LINK>
+                                <LINK to={`https://dacanteen.pythonanywhere.com/cownerHome/stats/${id.id}`}><Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >Stats</Button></LINK>
+                                <LINK to={`https://dacanteen.pythonanywhere.com/cownerHome/feedbackCanteen/${id.id}`}><Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >Feedback</Button></LINK>
+                                <LINK to={`https://dacanteen.pythonanywhere.com/cownerHome/pendingOrders/${id.id}`}><Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >Pending Orders</Button></LINK>
+                                <LINK to={`https://dacanteen.pythonanywhere.com/cownerHome/allOrders/${id.id}`}><Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >All orders</Button></LINK>
                                 {/* drawer for cart */}
                                 {['left'].map((anchor) => (
                                     <React.Fragment key={anchor}>

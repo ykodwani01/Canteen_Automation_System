@@ -42,7 +42,6 @@ function AllOrders() {
         const refreshToken = token.refresh; // Replace with your actual refresh token
 
         const refreshAccessToken = () => {
-            console.log("hi")
             const apiRefresh = "https://dacanteen.pythonanywhere.com/refresh"
             fetch(apiRefresh, {
                 method: 'POST',
@@ -88,12 +87,12 @@ function AllOrders() {
                 if (response.ok) {
                     return response.json();
                 } else {
-                    window.location.href = "localhost:3000/"
+                    // window.location.href = "https://dacanteen.pythonanywhere.com/"
                 }
             })
             .then(data => {
                 if (data.type == "Customer") {
-                    window.location.href = "/unauth"
+                    window.location.href = "https://dacanteen.pythonanywhere.com/unauth"
                 }
                 else {
                     console.log(data);
@@ -192,11 +191,11 @@ function AllOrders() {
                             <div style={{ display: 'flex', height: '70px', justifyContent: 'center', marginTop: '50px' }}>
                                 <img src={logo} alt='website logo' style={{ marginRight: '150px', height: '80px' }} />
                                 <div style={{ display: 'flex', boxShadow: '0px 2px 0px darkGrey', paddingBottom: '10px', marginTop: '10px' }}>
-                                    <LINK to={`/cownerHome/${id.id}`}><Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >Home</Button></LINK>
-                                    <LINK to={`/cownerHome/stats/${id.id}`}><Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >Stats</Button></LINK>
-                                    <LINK to={`/cownerHome/feedbackCanteen/${id.id}`}><Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >Feedback</Button></LINK>
-                                    <LINK to={`/cownerHome/pendingOrders/${id.id}`}><Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >Pending Orders</Button></LINK>
-                                    <LINK to={`/cownerHome/allOrders/${id.id}`}><Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >All orders</Button></LINK>
+                                    <LINK to={`https://dacanteen.pythonanywhere.com/cownerHome/${id.id}`}><Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >Home</Button></LINK>
+                                    <LINK to={`https://dacanteen.pythonanywhere.com/cownerHome/stats/${id.id}`}><Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >Stats</Button></LINK>
+                                    <LINK to={`https://dacanteen.pythonanywhere.com/cownerHome/feedbackCanteen/${id.id}`}><Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >Feedback</Button></LINK>
+                                    <LINK to={`https://dacanteen.pythonanywhere.com/cownerHome/pendingOrders/${id.id}`}><Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >Pending Orders</Button></LINK>
+                                    <LINK to={`https://dacanteen.pythonanywhere.com/cownerHome/allOrders/${id.id}`}><Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >All orders</Button></LINK>
                                     {/* drawer for cart */}
                                     {['left'].map((anchor) => (
                                         <React.Fragment key={anchor}>
@@ -232,13 +231,13 @@ function AllOrders() {
                         </div>
                         <div style={{ padding: '50px' }}>
                             <Typography style={{ color: 'white', fontWeight: 'bold', marginBottom: '50px' }}>Quick links</Typography>
-                            <div style={{ marginBottom: "20px" }}><Link component={LINK} to="/home/canteens" underline="hover" style={{ color: '#DAC6C7' }} >{"Browse Food"}</Link></div>
-                            <div style={{ marginBottom: "20px" }}><Link component={LINK} to="/home/aboutus" underline="hover" style={{ color: '#DAC6C7' }} >{"Registrations"}</Link></div>
+                            <div style={{ marginBottom: "20px" }}><Link component={LINK} to="https://dacanteen.pythonanywhere.com/home/canteens" underline="hover" style={{ color: '#DAC6C7' }} >{"Browse Food"}</Link></div>
+                            <div style={{ marginBottom: "20px" }}><Link component={LINK} to="https://dacanteen.pythonanywhere.com/home/aboutus" underline="hover" style={{ color: '#DAC6C7' }} >{"Registrations"}</Link></div>
                         </div>
                         <div style={{ padding: '50px' }}>
                             <Typography style={{ color: 'white', fontWeight: 'bold', marginBottom: '50px' }}>About</Typography>
-                            <div style={{ marginBottom: "20px" }}><Link href="/home/aboutus" underline="hover" style={{ color: '#DAC6C7' }} >{"About Us"}</Link></div>
-                            <div style={{ marginBottom: "20px" }}><Link href="/home" underline="hover" style={{ color: '#DAC6C7' }} >{"Mission"}</Link></div>
+                            <div style={{ marginBottom: "20px" }}><Link href="https://dacanteen.pythonanywhere.com/home/aboutus" underline="hover" style={{ color: '#DAC6C7' }} >{"About Us"}</Link></div>
+                            <div style={{ marginBottom: "20px" }}><Link href="https://dacanteen.pythonanywhere.com/home" underline="hover" style={{ color: '#DAC6C7' }} >{"Mission"}</Link></div>
                         </div>
                         <div style={{ padding: '50px' }}>
                             <Typography style={{ color: 'white', fontWeight: 'bold', marginBottom: '50px' }}>Contact</Typography>

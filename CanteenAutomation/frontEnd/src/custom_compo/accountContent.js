@@ -4,7 +4,6 @@ import { green } from '@mui/material/colors';
 import { Button, Typography, createTheme } from '@mui/material/';
 import WestIcon from '@mui/icons-material/West';
 import EastIcon from '@mui/icons-material/East';
-import { Link } from '@mui/material';
 
 function AccountContent(props) {
     const theme = createTheme({

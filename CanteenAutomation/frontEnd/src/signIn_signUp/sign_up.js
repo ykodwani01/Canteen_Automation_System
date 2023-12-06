@@ -143,7 +143,7 @@ function SignUp() {
     <ThemeProvider theme={theme}>
       {/* background */}
       <Container className="App" maxWidth='xl' sx={{ backgroundImage: `url(${login_photo})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center', ...background_style_ext }}>
-        {isSignupSuccessful && <Navigate to="/" />}
+        {isSignupSuccessful && <Navigate to="https://dacanteen.pythonanywhere.com/" />}
         {/* sign-up box */}
         <Container className='signIn' sx={{ background: "rgba(222,216,216,0.5)", borderRadius: '30px', ...signIn_style_ext }}>
           <Typography sx={{ fontWeight: 'bolder', fontSize: '31px', marginTop: '31px' }}>Sign Up</Typography>
