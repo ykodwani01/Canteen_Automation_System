@@ -52,12 +52,12 @@ function PendingOrders() {
                 if (response.ok) {
                     return response.json();
                 } else {
-                    // window.location.href = "https://dacanteen.pythonanywhere.com/"
+                    // window.location.href = "https://canteenautomation-cc940.web.app/"
                 }
             })
             .then(data => {
                 if (data.type == "Customer") {
-                    window.location.href = "https://dacanteen.pythonanywhere.com/unauth"
+                    window.location.href = "https://canteenautomation-cc940.web.app/unauth"
                 }
                 else {
                     console.log(data);
@@ -173,7 +173,7 @@ function PendingOrders() {
         const userConfirm = window.confirm("Do you want to Sign Out?")
         if (userConfirm) {
             localStorage.removeItem('token')
-            window.location.href = "https://dacanteen.pythonanywhere.com/"
+            window.location.href = "https://canteenautomation-cc940.web.app/"
         }
     }
 
@@ -223,11 +223,11 @@ function PendingOrders() {
                             <div style={{ display: 'flex', height: '70px', justifyContent: 'center', marginTop: '50px' }}>
                                 <img src={logo} alt='website logo' style={{ marginRight: '150px', height: '80px' }} />
                                 <div style={{ display: 'flex', boxShadow: '0px 2px 0px darkGrey', paddingBottom: '10px', marginTop: '10px' }}>
-                                    <LINK to={`https://dacanteen.pythonanywhere.com/cownerHome/${id.id}`}><Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >Home</Button></LINK>
-                                    <LINK to={`https://dacanteen.pythonanywhere.com/cownerHome/stats/${id.id}`}><Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >Stats</Button></LINK>
-                                    <LINK to={`https://dacanteen.pythonanywhere.com/cownerHome/feedbackCanteen/${id.id}`}><Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >Feedback</Button></LINK>
-                                    <LINK to={`https://dacanteen.pythonanywhere.com/cownerHome/pendingOrders/${id.id}`}><Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >Pending Orders</Button></LINK>
-                                    <LINK to={`https://dacanteen.pythonanywhere.com/cownerHome/allOrders/${id.id}`}><Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >All orders</Button></LINK>
+                                    <LINK to={`https://canteenautomation-cc940.web.app/cownerHome/${id.id}`}><Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >Home</Button></LINK>
+                                    <LINK to={`https://canteenautomation-cc940.web.app/cownerHome/stats/${id.id}`}><Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >Stats</Button></LINK>
+                                    <LINK to={`https://canteenautomation-cc940.web.app/cownerHome/feedbackCanteen/${id.id}`}><Button style={{ color: 'black', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >Feedback</Button></LINK>
+                                    <LINK to={`https://canteenautomation-cc940.web.app/cownerHome/pendingOrders/${id.id}`}><Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >Pending Orders</Button></LINK>
+                                    <LINK to={`https://canteenautomation-cc940.web.app/cownerHome/allOrders/${id.id}`}><Button variant='contained' style={{ borderRadius: '50px', marginRight: '20px', marginTop: '10px', fontWeight: 'bold' }} >All orders</Button></LINK>
                                     {/* drawer for cart */}
                                     {['left'].map((anchor) => (
                                         <React.Fragment key={anchor}>

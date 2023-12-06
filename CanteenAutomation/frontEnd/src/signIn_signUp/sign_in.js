@@ -139,9 +139,9 @@ function SignIn() {
     <ThemeProvider theme={theme}>
       {gotCanteenDetails ? (
         <Container className="App" maxWidth="xl" sx={{ backgroundImage: `url(${login_photo})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center', ...background_style_ext }}>
-          {isSignupSuccessful === 0 && <Navigate to="https://dacanteen.pythonanywhere.com/" />}
-          {isSignupSuccessful === 1 && <Navigate to="https://dacanteen.pythonanywhere.com/home" />}
-          {isSignupSuccessful !== 1 && isSignupSuccessful !== 0 && <Navigate to={`https://dacanteen.pythonanywhere.com/cownerHome/${isSignupSuccessful}`} />}
+          {isSignupSuccessful === 0 && <Navigate to="https://canteenautomation-cc940.web.app/" />}
+          {isSignupSuccessful === 1 && <Navigate to="https://canteenautomation-cc940.web.app/home" />}
+          {isSignupSuccessful !== 1 && isSignupSuccessful !== 0 && <Navigate to={`https://canteenautomation-cc940.web.app/cownerHome/${isSignupSuccessful}`} />}
 
           {/* sign-in box */}
           <Container className="signIn" sx={{ background: "rgba(222,216,216,0.5)", borderRadius: '30px', ...signIn_style_ext }}>
