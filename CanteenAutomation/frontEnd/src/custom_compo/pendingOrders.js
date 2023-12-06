@@ -39,7 +39,11 @@ function PendingOrders() {
 
     const apiUrlAccount = "https://dacanteen.pythonanywhere.com/get-account-details"
     const token = JSON.parse(localStorage.getItem('token'))
-
+    useEffect(()=>{
+        if(!token){
+            window.location.href = "/"
+        }
+    })
     useEffect(() => {
         fetch(apiUrlAccount, {
             method: 'GET',

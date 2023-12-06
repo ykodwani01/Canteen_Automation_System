@@ -45,7 +45,11 @@ function PendingOrders() {
 
 
     const apiUrl = "https://dacanteen.pythonanywhere.com/cust-pending-orders"
-
+    useEffect(()=>{
+        if(!token){
+            window.location.href = "/"
+        }
+    })
     useEffect(() => {
         fetch(apiUrl, {
             method: 'GET',

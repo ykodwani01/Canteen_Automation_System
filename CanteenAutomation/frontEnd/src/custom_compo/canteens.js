@@ -59,6 +59,11 @@ function Canteens() {
 
     const apiUrl = "https://dacanteen.pythonanywhere.com/get-all-canteens"
     const token = JSON.parse(localStorage.getItem('token'))
+    useEffect(()=>{
+        if(!token){
+            window.location.href = "/"
+        }
+    })
 
     const apiUrlCanteen = "https://dacanteen.pythonanywhere.com/get-menu"
     const handleCanteenClicked = (event) => {

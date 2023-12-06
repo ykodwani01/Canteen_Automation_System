@@ -51,7 +51,12 @@ function Feedback() {
     const apiUrlAcount = "https://dacanteen.pythonanywhere.com/get-account-details"
 
     const token = JSON.parse(localStorage.getItem('token'))
-
+    useEffect(()=>{
+        if(!token){
+            window.location.href = "/"
+        }
+    })
+    
     const handleChildButton = (id) => {
         console.log(feedbacks.filter((item) => (item.order_id === id))[0].feedback);
         if (feedbacks.filter((item) => (item.order_id === id))[0].feedback.length <= 0 || feedbacks.filter((item) => (item.order_id === id))[0].feedback.length > 100) {

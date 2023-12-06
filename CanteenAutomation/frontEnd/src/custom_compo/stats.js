@@ -40,7 +40,11 @@ function Stats() {
     const [gotAccountDetails, setGotAccountDetails] = useState(false)
 
     const token = JSON.parse(localStorage.getItem('token'))
-
+    useEffect(()=>{
+        if(!token){
+            window.location.href = "/"
+        }
+    })
 
     useEffect(() => {
         const refreshToken = token.refresh; // Replace with your actual refresh token

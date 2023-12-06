@@ -57,6 +57,12 @@ function Menu() {
     const [menu, setMenu] = useState()
     const [cartItems, setCartItems] = useState()
     const [data, setData] = useState()
+    
+    useEffect(()=>{
+        if(!token){
+            window.location.href = "/"
+        }
+    })
 
     useEffect(() => {
         const refreshToken = token.refresh; // Replace with your actual refresh token

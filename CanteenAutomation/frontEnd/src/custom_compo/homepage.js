@@ -54,9 +54,9 @@ function HomePage() {
 
     useEffect(()=>{
         if(!token){
-            window.location.href = "https://dacanteen.pythonanywhere.com/"
+            window.location.href = "/"
         }
-    },[])
+    })
 
     useEffect(() => {
         fetch(apiUrl, {
@@ -89,6 +89,8 @@ function HomePage() {
     const apiUrlCart = "https://dacanteen.pythonanywhere.com/get-cust-orders"
 
     useEffect(() => {
+        if(token){
+
         fetch(apiUrlCart, {
             method: 'GET',
             headers: {
@@ -110,14 +112,15 @@ function HomePage() {
                 setGotCartDetails(true)
             })
             .catch(error => console.error('Error:', error));
+        }
     }, [])
 
     useEffect(() => {
         const refreshToken = token.refresh; // Replace with your actual refresh token
-
         const refreshAccessToken = () => {
             console.log("hi")
             const apiRefresh = "https://dacanteen.pythonanywhere.com/refresh"
+            if(token){
             fetch(apiRefresh, {
                 method: 'POST',
                 headers: {
@@ -141,6 +144,7 @@ function HomePage() {
                 .catch((error) => {
                     console.error('Error refreshing access token:', error);
                 });
+            }
         };
 
         // Set up a timer to refresh the access token every 10 minutes
@@ -197,6 +201,7 @@ function HomePage() {
 
     const handlePayment = (order_id) => {
         const apiPayment = "https://dacanteen.pythonanywhere.com/confirm-order"
+        if(token){
         fetch(apiPayment, {
             method: 'POST',
             headers: {
@@ -219,6 +224,7 @@ function HomePage() {
                 window.location.reload()
             })
             .catch(error => console.error('Error:', error));
+        }
     }
 
     return (
